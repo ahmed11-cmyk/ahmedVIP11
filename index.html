@@ -2,97 +2,110 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMDHMD Luxury Store | متجر حمدمد الفاخر</title>
+    <title>HMDHMD Luxury Store | متجر النخبة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #d4af37; --bg-dark: #0f1115; --card-bg: #1a1d24; --text-main: #ffffff; }
-        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Cairo', sans-serif; margin: 0; }
+        :root { --primary: #d4af37; --bg: #050505; --card: #111; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; }
         
         /* الهيدر */
-        header { padding: 30px; text-align: center; border-bottom: 1px solid #333; }
-        .logo { font-size: 30px; font-weight: 900; color: var(--primary); }
+        header { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #111, #050505); border-bottom: 2px solid var(--primary); }
+        .hero-title { font-size: 45px; font-weight: 900; color: var(--primary); margin: 0; }
         
-        /* كارد المنتجات */
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
-        .card { background: var(--card-bg); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #333; }
+        /* الشبكة */
+        .products-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; padding: 40px; max-width: 1200px; margin: auto; }
+        .product-card { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid #222; transition: 0.4s; text-align: center; }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .product-img { width: 100%; height: 200px; background: #222; border-radius: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-size: 50px; }
         
-        /* لوحة التحكم المحمية */
-        .admin-panel { background: #000; padding: 20px; border-radius: 15px; margin: 20px; border: 1px solid var(--primary); display: none; }
-        input { width: 90%; padding: 10px; margin: 5px 0; background: #222; border: 1px solid #444; color: #fff; border-radius: 5px; }
-        button { padding: 10px 20px; cursor: pointer; border-radius: 5px; border: none; font-weight: bold; background: var(--primary); color: #000; margin-top: 10px; }
-        .admin-btn { background: transparent; color: #555; border: 1px solid #333; font-size: 12px; margin-top: 20px; }
+        /* زر الشراء */
+        .buy-btn { background: var(--primary); color: #000; padding: 12px 25px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
+        
+        /* لوحة التحكم */
+        #admin-panel { display: none; background: #000; padding: 30px; border: 2px solid var(--primary); margin: 40px; border-radius: 20px; }
+        .admin-input { width: 100%; padding: 15px; margin: 10px 0; background: #111; border: 1px solid #333; color: white; border-radius: 8px; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">HMDHMD STORE</div>
+        <h1 class="hero-title">HMDHMD LUXURY</h1>
+        <p>متجر النخبة - منتجات حصرية وخدمة مميزة</p>
     </header>
 
-    <div class="container" id="products">
-        <!-- منتج تجريبي -->
-        <div class="card">
-            <h3>ساعة ذهبية فاخرة</h3>
-            <p>السعر: 450$</p>
-            <button onclick="buyNow('ساعة ذهبية فاخرة', '450$')">شراء الآن</button>
-        </div>
+    <div class="products-container" id="product-list"></div>
+
+    <div style="text-align:center; padding: 50px;">
+        <button onclick="openAdmin()" style="background: transparent; color: #444; border:none; cursor:pointer;">⚙️</button>
     </div>
 
-    <!-- زر الدخول للوحة التحكم -->
-    <div style="text-align: center;">
-        <button class="admin-btn" onclick="openAdmin()">⚙️ دخول المطور</button>
-    </div>
-
-    <!-- لوحة الأدمن (مخفية) -->
-    <div id="admin-panel" class="admin-panel">
-        <h3>🛡️ لوحة تحكم حمدمد</h3>
-        <input type="text" id="bot-token" placeholder="ضع توكن البوت هنا">
-        <input type="text" id="chat-id" placeholder="ضع الـ Chat ID هنا">
-        <button onclick="saveSettings()">حفظ الإعدادات</button>
+    <div id="admin-panel">
+        <h2 style="color:var(--primary)">لوحة تحكم المطور حمدمد</h2>
+        <input type="text" class="admin-input" id="t" placeholder="Bot Token">
+        <input type="text" class="admin-input" id="c" placeholder="Chat ID">
+        <button onclick="save()" class="buy-btn">حفظ الإعدادات</button>
     </div>
 
     <script>
-        const DEV_CODE = "749515892";
+        const products = [
+            { id: 1, name: "ساعة رولكس ذهبية", price: "850$", icon: "⌚" },
+            { id: 2, name: "سماعة أبل برو", price: "250$", icon: "🎧" },
+            { id: 3, name: "نظارات شمسية برادا", price: "180$", icon: "🕶️" },
+            { id: 4, name: "حقيبة جلد طبيعي", price: "320$", icon: "👜" },
+            { id: 5, name: "عطر فرنسي حصري", price: "150$", icon: "🧴" },
+            { id: 6, name: "خاتم ألماس ملكي", price: "990$", icon: "💍" },
+            { id: 7, name: "حذاء رياضي ليمتد", price: "280$", icon: "👟" },
+            { id: 8, name: "قلم ذهبي مطلي", price: "110$", icon: "🖋️" },
+            { id: 9, name: "سلسلة فضة نادرة", price: "190$", icon: "⛓️" },
+            { id: 10, name: "محفظة كارد هولدر", price: "90$", icon: "💳" }
+        ];
 
-        // فتح اللوحة برمز الحماية
+        function loadProducts() {
+            const list = document.getElementById('product-list');
+            products.forEach(p => {
+                list.innerHTML += `
+                    <div class="product-card">
+                        <div class="product-img">${p.icon}</div>
+                        <h3>${p.name}</h3>
+                        <p style="color:var(--primary); font-size:20px; font-weight:bold;">${p.price}</p>
+                        <button class="buy-btn" onclick="buy('${p.name}', '${p.price}')">طلب المنتج الآن</button>
+                    </div>
+                `;
+            });
+        }
+
         function openAdmin() {
-            const code = prompt("أدخل رمز المطور:");
-            if (code === DEV_CODE) {
+            const pass = prompt("أدخل رمز المطور:");
+            if(pass === "749515892") {
                 document.getElementById('admin-panel').style.display = 'block';
-                document.getElementById('bot-token').value = localStorage.getItem('bot_t') || '';
-                document.getElementById('chat-id').value = localStorage.getItem('bot_c') || '';
-            } else {
-                alert("رمز خطأ!");
+                document.getElementById('t').value = localStorage.getItem('bt') || '';
+                document.getElementById('c').value = localStorage.getItem('bc') || '';
             }
         }
 
-        // حفظ إعدادات البوت
-        function saveSettings() {
-            localStorage.setItem('bot_t', document.getElementById('bot-token').value);
-            localStorage.setItem('bot_c', document.getElementById('chat-id').value);
-            alert("تم الحفظ بنجاح!");
+        function save() {
+            localStorage.setItem('bt', document.getElementById('t').value);
+            localStorage.setItem('bc', document.getElementById('c').value);
+            alert("تم الحفظ!");
         }
 
-        // عملية الشراء وإرسال الطلب للبوت
-        function buyNow(item, price) {
-            const name = prompt("أدخل اسمك الكريم:");
-            if (!name) return;
+        function buy(name, price) {
+            const buyer = prompt("اسم المشتري ورقم الهاتف:");
+            if(!buyer) return;
             
-            const token = localStorage.getItem('bot_t');
-            const chat = localStorage.getItem('bot_c');
+            const t = localStorage.getItem('bt');
+            const c = localStorage.getItem('bc');
+            if(!t) return alert("يرجى ضبط إعدادات البوت أولاً.");
 
-            if (!token || !chat) return alert("البوت غير مفعل، يرجى تفعيل البوت من لوحة التحكم.");
-
-            const msg = `🔔 طلب جديد من موقع حمدمد\n\n👤 المشتري: ${name}\n📦 المنتج: ${item}\n💵 السعر: ${price}`;
-
-            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ chat_id: chat, text: msg })
-            }).then(() => alert("تم إرسال طلبك للبوت بنجاح!"));
+                body: JSON.stringify({ chat_id: c, text: `🔔 طلب جديد من حمدمد:\n👤 المشتري: ${buyer}\n📦 المنتج: ${name}\n💵 السعر: ${price}` })
+            }).then(() => alert("تم إرسال الطلب، شكراً لك!"));
         }
+
+        loadProducts();
     </script>
 </body>
 </html>
