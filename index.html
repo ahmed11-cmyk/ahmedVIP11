@@ -3,562 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حقوقي حمادة - متجر الكتروني احترافي</title>
+    <title>أحمد | مطور Drive</title>
+    <!-- استدعاء خطوط جوجل العربية (تاجوال) -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- استدعاء أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        
-        :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
-            --accent: #ec4899;
-            --dark: #0f172a;
-            --light: #f8fafc;
+        /* الإعدادات الأساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            background: #0a0a0f;
-            color: var(--light);
-            overflow-x: hidden;
-        }
-        
-        /* خلفية متحركة Gradient */
-        .bg-animated {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(45deg, #0a0a0f, #1e1b4b, #0a0a0f);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        /* كرات مضيئة متحركة */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-        }
-        .orb1 { width: 400px; height: 400px; background: var(--primary); top: 10%; left: 10%; animation-delay: 0s; }
-        .orb2 { width: 300px; height: 300px; background: var(--accent); top: 60%; right: 10%; animation-delay: 5s; }
-        .orb3 { width: 350px; height: 350px; background: var(--secondary); bottom: 10%; left: 30%; animation-delay: 10s; }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -50px) scale(1.1); }
-            66% { transform: translate(-30px, 30px) scale(0.9); }
-        }
-        
-        /* Navbar Glass */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 5%;
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-            animation: slideDown 0.8s ease;
-        }
-        
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .nav-content {
-            max-width: 1400px;
-            margin: auto;
+            font-family: 'Tajawal', sans-serif;
+            background-color: #030712;
+            color: #ffffff;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-        
-        .nav-links a:hover { color: white; }
-        .nav-links a:hover::after { width: 100%; }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 100px 5% 50px;
+            min-height: 100vh;
+            overflow: hidden;
             position: relative;
         }
-        
-        .hero-content {
-            max-width: 1400px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+
+        /* خلفية متحركة احترافية (تأثير النيون الأزرق) */
+        .background-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 115, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            animation: pulseBackground 6s infinite alternate;
         }
-        
-        .hero-text h1 {
-            font-size: 72px;
+
+        /* حاوية البطاقة */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(10, 15, 30, 0.7);
+            border: 1px solid rgba(0, 168, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(0, 115, 255, 0.2), inset 0 0 15px rgba(0, 115, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* تصميم اللوجو */
+        .logo {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #00a8ff;
+            box-shadow: 0 0 25px rgba(0, 168, 255, 0.6);
+            margin-bottom: 25px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* النصوص */
+        h1 {
+            font-size: 2.5rem;
             font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease 0.2s backwards;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(0, 168, 255, 0.8);
+            letter-spacing: 1px;
         }
-        
-        .hero-text h1 span {
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textShine 3s ease infinite;
+
+        h2 {
+            font-size: 1.2rem;
+            color: #00a8ff;
+            font-weight: 700;
+            margin-bottom: 35px;
+            letter-spacing: 2px;
         }
-        
-        @keyframes textShine {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(30deg); }
+
+        /* زر التليجرام */
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #0088cc, #0056b3);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
+            border: 1px solid transparent;
         }
-        
-        .hero-text p {
-            font-size: 20px;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 40px;
-            line-height: 1.8;
-            animation: fadeInUp 1s ease 0.4s backwards;
+
+        .telegram-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: linear-gradient(90deg, #00a8ff, #0088cc);
+            box-shadow: 0 12px 30px rgba(0, 168, 255, 0.6);
+            border: 1px solid #00a8ff;
         }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
+
+        .telegram-btn i {
+            font-size: 1.5rem;
+            animation: wiggle 2s infinite;
+        }
+
+        /* الفوتر (حقوق المطور) */
+        .footer {
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+            color: #555c6b;
+            font-size: 0.9rem;
+            font-weight: 700;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .footer span {
+            color: #00a8ff;
+            text-shadow: 0 0 5px rgba(0, 168, 255, 0.3);
+        }
+
+        /* الحركات (Animations) */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); box-shadow: 0 0 40px rgba(0, 168, 255, 0.8); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            animation: fadeInUp 1s ease 0.6s backwards;
+
+        @keyframes pulseBackground {
+            from { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            to { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
         }
-        
-        .btn {
-            padding: 18px 40px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.6);
-        }
-        
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-3px);
-        }
-        
-        /* صورة متحركة */
-        .hero-image {
-            position: relative;
-            animation: fadeIn 1s ease 0.8s backwards;
-        }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
-        .hero-image img {
-            width: 100%;
-            border-radius: 30px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-            animation: imageFloat 6s ease-in-out infinite;
-        }
-        
-        @keyframes imageFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
-        }
-        
-        .floating-card {
-            position: absolute;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        
-        .card-1 {
-            top: 10%;
-            right: -30px;
-            animation: cardFloat 4s ease-in-out infinite;
-        }
-        
-        .card-2 {
-            bottom: 10%;
-            left: -30px;
-            animation: cardFloat 4s ease-in-out infinite 2s;
-        }
-        
-        @keyframes cardFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 100px 5%;
-            max-width: 1400px;
-            margin: auto;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 60px;
-            animation: fadeInUp 1s ease;
-        }
-        
-        .section-title span {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 25px;
-            padding: 40px;
-            transition: all 0.4s;
-            animation: fadeInUp 1s ease backwards;
-        }
-        
-        .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .feature-card:nth-child(3) { animation-delay: 0.3s; }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
-        }
-        
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-        }
-        
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: rgba(255,255,255,0.6);
-            line-height: 1.8;
-        }
-        
-        /* Products Showcase */
-        .products {
-            padding: 100px 5%;
-            max-width: 1400px;
-            margin: auto;
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-        
-        .product-card {
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 25px;
-            overflow: hidden;
-            transition: all 0.4s;
-            animation: fadeInUp 1s ease backwards;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-image::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 10s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .product-info {
-            padding: 25px;
-        }
-        
-        .product-info h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        
-        .product-price {
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 15px 0;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 5%;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 100px;
-            color: rgba(255,255,255,0.5);
-        }
-        
-        /* Scroll Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        @media (max-width: 968px) {
-            .hero-content { grid-template-columns: 1fr; }
-            .hero-text h1 { font-size: 48px; }
-            .nav-links { display: none; }
-            .floating-card { display: none; }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
         }
     </style>
 </head>
 <body>
-    <div class="bg-animated"></div>
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-    
-    <nav>
-        <div class="nav-content">
-            <div class="logo">حقوقي حمادة</div>
-            <ul class="nav-links">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#features">المميزات</a></li>
-                <li><a href="#products">المنتجات</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
-            </ul>
-        </div>
-    </nav>
-    
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>متجر <span>حقوقي حمادة</span><br>الأول عربياً</h1>
-                <p>منصة تجارة الكترونية متطورة بأحدث التقنيات. تصميم عصري، أداء خارق، وتجربة مستخدم لا تُنسى.</p>
-                <div class="cta-buttons">
-                    <button class="btn btn-primary">ابدأ التسوق الآن</button>
-                    <button class="btn btn-secondary">تعرف علينا</button>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="https://placehold.co/600x600/6366f1/ffffff?text=🛍️+Store" alt="متجر">
-                <div class="floating-card card-1">
-                    <div style="font-size:24px;font-weight:700">+50K</div>
-                    <div style="font-size:14px;color:rgba(255,255,255,0.6)">عميل سعيد</div>
-                </div>
-                <div class="floating-card card-2">
-                    <div style="font-size:24px;font-weight:700">99.9%</div>
-                    <div style="font-size:14px;color:rgba(255,255,255,0.6)">رضا العملاء</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="features reveal" id="features">
-        <h2 class="section-title">ليش <span>حقوقي حمادة</span>؟</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>سرعة خارقة</h3>
-                <p>تحميل فوري وتجربة سلسة بدون انتظار. تقنيات حديثة تضمن أفضل أداء.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>أمان تام</h3>
-                <p>حماية بياناتك ومدفوعاتك بأعلى معايير الأمان والتشفير العالمي.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>تصميم عصري</h3>
-                <p>واجهة جميلة وسهلة الاستخدام تناسب جميع الأجهزة والشاشات.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section class="products reveal" id="products">
-        <h2 class="section-title">منتجات <span>مميزة</span></h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-image">💻</div>
-                <div class="product-info">
-                    <h3>لابتوب احترافي</h3>
-                    <p style="color:rgba(255,255,255,0.6);margin:10px 0">أداء عالي للأعمال والألعاب</p>
-                    <div class="product-price">4,999$</div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">📱</div>
-                <div class="product-info">
-                    <h3>هاتف ذكي</h3>
-                    <p style="color:rgba(255,255,255,0.6);margin:10px 0">كاميرا احترافية وبطارية تدوم</p>
-                    <div class="product-price">2,499$</div>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-image">🎧</div>
-                <div class="product-info">
-                    <h3>سماعات لاسلكية</h3>
-                    <p style="color:rgba(255,255,255,0.6);margin:10px 0">صوت نقي وعزل ضوضاء</p>
-                    <div class="product-price">899$</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <footer>
-        <p>© 2026 حقوقي حمادة. جميع الحقوق محفوظة. تصميم تعليمي فقط.</p>
-    </footer>
-    
-    <script>
-        // Scroll Reveal Animation
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(element => {
-                const windowHeight = window.innerHeight;
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
-                }
-            });
-        }
-        window.addEventListener('scroll', reveal);
-        reveal();
+
+    <!-- مؤثرات الخلفية -->
+    <div class="background-glow"></div>
+
+    <!-- بطاقة المحتوى -->
+    <div class="card-container">
+        <!-- استخدام صورتك المرفقة -->
+        <img src="content (5).png" alt="Drive VIP Logo" class="logo">
         
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
+        <h1>أحمد</h1>
+        <h2>مطور Drive</h2>
+        
+        <!-- رابط التليجرام الخاص بك -->
+        <a href="https://t.me/l_2qu" target="_blank" class="telegram-btn">
+            <i class="fab fa-telegram-plane"></i>
+            تواصل معي 
+        </a>
+    </div>
+
+    <!-- حقوق المطور -->
+    <div class="footer">
+        مطور الموقع <span>حمادة</span> &copy; 2026
+    </div>
+
 </body>
 </html>
+
