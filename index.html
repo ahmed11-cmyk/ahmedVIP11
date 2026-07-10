@@ -23,6 +23,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
+            padding-bottom: 50px;
         }
 
         /* تأثير الدخول المتحرك */
@@ -37,7 +38,7 @@
 
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px 20px 20px;
             animation: fadeInDown 1s ease-out;
             border-bottom: 2px solid var(--primary-color);
             box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
@@ -59,6 +60,34 @@
         
         header a:hover {
             color: var(--primary-color);
+        }
+
+        /* تنسيق حالة الهاك */
+        .status-box {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 20px;
+            max-width: 600px;
+            margin: 30px auto 10px;
+            text-align: center;
+            border-radius: 15px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .status-text { 
+            color: var(--primary-color); 
+        }
+        .progress-bg {
+            background: #0f0f13;
+            height: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            background: var(--primary-color);
+            width: 80%; /* النسبة المئوية للأمان */
+            height: 100%;
+            box-shadow: 0 0 10px var(--primary-color);
         }
 
         /* قسم الاشتراكات */
@@ -101,7 +130,7 @@
             color: #aaa;
         }
 
-        /* قسم الطلب (نظام البوت) */
+        /* قسم الطلب */
         .order-section {
             background-color: var(--card-bg);
             max-width: 600px;
@@ -177,6 +206,30 @@
             font-weight: bold;
             display: none;
         }
+
+        /* تنسيق الزر العائم */
+        .float-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: #0088cc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        .float-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #0088cc;
+        }
+        .float-btn img { 
+            width: 35px; 
+        }
     </style>
 </head>
 <body>
@@ -185,6 +238,14 @@
         <h1>متجر الأكواد الاحترافي</h1>
         <p>التواصل عبر تيليجرام: <a href="https://t.me/l_2qu" target="_blank">@l_2qu</a></p>
     </header>
+
+    <div class="status-box">
+        <h3>حالة الهاك: <span class="status-text">آمن (80%)</span></h3>
+        <div class="progress-bg">
+            <div class="progress-bar"></div>
+        </div>
+        <p>يتم تحديث النظام باستمرار لضمان أفضل حماية لحسابك.</p>
+    </div>
 
     <div class="packages-container">
         <div class="card">
@@ -237,9 +298,13 @@
         <p>جميع الحقوق محفوظة &copy; 2026 | تطوير <span class="rights">حمادة</span></p>
     </footer>
 
+    <a href="https://t.me/l_2qu" class="float-btn" target="_blank" title="تواصل معي">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG">
+    </a>
+
     <script>
         // إعدادات بوت التيليجرام الخاصة بك
-        const BOT_TOKEN ='8681184437:AAFhGb1egorcI2DgPcZFYNXnIp0E4rFTj3o'; 
+        const BOT_TOKEN = '8681184437:AAFhGb1egorcI2DgPcZFYNXnIp0E4rFTj3o'; 
         const CHAT_ID = '7871770473'; 
 
         document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -250,18 +315,32 @@
             const pack = document.getElementById('packageType').value;
             const statusMsg = document.getElementById('statusMessage');
 
-            // 1. فحص صيغة يوزر التيليجرام (نظام الحماية من الكذابين)
-            // الشروط: يبدأ بـ @، أحرف إنجليزية وأرقام و _ فقط، طوله بين 5 و 32
+            // --- نظام الحماية من تكرار الطلب (خلال 24 ساعة) ---
+            const lastOrderTime = localStorage.getItem('lastOrderTime');
+            const currentTime = new Date().getTime();
+            const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000; // 24 ساعة بالملي ثانية
+
+            if (lastOrderTime && (currentTime - lastOrderTime < ONE_DAY_IN_MS)) {
+                const timeLeft = ONE_DAY_IN_MS - (currentTime - lastOrderTime);
+                const hoursLeft = Math.ceil(timeLeft / (1000 * 60 * 60));
+                
+                statusMsg.style.display = 'block';
+                statusMsg.style.color = '#ffaa00';
+                statusMsg.innerText = `⚠️ لقد قمت بطلب كود بالفعل! لا يمكنك الطلب مجدداً إلا بعد مرور يوم كامل. (متبقي حوالي ${hoursLeft} ساعة)`;
+                return; // إيقاف الإرسال
+            }
+            // --------------------------------------------------
+
+            // فحص صيغة يوزر التيليجرام
             const tgRegex = /^@[a-zA-Z0-9_]{5,32}$/;
-            
             if (!tgRegex.test(tgUser)) {
                 statusMsg.style.display = 'block';
-                statusMsg.style.color = '#ffaa00'; // لون برتقالي للتنبيه
-                statusMsg.innerText = '⚠️ يوزر التيليجرام غير صحيح! يجب أن يبدأ بـ @ ويحتوي على أحرف إنجليزية وأرقام فقط (مثال: @username).';
-                return; // إيقاف العملية وعدم إرسال الطلب
+                statusMsg.style.color = '#ffaa00';
+                statusMsg.innerText = '⚠️ يوزر التيليجرام غير صحيح! يجب أن يبدأ بـ @ ويحتوي على أحرف إنجليزية وأرقام فقط.';
+                return; 
             }
 
-            // في حال كان اليوزر صحيحاً، نظهر رسالة جاري الإرسال
+            // إظهار رسالة الانتظار
             statusMsg.style.display = 'block';
             statusMsg.style.color = 'white';
             statusMsg.innerText = '⏳ جاري إرسال الطلب...';
@@ -277,7 +356,7 @@
 المرسل عبر موقع: حمادة
             `;
 
-            // إرسال البيانات عبر API تيليجرام
+            // إرسال البيانات
             const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
             
             fetch(url, {
@@ -295,6 +374,10 @@
                 if(data.ok) {
                     statusMsg.style.color = '#00ff88';
                     statusMsg.innerText = '✅ تم إرسال الطلب بنجاح! سيتم التواصل معك.';
+                    
+                    // حفظ وقت الإرسال الناجح لمنع التكرار لمدة يوم كامل
+                    localStorage.setItem('lastOrderTime', currentTime);
+                    
                     document.getElementById('orderForm').reset();
                 } else {
                     statusMsg.style.color = 'red';
