@@ -3,192 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أحمد | مطور Drive</title>
-    <!-- استدعاء خطوط جوجل العربية (تاجوال) -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- استدعاء أيقونات FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>متجر الأكواد | حمادة</title>
     <style>
-        /* الإعدادات الأساسية */
+        :root {
+            --primary-color: #00ff88;
+            --bg-color: #0f0f13;
+            --card-bg: #1a1a24;
+            --text-color: #ffffff;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #030712;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
         }
 
-        /* خلفية متحركة احترافية (تأثير النيون الأزرق) */
-        .background-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 115, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            animation: pulseBackground 6s infinite alternate;
+        /* تأثير الدخول المتحرك */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        /* حاوية البطاقة */
-        .card-container {
-            position: relative;
-            z-index: 10;
-            background: rgba(10, 15, 30, 0.7);
-            border: 1px solid rgba(0, 168, 255, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 0 30px rgba(0, 115, 255, 0.2), inset 0 0 15px rgba(0, 115, 255, 0.1);
-            backdrop-filter: blur(10px);
-            animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* تصميم اللوجو */
-        .logo {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid #00a8ff;
-            box-shadow: 0 0 25px rgba(0, 168, 255, 0.6);
-            margin-bottom: 25px;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        /* النصوص */
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 5px;
-            text-shadow: 0 0 15px rgba(0, 168, 255, 0.8);
-            letter-spacing: 1px;
-        }
-
-        h2 {
-            font-size: 1.2rem;
-            color: #00a8ff;
-            font-weight: 700;
-            margin-bottom: 35px;
-            letter-spacing: 2px;
-        }
-
-        /* زر التليجرام */
-        .telegram-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: linear-gradient(90deg, #0088cc, #0056b3);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
-            border: 1px solid transparent;
-        }
-
-        .telegram-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: linear-gradient(90deg, #00a8ff, #0088cc);
-            box-shadow: 0 12px 30px rgba(0, 168, 255, 0.6);
-            border: 1px solid #00a8ff;
-        }
-
-        .telegram-btn i {
-            font-size: 1.5rem;
-            animation: wiggle 2s infinite;
-        }
-
-        /* الفوتر (حقوق المطور) */
-        .footer {
-            position: relative;
-            z-index: 10;
-            margin-top: 30px;
-            color: #555c6b;
-            font-size: 0.9rem;
-            font-weight: 700;
-            animation: fadeIn 2s ease-in;
-        }
-
-        .footer span {
-            color: #00a8ff;
-            text-shadow: 0 0 5px rgba(0, 168, 255, 0.3);
-        }
-
-        /* الحركات (Animations) */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); box-shadow: 0 0 40px rgba(0, 168, 255, 0.8); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(50px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulseBackground {
-            from { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            to { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeInDown 1s ease-out;
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            margin-bottom: 10px;
         }
 
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
-            75% { transform: rotate(-10deg); }
+        header a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        
+        header a:hover {
+            color: var(--primary-color);
+        }
+
+        /* قسم الاشتراكات */
+        .packages-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+
+        /* قسم الطلب (نظام البوت) */
+        .order-section {
+            background-color: var(--card-bg);
+            max-width: 600px;
+            margin: 20px auto 60px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: fadeInUp 1.5s ease-out;
+            border: 1px solid #333;
+        }
+
+        .order-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            background-color: #111;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #00cc6a;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0a0a0d;
+            border-top: 1px solid #333;
+            color: #777;
+        }
+
+        .rights {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        #statusMessage {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- مؤثرات الخلفية -->
-    <div class="background-glow"></div>
+    <header>
+        <h1>متجر الأكواد الاحترافي</h1>
+        <p>التواصل عبر تيليجرام: <a href="https://t.me/l_2qu" target="_blank">@l_2qu</a></p>
+    </header>
 
-    <!-- بطاقة المحتوى -->
-    <div class="card-container">
-        <!-- استخدام صورتك المرفقة -->
-        <img src="content (5).png" alt="Drive VIP Logo" class="logo">
-        
-        <h1>أحمد</h1>
-        <h2>مطور Drive</h2>
-        
-        <!-- رابط التليجرام الخاص بك -->
-        <a href="https://t.me/l_2qu" target="_blank" class="telegram-btn">
-            <i class="fab fa-telegram-plane"></i>
-            تواصل معي 
-        </a>
+    <div class="packages-container">
+        <div class="card">
+            <h3>كود يومي</h3>
+            <p>اشتراك لمدة 24 ساعة كاملة</p>
+        </div>
+        <div class="card">
+            <h3>كود أسبوعي</h3>
+            <p>اشتراك لمدة 7 أيام</p>
+        </div>
+        <div class="card">
+            <h3>كود نصف شهر</h3>
+            <p>اشتراك لمدة 15 يوم</p>
+        </div>
+        <div class="card">
+            <h3>كود شهري</h3>
+            <p>اشتراك لمدة 30 يوم</p>
+        </div>
+        <div class="card">
+            <h3>موسم كامل</h3>
+            <p>اشتراك VIP لمدة 60 يوم</p>
+        </div>
     </div>
 
-    <!-- حقوق المطور -->
-    <div class="footer">
-        مطور الموقع <span>حمادة</span> &copy; 2026
+    <div class="order-section">
+        <h2>طلب كود جديد</h2>
+        <form id="orderForm">
+            <div class="form-group">
+                <input type="text" id="userName" placeholder="الاسم الكامل" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="tgUsername" placeholder="يوزر التيليجرام (مثل: @username)" required>
+            </div>
+            <div class="form-group">
+                <select id="packageType" required>
+                    <option value="" disabled selected>اختر نوع الاشتراك...</option>
+                    <option value="يومي (24 ساعة)">يومي (24 ساعة)</option>
+                    <option value="أسبوعي (7 أيام)">أسبوعي (7 أيام)</option>
+                    <option value="نصف شهر (15 يوم)">نصف شهر (15 يوم)</option>
+                    <option value="شهري (30 يوم)">شهري (30 يوم)</option>
+                    <option value="موسم كامل (60 يوم)">موسم كامل (60 يوم)</option>
+                </select>
+            </div>
+            <button type="submit">إرسال الطلب للبوت</button>
+            <p id="statusMessage"></p>
+        </form>
     </div>
 
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 | تطوير <span class="rights">حمادة</span></p>
+    </footer>
+
+    <script>
+        // إعدادات بوت التيليجرام الخاصة بك
+        const BOT_TOKEN ='8681184437:AAFhGb1egorcI2DgPcZFYNXnIp0E4rFTj3o'; 
+        const CHAT_ID = '7871770473'; 
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('userName').value.trim();
+            const tgUser = document.getElementById('tgUsername').value.trim();
+            const pack = document.getElementById('packageType').value;
+            const statusMsg = document.getElementById('statusMessage');
+
+            // 1. فحص صيغة يوزر التيليجرام (نظام الحماية من الكذابين)
+            // الشروط: يبدأ بـ @، أحرف إنجليزية وأرقام و _ فقط، طوله بين 5 و 32
+            const tgRegex = /^@[a-zA-Z0-9_]{5,32}$/;
+            
+            if (!tgRegex.test(tgUser)) {
+                statusMsg.style.display = 'block';
+                statusMsg.style.color = '#ffaa00'; // لون برتقالي للتنبيه
+                statusMsg.innerText = '⚠️ يوزر التيليجرام غير صحيح! يجب أن يبدأ بـ @ ويحتوي على أحرف إنجليزية وأرقام فقط (مثال: @username).';
+                return; // إيقاف العملية وعدم إرسال الطلب
+            }
+
+            // في حال كان اليوزر صحيحاً، نظهر رسالة جاري الإرسال
+            statusMsg.style.display = 'block';
+            statusMsg.style.color = 'white';
+            statusMsg.innerText = '⏳ جاري إرسال الطلب...';
+
+            // تجهيز الرسالة
+            const textMessage = `
+🌟 طلب كود جديد 🌟
+==================
+👤 الاسم: ${name}
+🔗 يوزر التيليجرام: ${tgUser}
+📦 نوع الاشتراك: ${pack}
+==================
+المرسل عبر موقع: حمادة
+            `;
+
+            // إرسال البيانات عبر API تيليجرام
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: textMessage
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok) {
+                    statusMsg.style.color = '#00ff88';
+                    statusMsg.innerText = '✅ تم إرسال الطلب بنجاح! سيتم التواصل معك.';
+                    document.getElementById('orderForm').reset();
+                } else {
+                    statusMsg.style.color = 'red';
+                    statusMsg.innerText = '❌ حدث خطأ أثناء الإرسال. تأكد من إعدادات البوت.';
+                }
+            })
+            .catch(error => {
+                statusMsg.style.color = 'red';
+                statusMsg.innerText = '❌ تعذر الاتصال بالخادم.';
+            });
+        });
+    </script>
 </body>
 </html>
-
