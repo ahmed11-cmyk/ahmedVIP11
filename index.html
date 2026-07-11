@@ -36,7 +36,6 @@
 
         @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.05); } }
         @keyframes fadeInOut { from { opacity: 0.5; } to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         header { text-align: center; padding: 40px 20px 20px; border-bottom: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); }
         header h1 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; }
@@ -53,19 +52,31 @@
         .card:hover { transform: translateY(-10px); border-color: var(--primary-color); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-color); }
 
-        /* قسم الأكواد المباشرة */
+        /* قسم الأكواد المباشرة والنسخ السريع */
         .live-codes-box { max-width: 600px; margin: 20px auto; background: var(--card-bg); padding: 20px; border-radius: 10px; border: 1px solid #333; }
         .live-codes-box h2 { text-align: center; color: var(--primary-color); margin-bottom: 15px; }
-        .code-item { background: #111; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid var(--primary-color); }
-        .code-val { font-family: monospace; font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; }
-        .code-type { color: #aaa; font-size: 0.9rem; }
+        .code-item { background: #111; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid var(--primary-color); }
+        .code-info { display: flex; flex-direction: column; }
+        .code-val { font-family: monospace; font-size: 1.1rem; font-weight: bold; letter-spacing: 1px; color: #fff; }
+        .code-type { color: #aaa; font-size: 0.85rem; margin-top: 2px; }
+        .copy-btn { background: var(--primary-color); border: none; color: black; font-weight: bold; padding: 6px 12px; border-radius: 5px; cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
+        .copy-btn:hover { background: white; }
 
+        /* قسم الأسئلة */
         .faq-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
         .faq-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
         .faq-item { background: var(--card-bg); border: 1px solid #333; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
         .faq-question { width: 100%; background: none; border: none; color: white; padding: 15px; text-align: right; font-size: 1.1rem; cursor: pointer; font-weight: bold; outline: none; transition: 0.3s; }
         .faq-answer { padding: 0 15px 15px; color: #aaa; display: none; line-height: 1.6; }
 
+        /* قسم الآراء والتقييمات */
+        .testimonials-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .testimonials-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
+        .testi-card { background: var(--card-bg); border: 1px dashed #444; border-radius: 10px; padding: 15px; margin-bottom: 10px; position: relative; }
+        .testi-name { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; font-size: 1rem; }
+        .testi-text { color: #ccc; font-size: 0.95rem; line-height: 1.5; }
+
+        /* قسم الطلبات */
         .order-section { background-color: var(--card-bg); max-width: 600px; margin: 20px auto 60px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
         .order-section h2 { text-align: center; margin-bottom: 30px; color: var(--primary-color); }
         #maintenanceMessage { text-align: center; color: #ffaa00; font-size: 1.2rem; display: none; padding: 20px; border: 1px dashed #ffaa00; border-radius: 10px; }
@@ -74,7 +85,7 @@
         .form-group input, .form-group select { width: 100%; padding: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s; }
         .form-group input:focus, .form-group select:focus { border-color: var(--primary-color); }
         button.submit-btn { width: 100%; padding: 15px; background-color: var(--primary-color); color: #000; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        #statusMessage { text-align: center; margin-top: 15px; font-weight: bold; display: none; }
+        #statusMessage { text-align: center; margin-top: 15px; font-weight: bold; display: none; line-height: 1.5; }
 
         footer { text-align: center; padding: 20px; background-color: #0a0a0d; border-top: 1px solid #333; color: #777; position: relative; }
         .rights { color: var(--primary-color); font-weight: bold; }
@@ -111,7 +122,6 @@
 </head>
 <body>
 
-    <!-- إنذار موجة الباند -->
     <div id="banWaveAlert">🚨 تحذير: موجة باند حادة حالياً! يرجى إيقاف اللعب بالحسابات الأساسية! 🚨</div>
     
     <div id="announcementBar"></div>
@@ -124,7 +134,6 @@
         </div>
     </div>
 
-    <!-- شاشة التحميل بصورة Drive VIP -->
     <div id="loader">
         <img src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
         <h2>SYSTEM ONLINE...</h2>
@@ -143,18 +152,14 @@
         <p>يتم تحديث النظام باستمرار لضمان أفضل حماية لحسابك.</p>
     </div>
 
-    <!-- الأكواد الجاهزة -->
     <div id="liveCodesSection" class="live-codes-box" style="display:none;">
         <h2>🎁 أكواد متاحة الآن</h2>
         <div id="codesContainer"></div>
     </div>
 
-    <!-- الأقسام (الكروت) -->
     <div id="packagesSection" class="packages-container">
-        <!-- ستظهر الباقات هنا تلقائياً -->
-    </div>
+        </div>
 
-    <!-- الطلبات -->
     <div class="order-section">
         <h2>احجز كودك الآن مجاناً</h2>
         <div id="maintenanceMessage">⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.</div>
@@ -164,7 +169,6 @@
             <div class="form-group">
                 <select id="packageType" required>
                     <option value="" disabled selected>اختر الباقة...</option>
-                    <!-- الخيارات ستأتي تلقائياً -->
                 </select>
             </div>
             <button type="submit" class="submit-btn">إرسال طلب الحجز</button>
@@ -172,22 +176,24 @@
         </form>
     </div>
 
-    <!-- الأسئلة الشائعة -->
     <div id="faqSection" class="faq-section" style="display:none;">
         <h2>الأسئلة الشائعة (FAQ)</h2>
         <div id="faqContainer"></div>
+    </div>
+
+    <div id="testimonialSection" class="testimonials-section" style="display:none;">
+        <h2>⭐ آراء وتجارب المشتركين</h2>
+        <div id="testimonialsContainer"></div>
     </div>
 
     <footer>
         <p>جميع الحقوق محفوظة &copy; 2026 | تطوير <span class="rights">Drive VIP</span> <span class="admin-trigger" onclick="openAdmin()">🔒</span></p>
     </footer>
 
-    <!-- الزر العائم بصورة Drive VIP -->
     <a id="floatTgLink" href="https://t.me/l_2qu" class="float-btn" target="_blank">
         <img class="drive-logo-img" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
     </a>
 
-    <!-- لوحة الأدمن المتقدمة -->
     <div id="adminModal">
         <div class="admin-content" id="loginStep">
             <h2 style="color:var(--primary-color); text-align:center; margin-bottom:20px;">دخول الأدمن</h2>
@@ -203,18 +209,18 @@
             
             <div class="admin-tabs">
                 <button class="admin-tab active" onclick="switchTab('tabGeneral')">عام</button>
-                <button class="admin-tab" onclick="switchTab('tabPackages')">الباقات والأسئلة</button>
+                <button class="admin-tab" onclick="switchTab('tabPackages')">الأقسام والأسئلة والآراء</button>
                 <button class="admin-tab" onclick="switchTab('tabCodes')">الأكواد</button>
                 <button class="admin-tab" onclick="switchTab('tabOrders')">الطلبات</button>
             </div>
 
-            <!-- تبويب عام -->
             <div id="tabGeneral" class="admin-panel active">
                 <div class="admin-group" style="background:#330000; border:1px solid red; padding:10px; border-radius:8px;">
                     <label style="color:#ff4444; font-weight:bold; font-size:1.1rem; display:flex; align-items:center; gap:10px;">
                         <input type="checkbox" id="setBanWave"> 🚨 تفعيل موجة الباند (طوارئ)
                     </label>
                 </div>
+                <div class="admin-group"><label>رمز الأدمن السري الجديد:</label><input type="text" id="setAdminPassword" placeholder="تغيير رمز دخول لوحة الأدمن"></div>
                 <div class="admin-group"><label>نسبة أمان الهاك (%):</label><input type="number" id="setHackPercent"></div>
                 <div class="admin-group"><label>لون الثيم:</label><input type="color" id="setThemeColor"></div>
                 <div class="admin-group"><label>شريط الإشعار العلوي:</label><input type="text" id="setAnnouncement"></div>
@@ -229,7 +235,6 @@
                 <button class="admin-btn" onclick="saveSettings()">💾 حفظ إعدادات القسم العام</button>
             </div>
 
-            <!-- تبويب الباقات والأسئلة -->
             <div id="tabPackages" class="admin-panel">
                 <h3 style="color:var(--primary-color);">إضافة باقة/قسم جديد</h3>
                 <div class="admin-group"><input type="text" id="newPackTitle" placeholder="اسم الباقة (مثال: حجز سنوي)"></div>
@@ -242,10 +247,16 @@
                 <div class="admin-group"><input type="text" id="newFaqQ" placeholder="السؤال؟"></div>
                 <div class="admin-group"><input type="text" id="newFaqA" placeholder="الجواب..."></div>
                 <button class="admin-btn" onclick="addFAQ()">➕ إضافة السؤال</button>
-                <table class="data-table"><thead><tr><th>السؤال</th><th>حذف</th></tr></thead><tbody id="adminFaqList"></tbody></table>
+                <table class="data-table" style="margin-bottom:20px;"><thead><tr><th>السؤال</th><th>حذف</th></tr></thead><tbody id="adminFaqList"></tbody></table>
+
+                <hr style="border-color: #333; margin: 15px 0;">
+                <h3 style="color:var(--primary-color);">إضافة مراجعة/رأي مشترك</h3>
+                <div class="admin-group"><input type="text" id="newTestiName" placeholder="اسم المشترك (مثال: أحمد العراقي)"></div>
+                <div class="admin-group"><input type="text" id="newTestiText" placeholder="الرأي (مثال: الهاك أسطوري وبدون باند!)"></div>
+                <button class="admin-btn" onclick="addTestimonial()">➕ إضافة الرأي للموقع</button>
+                <table class="data-table"><thead><tr><th>الاسم</th><th>حذف</th></tr></thead><tbody id="adminTestiList"></tbody></table>
             </div>
 
-            <!-- تبويب الأكواد -->
             <div id="tabCodes" class="admin-panel">
                 <div class="admin-group" style="display:flex; gap:5px; margin-bottom:5px;">
                     <input type="text" id="newCodeVal" placeholder="الكود السري" style="flex:2;">
@@ -258,9 +269,8 @@
                 <table class="data-table"><thead><tr><th>الكود</th><th>النوع</th><th>حذف</th></tr></thead><tbody id="adminCodesList"></tbody></table>
             </div>
 
-            <!-- تبويب الطلبات -->
             <div id="tabOrders" class="admin-panel">
-                <table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>إجراء</th></tr></thead><tbody id="adminOrdersList"></tbody></table>
+                <table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>الجهاز</th><th>إجراء</th></tr></thead><tbody id="adminOrdersList"></tbody></table>
             </div>
 
             <hr style="border-color: #333; margin: 20px 0;">
@@ -268,7 +278,6 @@
         </div>
     </div>
 
-    <!-- مكاتب Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -285,13 +294,77 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         
-        let botTokenGlobal = ""; let chatIdGlobal = "";
-        const ADMIN_CODE = "BRIJ1PY4YYGX"; 
+        let botTokenGlobal = ""; let chatIdGlobal = ""; let currentAdminPassword = "BRIJ1PY4YYGX"; 
+
+        // نظام المؤثرات الصوتية الاصطناعية
+        function playSound(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                osc.connect(gain); gain.connect(ctx.destination);
+                if (type === 'success') {
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime); osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'access') {
+                    osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.setValueAtTime(1000, ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+                    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.2);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.4);
+                }
+            } catch(e) {}
+        }
+
+        // سحب نوع جهاز المستخدم تلقائياً
+        function getDeviceInfo() {
+            const ua = navigator.userAgent;
+            if (/iphone|ipad|ipod/i.test(ua)) return "iPhone / iPad";
+            if (/android/i.test(ua)) return "Android";
+            if (/windows/i.test(ua)) return "Windows PC";
+            if (/macintosh/i.test(ua)) return "Mac PC";
+            if (/linux/i.test(ua)) return "Linux PC";
+            return "جهاز مجهول";
+        }
+
+        // نظام فحص قفل السبام (24 ساعة)
+        function checkCooldown() {
+            const lastOrder = localStorage.getItem('drivevip_last_order');
+            const submitBtn = document.querySelector('.submit-btn');
+            const statusMsg = document.getElementById('statusMessage');
+            
+            if (lastOrder) {
+                const now = new Date().getTime();
+                const diff = now - parseInt(lastOrder);
+                const cooldownTime = 24 * 60 * 60 * 1000; // 24 ساعة بالملي ثانية
+                
+                if (diff < cooldownTime) {
+                    const remaining = cooldownTime - diff;
+                    const hours = Math.floor(remaining / (1000 * 60 * 60));
+                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+                    
+                    submitBtn.disabled = true;
+                    submitBtn.style.background = '#444';
+                    submitBtn.style.cursor = 'not-allowed';
+                    statusMsg.style.display = 'block';
+                    statusMsg.style.color = '#ffaa00';
+                    statusMsg.innerText = `⏳ لقد قمت بالطلب مسبقاً! يمكنك إرسال طلب آخر بعد: ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية.`;
+                    return true;
+                }
+            }
+            submitBtn.disabled = false;
+            submitBtn.style.background = 'var(--primary-color)';
+            submitBtn.style.cursor = 'pointer';
+            return false;
+        }
 
         window.addEventListener('load', function() {
             setTimeout(() => { document.getElementById('loader').style.opacity = '0'; setTimeout(() => document.getElementById('loader').style.display = 'none', 600); }, 1500);
             
-            // نظام الزيارات الحي
+            // عداد الزيارات
             const visitRef = db.ref('stats/visits');
             if (!sessionStorage.getItem('visited_drivevip')) {
                 visitRef.transaction(current => (current || 0) + 1);
@@ -299,16 +372,18 @@
             }
             visitRef.on('value', snap => { document.getElementById('adminVisits').innerText = snap.val() || 0; });
 
-            listenToSettings(); listenToPackages(); listenToFAQs(); listenToLiveCodes(); listenToOrders();
+            listenToSettings(); listenToPackages(); listenToFAQs(); listenToLiveCodes(); listenToOrders(); listenToTestimonials();
+            setInterval(checkCooldown, 1000); // تحديث عداد السبام كل ثانية
         });
 
-        // اللوحة
+        // لوحة الإدارة
         function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
         function checkAdmin() {
-            if (document.getElementById('adminPassword').value === ADMIN_CODE) {
+            if (document.getElementById('adminPassword').value === currentAdminPassword) {
+                playSound('access');
                 document.getElementById('loginStep').style.display = 'none'; document.getElementById('dashboardStep').style.display = 'block';
-            } else { document.getElementById('adminError').style.display = 'block'; }
+            } else { playSound('error'); document.getElementById('adminError').style.display = 'block'; }
         }
         function switchTab(tabId) {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -319,6 +394,7 @@
         // الإعدادات العامة
         function saveSettings() {
             const settings = {
+                adminPassword: document.getElementById('setAdminPassword').value.trim() || "BRIJ1PY4YYGX",
                 themeColor: document.getElementById('setThemeColor').value,
                 announcementText: document.getElementById('setAnnouncement').value,
                 hackPercent: document.getElementById('setHackPercent').value,
@@ -331,22 +407,23 @@
                 popupText: document.getElementById('setPopupText').value,
                 showPopup: document.getElementById('setShowPopup').checked
             };
-            db.ref('site_settings').set(settings).then(() => { alert('✅ تم الحفظ بنجاح!'); });
+            db.ref('site_settings').set(settings).then(() => { playSound('success'); alert('✅ تم حفظ الإعدادات بنجاح!'); });
         }
 
         function listenToSettings() {
             db.ref('site_settings').on('value', (snapshot) => {
                 const data = snapshot.val() || {};
                 
-                // الألوان والنسب
+                currentAdminPassword = data.adminPassword || "BRIJ1PY4YYGX";
+                document.getElementById('setAdminPassword').value = currentAdminPassword;
+
                 document.documentElement.style.setProperty('--primary-color', data.themeColor || '#d4af37');
                 document.getElementById('setThemeColor').value = data.themeColor || '#d4af37';
                 
                 const hp = parseInt(data.hackPercent || '80');
                 const pBar = document.getElementById('uiProgressBar');
                 const sText = document.getElementById('uiStatusText');
-                pBar.style.width = hp + '%';
-                document.getElementById('setHackPercent').value = hp;
+                pBar.style.width = hp + '%'; document.getElementById('setHackPercent').value = hp;
 
                 if (hp < 50) {
                     sText.innerText = `خطر (${hp}%)`; sText.style.color = '#ff4444'; pBar.style.backgroundColor = '#ff4444'; pBar.style.boxShadow = '0 0 15px #ff4444';
@@ -354,14 +431,13 @@
                     sText.innerText = `آمن (${hp}%)`; sText.style.color = '#00C851'; pBar.style.backgroundColor = '#00C851'; pBar.style.boxShadow = '0 0 15px #00C851';
                 }
 
-                // الباند والصيانة
                 document.getElementById('setBanWave').checked = data.banWaveMode || false;
                 if (data.banWaveMode) {
                     document.body.classList.add('ban-wave-active');
                     document.getElementById('banWaveAlert').style.display = 'block';
                     document.getElementById('orderForm').style.display = 'none';
                     document.getElementById('maintenanceMessage').style.display = 'block';
-                    document.getElementById('maintenanceMessage').innerText = '🚨 الطلبات مغلقة حالياً بسبب موجة الحظر!';
+                    document.getElementById('maintenanceMessage').innerText = '🚨 الطلبات مغلقة حالياً بسبب موجة الحظر العنيفة لحماية الحسابات!';
                     document.getElementById('maintenanceMessage').style.color = 'red';
                 } else {
                     document.body.classList.remove('ban-wave-active');
@@ -373,12 +449,11 @@
                         document.getElementById('maintenanceMessage').innerText = '⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.';
                         document.getElementById('maintenanceMessage').style.color = '#ffaa00';
                     } else {
-                        document.getElementById('orderForm').style.display = 'block';
+                        if(!checkCooldown()) { document.getElementById('orderForm').style.display = 'block'; }
                         document.getElementById('maintenanceMessage').style.display = 'none';
                     }
                 }
 
-                // الإشعارات والمنبثق
                 const bar = document.getElementById('announcementBar');
                 if (data.announcementText && data.announcementText.trim() !== '') { bar.style.display = 'block'; bar.innerHTML = `<marquee scrollamount="5">${data.announcementText}</marquee>`; } else { bar.style.display = 'none'; }
                 document.getElementById('setAnnouncement').value = data.announcementText || '';
@@ -388,7 +463,6 @@
                 document.getElementById('setPopupText').value = data.popupText || '';
                 document.getElementById('setShowPopup').checked = data.showPopup || false;
 
-                // الروابط
                 const tgLink = data.tgLink || 'https://t.me/l_2qu';
                 document.getElementById('mainTgLink').href = tgLink; document.getElementById('floatTgLink').href = tgLink; document.getElementById('setTgLink').value = tgLink;
                 
@@ -400,13 +474,12 @@
             });
         }
 
-        // إدارة الباقات والأقسام
+        // إدارة الباقات
         function addPackage() {
-            const title = document.getElementById('newPackTitle').value.trim();
-            const desc = document.getElementById('newPackDesc').value.trim();
-            if(title) { db.ref('packages').push({ title, desc }); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; }
+            const title = document.getElementById('newPackTitle').value.trim(); const desc = document.getElementById('newPackDesc').value.trim();
+            if(title) { db.ref('packages').push({ title, desc }); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; playSound('success'); }
         }
-        function delPackage(k) { db.ref('packages/'+k).remove(); }
+        function delPackage(k) { db.ref('packages/'+k).remove(); playSound('error'); }
         function listenToPackages() {
             db.ref('packages').on('value', snap => {
                 const uBox = document.getElementById('packagesSection'); const aBox = document.getElementById('adminPacksList'); const select = document.getElementById('packageType');
@@ -418,16 +491,16 @@
                     aBox.innerHTML += `<tr><td>${d.title}</td><td><button class="action-btn" onclick="delPackage('${c.key}')">حذف</button></td></tr>`;
                     select.innerHTML += `<option value="${d.title}">${d.title}</option>`;
                 });
-                if(count === 0) uBox.innerHTML = '<p style="color:#aaa;">لا توجد باقات حالياً.</p>';
+                if(count === 0) uBox.innerHTML = '<p style="color:#aaa;">لا توجد باقات معروضة حالياً.</p>';
             });
         }
 
-        // إدارة الأسئلة الشائعة
+        // إدارة الأسئلة
         function addFAQ() {
             const q = document.getElementById('newFaqQ').value.trim(); const a = document.getElementById('newFaqA').value.trim();
-            if(q && a) { db.ref('faqs').push({ q, a }); document.getElementById('newFaqQ').value=''; document.getElementById('newFaqA').value=''; }
+            if(q && a) { db.ref('faqs').push({ q, a }); document.getElementById('newFaqQ').value=''; document.getElementById('newFaqA').value=''; playSound('success'); }
         }
-        function delFAQ(k) { db.ref('faqs/'+k).remove(); }
+        function delFAQ(k) { db.ref('faqs/'+k).remove(); playSound('error'); }
         function listenToFAQs() {
             db.ref('faqs').on('value', snap => {
                 const uBox = document.getElementById('faqContainer'); const aBox = document.getElementById('adminFaqList'); const mainSec = document.getElementById('faqSection');
@@ -441,59 +514,99 @@
             });
         }
 
-        // إدارة الأكواد
+        // إدارة تقييمات المشتركين (المراجعات)
+        function addTestimonial() {
+            const name = document.getElementById('newTestiName').value.trim(); const text = document.getElementById('newTestiText').value.trim();
+            if(name && text) { db.ref('testimonials').push({ name, text }); document.getElementById('newTestiName').value=''; document.getElementById('newTestiText').value=''; playSound('success'); }
+        }
+        function delTestimonial(k) { db.ref('testimonials/'+k).remove(); playSound('error'); }
+        function listenToTestimonials() {
+            db.ref('testimonials').on('value', snap => {
+                const uBox = document.getElementById('testimonialsContainer'); const aBox = document.getElementById('adminTestiList'); const mainSec = document.getElementById('testimonialSection');
+                uBox.innerHTML=''; aBox.innerHTML=''; let count = 0;
+                snap.forEach(c => {
+                    count++; const d = c.val();
+                    uBox.innerHTML += `<div class="testi-card"><div class="testi-name">👤 ${d.name}</div><div class="testi-text">"${d.text}"</div></div>`;
+                    aBox.innerHTML += `<tr><td>${d.name}</td><td><button class="action-btn" onclick="delTestimonial('${c.key}')">حذف</button></td></tr>`;
+                });
+                mainSec.style.display = count > 0 ? 'block' : 'none';
+            });
+        }
+
+        // إدارة الأكواد ونظام النسخ السريع
         function autoGenCode() { document.getElementById('newCodeVal').value = 'DRIVE-VIP-' + Math.random().toString(36).substring(2,8).toUpperCase(); }
         function addNewCode() {
             const val = document.getElementById('newCodeVal').value.trim(); const type = document.getElementById('newCodeType').value.trim();
-            if(val) { db.ref('live_codes').push({ code: val, type: type || 'مجهول' }); document.getElementById('newCodeVal').value = ''; document.getElementById('newCodeType').value = ''; }
+            if(val) { db.ref('live_codes').push({ code: val, type: type || 'مجهول' }); document.getElementById('newCodeVal').value = ''; document.getElementById('newCodeType').value = ''; playSound('success'); }
         }
-        function delCode(k) { db.ref('live_codes/'+k).remove(); }
+        function delCode(k) { db.ref('live_codes/'+k).remove(); playSound('error'); }
+        function copyCode(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const oldText = btn.innerText; btn.innerText = "✅ تم النسخ!"; btn.style.background = "#00C851";
+                setTimeout(() => { btn.innerText = oldText; btn.style.background = "var(--primary-color)"; }, 2000);
+            });
+        }
         function listenToLiveCodes() {
             db.ref('live_codes').on('value', snap => {
-                const uBox = document.getElementById('codesContainer'); const aBox = document.getElementById('adminCodesList');
-                uBox.innerHTML=''; aBox.innerHTML='';
+                const uBox = document.getElementById('codesContainer'); const aBox = document.getElementById('adminCodesList'); uBox.innerHTML=''; aBox.innerHTML='';
                 snap.forEach(c => {
                     const d = c.val();
-                    uBox.innerHTML += `<div class="code-item"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div>`;
+                    uBox.innerHTML += `<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="copyCode('${d.code}', this)">📋 نسخ</button></div>`;
                     aBox.innerHTML += `<tr><td>${d.code}</td><td>${d.type}</td><td><button class="action-btn" onclick="delCode('${c.key}')">حذف</button></td></tr>`;
                 });
-                if(uBox.innerHTML==='') uBox.innerHTML='<p style="text-align:center;color:#aaa;">لا توجد أكواد متاحة حالياً.</p>';
+                if(uBox.innerHTML==='') uBox.innerHTML='<p style="text-align:center;color:#aaa;">لا توجد أكواد حرة معروضة حالياً.</p>';
             });
         }
 
         // الطلبات
-        function delOrder(k) { db.ref('orders/'+k).remove(); }
+        function delOrder(k) { db.ref('orders/'+k).remove(); playSound('success'); }
         function listenToOrders() {
             db.ref('orders').on('value', snap => {
                 const aBox = document.getElementById('adminOrdersList'); aBox.innerHTML='';
-                snap.forEach(c => { const d = c.val(); aBox.innerHTML += `<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td><button class="action-btn" onclick="delOrder('${c.key}')">تم</button></td></tr>`; });
+                snap.forEach(c => { const d = c.val(); aBox.innerHTML += `<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td style="color:#77f;">${d.device || 'غير معروف'}</td><td><button class="action-btn" onclick="delOrder('${c.key}')">تم</button></td></tr>`; });
             });
         }
 
-        // إرسال الطلب مع فحص اليوزر
+        // إرسال الطلب مع نظام مكافحة السبام ومعلومات الجهاز
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault(); const statusMsg = document.getElementById('statusMessage');
-            if (!botTokenGlobal || !chatIdGlobal) { statusMsg.style.display='block'; statusMsg.style.color='red'; statusMsg.innerText='❌ النظام غير مرتبط بالبوت!'; return; }
+            if (checkCooldown()) return; // حماية إضافية
+
+            if (!botTokenGlobal || !chatIdGlobal) { statusMsg.style.display='block'; statusMsg.style.color='red'; statusMsg.innerText='❌ النظام غير مرتبط بالبوت!'; playSound('error'); return; }
 
             const name = document.getElementById('userName').value.trim();
             const tgUser = document.getElementById('tgUsername').value.trim();
             const pack = document.getElementById('packageType').value;
+            const device = getDeviceInfo(); // سحب معلومات جهاز المستخدم تلقائياً
             
             const tgRegex = /^@[a-zA-Z0-9_]{5,32}$/;
             if (!tgRegex.test(tgUser)) {
-                statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText='❌ يوزر التيليجرام غير صحيح! تأكد أنه يبدأ بـ @ ويحتوي على أحرف إنجليزية وأرقام فقط.';
+                playSound('error'); statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText = '❌ يوزر التيليجرام غير صحيح! تأكد أنه يبدأ بـ @ ويحتوي على أحرف إنجليزية وأرقام فقط (بدون مسافات).';
                 document.getElementById('tgUsername').style.borderColor='#ff4444'; setTimeout(()=>document.getElementById('tgUsername').style.borderColor='#444', 3000); return;
             }
 
-            db.ref('orders').push({ name, tgUser, package: pack, time: new Date().getTime() });
-            statusMsg.style.display='block'; statusMsg.style.color='white'; statusMsg.innerText='⏳ جاري الإرسال...';
+            // حفظ في فايربيس مع نوع الجهاز
+            db.ref('orders').push({ name, tgUser, package: pack, device, time: new Date().getTime() });
+            statusMsg.style.display='block'; statusMsg.style.color='white'; statusMsg.innerText='⏳ جاري معالجة وإرسال طلب الحجز الحصري...';
 
+            // إرسال للتيليجرام مع نوع الجهاز
+            const tgMessage = `🎁 طلب حجز جديد (Drive VIP) 🎁\n\n👤 الاسم: ${name}\n🔗 يوزر التيليجرام: ${tgUser}\n📦 الباقة: ${pack}\n📱 جهاز المشترك: ${device}`;
+            
             fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatIdGlobal, text: `🎁 طلب حجز جديد 🎁\n👤 الاسم: ${name}\n🔗 يوزر التيليجرام: ${tgUser}\n📦 الباقة: ${pack}` })
+                body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage })
             }).then(r=>r.json()).then(d=>{
-                if(d.ok) { statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم إرسال الطلب بنجاح!'; document.getElementById('orderForm').reset(); document.getElementById('tgUsername').style.borderColor='#444'; }
-                else { statusMsg.style.color='red'; statusMsg.innerText='❌ خطأ بالبوت.'; }
+                if(d.ok) {
+                    playSound('success');
+                    // تفعيل قفل السبام لمدة 24 ساعة في جهاز المستخدم
+                    localStorage.setItem('drivevip_last_order', new Date().getTime());
+                    checkCooldown();
+                    
+                    statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم إرسال طلبك بنجاح وحفظ جهازك بالنظام! انتظر تفعيل الكود.';
+                    document.getElementById('orderForm').reset(); document.getElementById('tgUsername').style.borderColor='#444';
+                } else {
+                    playSound('error'); statusMsg.style.color='red'; statusMsg.innerText='❌ خطأ في الاتصال ببوت الإشعارات.';
+                }
             });
         });
     </script>
