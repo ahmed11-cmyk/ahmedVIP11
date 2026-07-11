@@ -6,7 +6,7 @@
     <title>متجر الأكواد | حمادة</title>
     <style>
         :root {
-            --primary-color: #00ff88;
+            --primary-color: #00ff88; /* يمكنك تغييره للذهبي #d4af37 ليتناسب مع اللوكو إذا أحببت */
             --bg-color: #0f0f13;
             --card-bg: #1a1a24;
             --text-color: #ffffff;
@@ -26,7 +26,47 @@
             padding-bottom: 50px;
         }
 
-        /* تأثير الدخول المتحرك */
+        /* 1. شاشة التحميل الابتدائية */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.6s ease;
+        }
+
+        #loader img {
+            width: 180px;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); /* توهج ذهبي خفيف */
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        #loader h2 {
+            margin-top: 20px;
+            color: var(--text-color);
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+            animation: fadeInOut 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        @keyframes fadeInOut {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        /* تأثير الدخول المتحرك للموقع */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -128,6 +168,51 @@
             font-size: 1.1rem;
             margin-bottom: 20px;
             color: #aaa;
+        }
+
+        /* 2. قسم آراء المشتركين */
+        .reviews-section {
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeInUp 1.4s ease-out;
+        }
+        
+        .reviews-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .reviews-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            border-right: 4px solid var(--primary-color); /* شريط جانبي للتصميم */
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: right;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .review-card p {
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .review-card .reviewer {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 0.9rem;
         }
 
         /* قسم الطلب */
@@ -234,8 +319,13 @@
 </head>
 <body>
 
+    <div id="loader">
+        <img src="https://ibb.co/xtpf7X6D" alt="Drive VIP Logo">
+        <h2>SYSTEM ONLINE...</h2>
+    </div>
+
     <header>
-        <h1>متجر الأكواد الاحترافي</h1>
+        <h1>DRIVE VIP | متجر الأكواد</h1>
         <p>التواصل عبر تيليجرام: <a href="https://t.me/l_2qu" target="_blank">@l_2qu</a></p>
     </header>
 
@@ -267,6 +357,24 @@
         <div class="card">
             <h3>موسم كامل</h3>
             <p>اشتراك VIP لمدة 60 يوم</p>
+        </div>
+    </div>
+
+    <div class="reviews-section">
+        <h2>آراء المشتركين</h2>
+        <div class="reviews-container">
+            <div class="review-card">
+                <p>"أقوى حماية لعبت بيها، حسابي الأساسي وفل كيلات ولا باند ولا تحذير. استمر يا وحش."</p>
+                <div class="reviewer">⭐ لاعب VIP - كونكر</div>
+            </div>
+            <div class="review-card">
+                <p>"سرعة بالتسليم والهاك شغال 100% بدون أي تقطيع أو مشاكل باللعبة."</p>
+                <div class="reviewer">⭐ مشترك شهري</div>
+            </div>
+            <div class="review-card">
+                <p>"من أفضل المطورين اللي تعاملت وياهم، دعم فني متواجد دائماً وتحديثات سريعة."</p>
+                <div class="reviewer">⭐ أحمد - مشترك موسم كامل</div>
+            </div>
         </div>
     </div>
 
@@ -303,9 +411,20 @@
     </a>
 
     <script>
+        // --- إخفاء شاشة التحميل بعد ثانيتين ---
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 600); // الانتظار حتى ينتهي تأثير الاختفاء
+            }, 2000); // مدة عرض شاشة التحميل (2000 = ثانيتين)
+        });
+
         // إعدادات بوت التيليجرام الخاصة بك
         const BOT_TOKEN = '8681184437:AAFhGb1egorcI2DgPcZFYNXnIp0E4rFTj3o'; 
-        const CHAT_ID = '7871770473'; 
+        const CHAT_ID ='7871770473'; 
 
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -315,10 +434,10 @@
             const pack = document.getElementById('packageType').value;
             const statusMsg = document.getElementById('statusMessage');
 
-            // --- نظام الحماية من تكرار الطلب (خلال 24 ساعة) ---
+            // نظام الحماية من تكرار الطلب (خلال 24 ساعة)
             const lastOrderTime = localStorage.getItem('lastOrderTime');
             const currentTime = new Date().getTime();
-            const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000; // 24 ساعة بالملي ثانية
+            const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000; 
 
             if (lastOrderTime && (currentTime - lastOrderTime < ONE_DAY_IN_MS)) {
                 const timeLeft = ONE_DAY_IN_MS - (currentTime - lastOrderTime);
@@ -327,9 +446,8 @@
                 statusMsg.style.display = 'block';
                 statusMsg.style.color = '#ffaa00';
                 statusMsg.innerText = `⚠️ لقد قمت بطلب كود بالفعل! لا يمكنك الطلب مجدداً إلا بعد مرور يوم كامل. (متبقي حوالي ${hoursLeft} ساعة)`;
-                return; // إيقاف الإرسال
+                return; 
             }
-            // --------------------------------------------------
 
             // فحص صيغة يوزر التيليجرام
             const tgRegex = /^@[a-zA-Z0-9_]{5,32}$/;
@@ -353,7 +471,7 @@
 🔗 يوزر التيليجرام: ${tgUser}
 📦 نوع الاشتراك: ${pack}
 ==================
-المرسل عبر موقع: حمادة
+المرسل عبر موقع: حمادة (Drive VIP)
             `;
 
             // إرسال البيانات
@@ -373,11 +491,9 @@
             .then(data => {
                 if(data.ok) {
                     statusMsg.style.color = '#00ff88';
-                    statusMsg.innerText = '✅ تم إرسال الطلب بنجاح! سيتم التواصل معك.';
+                    statusMsg.innerText = '✅ تم إرسال الطلب بنجاح! سيتم التواصل معك عبر التيليجرام.';
                     
-                    // حفظ وقت الإرسال الناجح لمنع التكرار لمدة يوم كامل
                     localStorage.setItem('lastOrderTime', currentTime);
-                    
                     document.getElementById('orderForm').reset();
                 } else {
                     statusMsg.style.color = 'red';
