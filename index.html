@@ -6,120 +6,47 @@
     <title>متجر الأكواد المجانية | حمادة</title>
     <style>
         :root {
-            --primary-color: #d4af37; /* اللون الافتراضي (ذهبي) قابل للتغيير من الأدمن */
+            --primary-color: #d4af37; 
             --bg-color: #0f0f13;
             --card-bg: #1a1a24;
             --text-color: #ffffff;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            padding-bottom: 50px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; padding-bottom: 50px; }
 
         /* شريط الإشعارات */
-        #announcementBar {
-            background-color: var(--primary-color);
-            color: #000;
-            padding: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: none; /* مخفي افتراضياً */
-        }
+        #announcementBar { background-color: var(--primary-color); color: #000; padding: 10px; font-weight: bold; font-size: 1.1rem; display: none; text-align: center; }
 
         /* شاشة التحميل */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.6s ease;
-        }
-        #loader img {
-            width: 180px;
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            animation: pulse 1.5s infinite alternate;
-            border: 2px solid var(--primary-color);
-        }
-        #loader h2 {
-            margin-top: 20px;
-            color: var(--text-color);
-            letter-spacing: 2px;
-            font-size: 1.2rem;
-            animation: fadeInOut 1.5s infinite alternate;
-        }
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.6s ease; }
+        #loader img { width: 180px; border-radius: 50%; box-shadow: 0 0 30px rgba(0,0,0,0.8); animation: pulse 1.5s infinite alternate; border: 2px solid var(--primary-color); }
+        #loader h2 { margin-top: 20px; color: var(--text-color); letter-spacing: 2px; font-size: 1.2rem; animation: fadeInOut 1.5s infinite alternate; }
 
         @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.05); } }
         @keyframes fadeInOut { from { opacity: 0.5; } to { opacity: 1; } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        header {
-            text-align: center;
-            padding: 40px 20px 20px;
-            border-bottom: 2px solid var(--primary-color);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-        }
-        header h1 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
+        header { text-align: center; padding: 40px 20px 20px; border-bottom: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); }
+        header h1 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; }
         header a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
         header a:hover { color: var(--primary-color); }
 
         /* حالة الهاك */
-        .status-box {
-            background: var(--card-bg);
-            border: 1px solid #333;
-            padding: 20px;
-            max-width: 600px;
-            margin: 30px auto 10px;
-            text-align: center;
-            border-radius: 15px;
-            animation: fadeInUp 1s ease-out;
-        }
+        .status-box { background: var(--card-bg); border: 1px solid #333; padding: 20px; max-width: 600px; margin: 30px auto 10px; text-align: center; border-radius: 15px; animation: fadeInUp 1s ease-out; }
         .status-text { color: var(--primary-color); font-weight: bold; }
-        .progress-bg {
-            background: #0f0f13; height: 15px; border-radius: 10px; margin: 15px 0; overflow: hidden;
-        }
-        .progress-bar {
-            background: var(--primary-color); width: 80%; height: 100%; box-shadow: 0 0 10px var(--primary-color); transition: 0.5s;
-        }
+        .progress-bg { background: #0f0f13; height: 15px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-bar { background: var(--primary-color); width: 80%; height: 100%; box-shadow: 0 0 10px var(--primary-color); transition: 0.5s; }
 
         /* عداد الإحصائيات */
-        .stats-section {
-            display: flex; justify-content: center; gap: 30px; padding: 30px 20px; flex-wrap: wrap;
-            background: linear-gradient(90deg, #0f0f13, #1a1a24, #0f0f13);
-            border-bottom: 1px solid #333; border-top: 1px solid #333; margin-top: 20px;
-        }
+        .stats-section { display: flex; justify-content: center; gap: 30px; padding: 30px 20px; flex-wrap: wrap; background: linear-gradient(90deg, #0f0f13, #1a1a24, #0f0f13); border-bottom: 1px solid #333; border-top: 1px solid #333; margin-top: 20px; }
         .stat-box { text-align: center; width: 150px; }
         .stat-box h3 { color: var(--primary-color); font-size: 2.5rem; margin-bottom: 5px; }
         .stat-box p { color: #ccc; font-size: 1rem; }
 
         /* البطاقات */
-        .packages-container {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px 20px;
-        }
-        .card {
-            background-color: var(--card-bg); border: 1px solid #333; border-radius: 15px; padding: 30px; width: 250px; text-align: center; transition: 0.4s;
-        }
+        .packages-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px 20px; }
+        .card { background-color: var(--card-bg); border: 1px solid #333; border-radius: 15px; padding: 30px; width: 250px; text-align: center; transition: 0.4s; }
         .card:hover { transform: translateY(-10px); border-color: var(--primary-color); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-color); }
         .card p { font-size: 1.1rem; margin-bottom: 20px; color: #aaa; }
@@ -133,17 +60,12 @@
         .faq-question:hover { color: var(--primary-color); }
 
         /* قسم الطلب */
-        .order-section {
-            background-color: var(--card-bg); max-width: 600px; margin: 20px auto 60px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333;
-        }
+        .order-section { background-color: var(--card-bg); max-width: 600px; margin: 20px auto 60px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
         .order-section h2 { text-align: center; margin-bottom: 30px; color: var(--primary-color); }
-        
         #maintenanceMessage { text-align: center; color: #ffaa00; font-size: 1.2rem; display: none; padding: 20px; border: 1px dashed #ffaa00; border-radius: 10px; }
         
         .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group select {
-            width: 100%; padding: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s;
-        }
+        .form-group input, .form-group select { width: 100%; padding: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s; }
         .form-group input:focus, .form-group select:focus { border-color: var(--primary-color); }
         button.submit-btn { width: 100%; padding: 15px; background-color: var(--primary-color); color: #000; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
         button.submit-btn:hover { opacity: 0.8; }
@@ -155,22 +77,15 @@
         .admin-trigger { cursor: pointer; opacity: 0.2; transition: 0.3s; font-size: 1.2rem; margin-right: 10px; }
         .admin-trigger:hover { opacity: 1; }
 
-        /* لوحة تحكم الأدمن (المخفية) */
-        #adminModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100000; justify-content: center; align-items: center; overflow-y: auto; padding: 20px;
-        }
-        .admin-content {
-            background: #111; border: 2px solid var(--primary-color); padding: 30px; border-radius: 15px; width: 100%; max-width: 500px; margin: auto;
-        }
+        /* لوحة تحكم الأدمن */
+        #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100000; justify-content: center; align-items: center; overflow-y: auto; padding: 20px; }
+        .admin-content { background: #111; border: 2px solid var(--primary-color); padding: 30px; border-radius: 15px; width: 100%; max-width: 500px; margin: auto; }
         .admin-content h2 { color: var(--primary-color); margin-bottom: 20px; text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .admin-group { margin-bottom: 15px; }
         .admin-group label { color: white; display: block; margin-bottom: 5px; font-size: 0.9rem; }
-        .admin-group input[type="text"], .admin-group input[type="number"], .admin-group input[type="password"] {
-            width: 100%; padding: 10px; background: #000; border: 1px solid #333; color: white; border-radius: 5px;
-        }
+        .admin-group input[type="text"], .admin-group input[type="number"], .admin-group input[type="password"] { width: 100%; padding: 10px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; }
         .admin-group input[type="color"] { width: 100%; height: 40px; background: none; border: none; cursor: pointer; }
         .admin-group input[type="checkbox"] { transform: scale(1.5); margin-left: 10px; }
-        
         .admin-btn { padding: 12px; background: var(--primary-color); color: #000; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; width: 100%; margin-bottom: 10px; transition: 0.3s; }
         .admin-btn:hover { opacity: 0.8; }
         .reset-btn { background: #ff4444; color: white; }
@@ -183,10 +98,8 @@
 </head>
 <body>
 
-    <!-- شريط الإشعارات -->
     <div id="announcementBar"></div>
 
-    <!-- شاشة التحميل -->
     <div id="loader">
         <img src="logo.png" alt="Drive VIP Logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg'">
         <h2>SYSTEM ONLINE...</h2>
@@ -197,7 +110,6 @@
         <p>التواصل عبر تيليجرام: <a href="https://t.me/l_2qu" target="_blank">@l_2qu</a></p>
     </header>
 
-    <!-- قسم حالة الهاك -->
     <div class="status-box">
         <h3>حالة الهاك: <span class="status-text" id="uiStatusText">آمن (80%)</span></h3>
         <div class="progress-bg">
@@ -206,61 +118,26 @@
         <p>يتم تحديث النظام باستمرار لضمان أفضل حماية لحسابك.</p>
     </div>
 
-    <!-- عداد الإحصائيات -->
     <div class="stats-section">
-        <div class="stat-box">
-            <h3 id="usersCounter">65</h3>
-            <p>مشترك نشط</p>
-        </div>
-        <div class="stat-box">
-            <h3>0</h3>
-            <p>حالات باند</p>
-        </div>
-        <div class="stat-box">
-            <h3>100%</h3>
-            <p>أكواد مجانية</p>
-        </div>
+        <div class="stat-box"><h3 id="usersCounter">65</h3><p>مشترك نشط</p></div>
+        <div class="stat-box"><h3>0</h3><p>حالات باند</p></div>
+        <div class="stat-box"><h3>100%</h3><p>أكواد مجانية</p></div>
     </div>
 
-    <!-- قسم الحجز -->
     <div class="packages-container">
-        <div class="card">
-            <h3>احجز كود يومي</h3>
-            <p>حجز مجاني لمدة 24 ساعة</p>
-        </div>
-        <div class="card">
-            <h3>احجز كود أسبوعي</h3>
-            <p>حجز مجاني لمدة 7 أيام</p>
-        </div>
-        <div class="card">
-            <h3>احجز كود نصف شهر</h3>
-            <p>حجز مجاني لمدة 15 يوم</p>
-        </div>
-        <div class="card">
-            <h3>احجز كود شهري</h3>
-            <p>حجز مجاني لمدة 30 يوم</p>
-        </div>
-        <div class="card">
-            <h3>موسم كامل</h3>
-            <p>حجز VIP لمدة 60 يوم</p>
-        </div>
+        <div class="card"><h3>احجز كود يومي</h3><p>حجز مجاني لمدة 24 ساعة</p></div>
+        <div class="card"><h3>احجز كود أسبوعي</h3><p>حجز مجاني لمدة 7 أيام</p></div>
+        <div class="card"><h3>احجز كود نصف شهر</h3><p>حجز مجاني لمدة 15 يوم</p></div>
+        <div class="card"><h3>احجز كود شهري</h3><p>حجز مجاني لمدة 30 يوم</p></div>
+        <div class="card"><h3>موسم كامل</h3><p>حجز VIP لمدة 60 يوم</p></div>
     </div>
 
-    <!-- قسم الطلب -->
     <div class="order-section">
         <h2>احجز كودك الآن مجاناً</h2>
-        
-        <div id="maintenanceMessage">
-            ⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً لحجز الأكواد.
-        </div>
-
+        <div id="maintenanceMessage">⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً لحجز الأكواد.</div>
         <form id="orderForm">
-            <div class="form-group">
-                <input type="text" id="userName" placeholder="الاسم الكامل" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="tgUsername" placeholder="يوزر التيليجرام (مثل: @username)" required>
-            </div>
+            <div class="form-group"><input type="text" id="userName" placeholder="الاسم الكامل" required></div>
+            <div class="form-group"><input type="text" id="tgUsername" placeholder="يوزر التيليجرام (مثل: @username)" required></div>
             <div class="form-group">
                 <select id="packageType" required>
                     <option value="" disabled selected>اختر مدة الحجز المجاني...</option>
@@ -276,7 +153,6 @@
         </form>
     </div>
 
-    <!-- قسم الأسئلة الشائعة -->
     <div class="faq-section">
         <h2>الأسئلة الشائعة (FAQ)</h2>
         <div class="faq-item">
@@ -287,92 +163,76 @@
             <button class="faq-question">هل أحتاج إلى حذف اللعبة الأصلية؟ ▼</button>
             <div class="faq-answer">في أغلب التحديثات لا تحتاج، يمكنك اللعب بنسختنا بشكل آمن، ولكن يفضل دائماً متابعة قناتنا على التيليجرام لمعرفة آخر التعليمات.</div>
         </div>
-        <div class="faq-item">
-            <button class="faq-question">لماذا لا أستطيع حجز أكثر من كود؟ ▼</button>
-            <div class="faq-answer">نظامنا يمنع تكرار الحجز من نفس الشخص في نفس اليوم لضمان حصول الجميع على فرصة لأخذ الأكواد المجانية ومنع الضغط على البوت.</div>
-        </div>
     </div>
 
-    <!-- الفوتر مع زر الأدمن المخفي -->
     <footer>
         <p>جميع الحقوق محفوظة &copy; 2026 | تطوير <span class="rights">حمادة</span> <span class="admin-trigger" onclick="openAdmin()">🔒</span></p>
     </footer>
 
-    <a href="https://t.me/l_2qu" class="float-btn" target="_blank" title="تواصل معي">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG">
-    </a>
+    <a href="https://t.me/l_2qu" class="float-btn" target="_blank" title="تواصل معي"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"></a>
 
-    <!-- لوحة تحكم الأدمن (نافذة منبثقة) -->
+    <!-- لوحة الأدمن -->
     <div id="adminModal">
         <div class="admin-content" id="loginStep">
             <h2>لوحة إدارة Drive VIP</h2>
-            <div class="admin-group">
-                <input type="password" id="adminPassword" placeholder="أدخل كود الأدمن السري">
-            </div>
+            <div class="admin-group"><input type="password" id="adminPassword" placeholder="أدخل كود الأدمن السري"></div>
             <button class="admin-btn" onclick="checkAdmin()">تسجيل الدخول</button>
             <p id="adminError" style="color:red; display:none; margin-top:10px; text-align:center;">الكود خاطئ!</p>
         </div>
         
         <div class="admin-content" id="dashboardStep" style="display: none;">
-            <h2>إعدادات النظام المركزية</h2>
-            
-            <div class="admin-group">
-                <label>لون الموقع (Theme):</label>
-                <input type="color" id="setThemeColor" value="#d4af37">
-            </div>
-
-            <div class="admin-group">
-                <label>شريط الإشعارات (اتركه فارغاً لإخفائه):</label>
-                <input type="text" id="setAnnouncement" placeholder="مثال: تم تحديث الهاك لآخر إصدار!">
-            </div>
-
-            <div class="admin-group">
-                <label>نسبة أمان الهاك (%):</label>
-                <input type="number" id="setHackPercent" placeholder="مثال: 100">
-            </div>
-            
-            <div class="admin-group">
-                <label>عدد المشتركين الوهمي:</label>
-                <input type="number" id="setUsersCount" placeholder="مثال: 150">
-            </div>
-
-            <div class="admin-group">
-                <label>توكن البوت (Bot Token):</label>
-                <input type="text" id="setBotToken" placeholder="أدخل التوكن هنا">
-            </div>
-
-            <div class="admin-group">
-                <label>ايدي الحساب (Chat ID):</label>
-                <input type="text" id="setChatId" placeholder="أدخل الايدي هنا">
-            </div>
-
+            <h2>إعدادات النظام (Firebase)</h2>
+            <div class="admin-group"><label>لون الموقع (Theme):</label><input type="color" id="setThemeColor"></div>
+            <div class="admin-group"><label>شريط الإشعارات (اتركه فارغاً لإخفائه):</label><input type="text" id="setAnnouncement"></div>
+            <div class="admin-group"><label>نسبة أمان الهاك (%):</label><input type="number" id="setHackPercent"></div>
+            <div class="admin-group"><label>عدد المشتركين:</label><input type="number" id="setUsersCount"></div>
+            <div class="admin-group"><label>توكن البوت (Bot Token):</label><input type="text" id="setBotToken"></div>
+            <div class="admin-group"><label>ايدي الحساب (Chat ID):</label><input type="text" id="setChatId"></div>
             <div class="admin-group" style="display: flex; align-items: center; background: #222; padding: 10px; border-radius: 5px;">
-                <label style="margin: 0; color: #ffaa00; font-weight: bold; cursor: pointer;">تفعيل وضع الصيانة (إغلاق الحجز)</label>
+                <label style="margin: 0; color: #ffaa00; font-weight: bold; cursor: pointer;">تفعيل وضع الصيانة</label>
                 <input type="checkbox" id="setMaintenance">
             </div>
-            
             <hr style="border-color: #333; margin: 20px 0;">
-
-            <button class="admin-btn" onclick="saveSettings()">💾 حفظ جميع التعديلات</button>
-            <button class="admin-btn reset-btn" onclick="resetCooldown()">🔄 تصفير حظر الـ 24 ساعة للزبائن</button>
+            <button class="admin-btn" onclick="saveSettings()">💾 حفظ ونشر التعديلات للكل</button>
+            <button class="admin-btn reset-btn" onclick="resetCooldown()">🔄 تصفير حظر الـ 24 ساعة</button>
             <button class="admin-btn close-btn" onclick="closeAdmin()">❌ إغلاق اللوحة</button>
         </div>
     </div>
 
+    <!-- مكاتب Firebase (الإصدار 8 المتوافق مع المتصفح) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <script>
+        // إعدادات Firebase الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyDhp-hVKq-Sb6i4dLtthcvDg8Fsvya9Vv8",
+            authDomain: "ahmed-vip-portal.firebaseapp.com",
+            databaseURL: "https://ahmed-vip-portal-default-rtdb.firebaseio.com",
+            projectId: "ahmed-vip-portal",
+            storageBucket: "ahmed-vip-portal.firebasestorage.app",
+            messagingSenderId: "737002492478",
+            appId: "1:737002492478:web:0273e9d2cd483ae5a8376f",
+            measurementId: "G-WN973QJR0Z"
+        };
+
+        // تهيئة الفايربيس
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        
+        let botTokenGlobal = "";
+        let chatIdGlobal = "";
+
         // إزالة شاشة التحميل
         window.addEventListener('load', function() {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
             }, 2000);
-            
-            // تحميل كافة الإعدادات
-            loadSettings();
-            animateCounter();
+            listenToSettings(); 
         });
 
-        // --- الأسئلة الشائعة ---
+        // الأسئلة الشائعة
         document.querySelectorAll('.faq-question').forEach(button => {
             button.addEventListener('click', () => {
                 const answer = button.nextElementSibling;
@@ -380,15 +240,12 @@
             });
         });
 
-        // --- نظام لوحة الأدمن ---
         const ADMIN_CODE = "Drive_Admin_2026!#";
-
         function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
         
         function checkAdmin() {
-            const pass = document.getElementById('adminPassword').value;
-            if (pass === ADMIN_CODE) {
+            if (document.getElementById('adminPassword').value === ADMIN_CODE) {
                 document.getElementById('loginStep').style.display = 'none';
                 document.getElementById('dashboardStep').style.display = 'block';
             } else {
@@ -396,92 +253,83 @@
             }
         }
 
+        // حفظ الإعدادات في Firebase
         function saveSettings() {
-            localStorage.setItem('themeColor', document.getElementById('setThemeColor').value);
-            localStorage.setItem('announcementText', document.getElementById('setAnnouncement').value);
-            localStorage.setItem('hackPercent', document.getElementById('setHackPercent').value);
-            localStorage.setItem('usersCount', document.getElementById('setUsersCount').value);
-            localStorage.setItem('botToken', document.getElementById('setBotToken').value);
-            localStorage.setItem('chatId', document.getElementById('setChatId').value);
-            localStorage.setItem('isMaintenance', document.getElementById('setMaintenance').checked);
-            
-            alert('تم حفظ الإعدادات بنجاح! سيتم تحديث الموقع.');
-            location.reload();
+            const settings = {
+                themeColor: document.getElementById('setThemeColor').value,
+                announcementText: document.getElementById('setAnnouncement').value,
+                hackPercent: document.getElementById('setHackPercent').value,
+                usersCount: document.getElementById('setUsersCount').value,
+                botToken: document.getElementById('setBotToken').value,
+                chatId: document.getElementById('setChatId').value,
+                isMaintenance: document.getElementById('setMaintenance').checked
+            };
+
+            db.ref('site_settings').set(settings).then(() => {
+                alert('✅ تم حفظ الإعدادات بنجاح في قاعدة البيانات!');
+                closeAdmin();
+            }).catch(error => {
+                alert('❌ حدث خطأ أثناء الحفظ: ' + error);
+            });
         }
 
-        function loadSettings() {
-            // 1. اللون
-            const themeColor = localStorage.getItem('themeColor') || '#d4af37';
-            document.documentElement.style.setProperty('--primary-color', themeColor);
-            document.getElementById('setThemeColor').value = themeColor;
+        // الاستماع المستمر لتعديلات Firebase (تحديث حي للزوار)
+        function listenToSettings() {
+            db.ref('site_settings').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    // الألوان
+                    document.documentElement.style.setProperty('--primary-color', data.themeColor || '#d4af37');
+                    document.getElementById('setThemeColor').value = data.themeColor || '#d4af37';
 
-            // 2. شريط الإشعارات
-            const announcement = localStorage.getItem('announcementText') || '';
-            const bar = document.getElementById('announcementBar');
-            if (announcement.trim() !== '') {
-                bar.style.display = 'block';
-                bar.innerHTML = `<marquee scrollamount="5">${announcement}</marquee>`;
-            }
-            document.getElementById('setAnnouncement').value = announcement;
+                    // الإشعار
+                    const bar = document.getElementById('announcementBar');
+                    if (data.announcementText && data.announcementText.trim() !== '') {
+                        bar.style.display = 'block';
+                        bar.innerHTML = `<marquee scrollamount="5">${data.announcementText}</marquee>`;
+                    } else { bar.style.display = 'none'; }
+                    document.getElementById('setAnnouncement').value = data.announcementText || '';
 
-            // 3. نسبة الأمان
-            const percent = localStorage.getItem('hackPercent') || '80';
-            document.getElementById('uiProgressBar').style.width = percent + '%';
-            document.getElementById('uiStatusText').innerText = `آمن (${percent}%)`;
-            document.getElementById('setHackPercent').value = percent;
+                    // نسبة الأمان
+                    document.getElementById('uiProgressBar').style.width = (data.hackPercent || '80') + '%';
+                    document.getElementById('uiStatusText').innerText = `آمن (${data.hackPercent || '80'}%)`;
+                    document.getElementById('setHackPercent').value = data.hackPercent || '80';
 
-            // 4. عدد المشتركين
-            document.getElementById('setUsersCount').value = localStorage.getItem('usersCount') || '65';
+                    // العداد
+                    document.getElementById('usersCounter').innerText = (data.usersCount || '65') + '+';
+                    document.getElementById('setUsersCount').value = data.usersCount || '65';
 
-            // 5. إعدادات البوت
-            document.getElementById('setBotToken').value = localStorage.getItem('botToken') || '';
-            document.getElementById('setChatId').value = localStorage.getItem('chatId') || '';
+                    // البوت
+                    botTokenGlobal = data.botToken || "";
+                    chatIdGlobal = data.chatId || "";
+                    document.getElementById('setBotToken').value = botTokenGlobal;
+                    document.getElementById('setChatId').value = chatIdGlobal;
 
-            // 6. وضع الصيانة
-            const isMaintenance = localStorage.getItem('isMaintenance') === 'true';
-            document.getElementById('setMaintenance').checked = isMaintenance;
-            if (isMaintenance) {
-                document.getElementById('orderForm').style.display = 'none';
-                document.getElementById('maintenanceMessage').style.display = 'block';
-            }
+                    // الصيانة
+                    document.getElementById('setMaintenance').checked = data.isMaintenance || false;
+                    if (data.isMaintenance) {
+                        document.getElementById('orderForm').style.display = 'none';
+                        document.getElementById('maintenanceMessage').style.display = 'block';
+                    } else {
+                        document.getElementById('orderForm').style.display = 'block';
+                        document.getElementById('maintenanceMessage').style.display = 'none';
+                    }
+                }
+            });
         }
 
         function resetCooldown() {
             localStorage.removeItem('lastOrderTime');
-            alert('تم تصفير حظر الوقت بنجاح! يمكن للزبائن الحجز الآن بدون انتظار 24 ساعة.');
+            alert('تم تصفير حظر الوقت بجهازك بنجاح!');
         }
 
-        // --- حركة العداد ---
-        function animateCounter() {
-            const target = parseInt(localStorage.getItem('usersCount') || '65');
-            const counterElement = document.getElementById('usersCounter');
-            let current = 0;
-            const increment = target / 50; 
-            
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    counterElement.innerText = Math.ceil(current) + '+';
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counterElement.innerText = target + '+';
-                }
-            };
-            updateCounter();
-        }
-
-        // --- نظام إرسال الطلبات ---
+        // إرسال الطلبات للتيليجرام
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // جلب التوكن والايدي من إعدادات الأدمن
-            const BOT_TOKEN = localStorage.getItem('botToken');
-            const CHAT_ID = localStorage.getItem('chatId');
             const statusMsg = document.getElementById('statusMessage');
 
-            if (!BOT_TOKEN || !CHAT_ID) {
-                statusMsg.style.display = 'block';
-                statusMsg.style.color = 'red';
+            if (!botTokenGlobal || !chatIdGlobal) {
+                statusMsg.style.display = 'block'; statusMsg.style.color = 'red';
                 statusMsg.innerText = '❌ النظام غير مرتبط بالبوت! يرجى إعداد البوت من لوحة الأدمن.';
                 return;
             }
@@ -489,65 +337,45 @@
             const name = document.getElementById('userName').value.trim();
             const tgUser = document.getElementById('tgUsername').value.trim();
             const pack = document.getElementById('packageType').value;
-
-            // الحماية من التكرار
             const lastOrderTime = localStorage.getItem('lastOrderTime');
             const currentTime = new Date().getTime();
-            const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000; 
 
-            if (lastOrderTime && (currentTime - lastOrderTime < ONE_DAY_IN_MS)) {
-                statusMsg.style.display = 'block';
-                statusMsg.style.color = '#ffaa00';
+            if (lastOrderTime && (currentTime - lastOrderTime < 24 * 60 * 60 * 1000)) {
+                statusMsg.style.display = 'block'; statusMsg.style.color = '#ffaa00';
                 statusMsg.innerText = `⚠️ لقد قمت بحجز كود بالفعل! انتظر مرور 24 ساعة.`;
                 return; 
             }
 
-            // فحص يوزر التيليجرام
             const tgRegex = /^@[a-zA-Z0-9_]{5,32}$/;
             if (!tgRegex.test(tgUser)) {
-                statusMsg.style.display = 'block';
-                statusMsg.style.color = '#ffaa00';
+                statusMsg.style.display = 'block'; statusMsg.style.color = '#ffaa00';
                 statusMsg.innerText = '⚠️ يوزر التيليجرام غير صحيح! تأكد أنه يبدأ بـ @';
                 return; 
             }
 
-            statusMsg.style.display = 'block';
-            statusMsg.style.color = 'white';
+            statusMsg.style.display = 'block'; statusMsg.style.color = 'white';
             statusMsg.innerText = '⏳ جاري إرسال طلب الحجز...';
 
-            const textMessage = `
-🎁 طلب حجز مجاني جديد 🎁
-==================
-👤 الاسم: ${name}
-🔗 يوزر التيليجرام: ${tgUser}
-📦 مدة الحجز: ${pack}
-==================
-المرسل عبر موقع: حمادة (Drive VIP)
-            `;
-
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const textMessage = `🎁 طلب حجز مجاني جديد 🎁\n==================\n👤 الاسم: ${name}\n🔗 يوزر التيليجرام: ${tgUser}\n📦 مدة الحجز: ${pack}\n==================\nالمرسل عبر موقع: حمادة (Drive VIP)`;
+            const url = `https://api.telegram.org/bot${botTokenGlobal}/sendMessage`;
+            
             fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: textMessage })
-            })
-            .then(response => response.json())
-            .then(data => {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatIdGlobal, text: textMessage })
+            }).then(response => response.json()).then(data => {
                 if(data.ok) {
                     statusMsg.style.color = 'var(--primary-color)';
                     statusMsg.innerText = '✅ تم إرسال طلب الحجز بنجاح! تواصل معنا للاستلام.';
                     localStorage.setItem('lastOrderTime', currentTime);
                     document.getElementById('orderForm').reset();
                 } else {
-                    statusMsg.style.color = 'red';
-                    statusMsg.innerText = '❌ حدث خطأ! قد يكون التوكن أو الايدي غير صحيح.';
+                    statusMsg.style.color = 'red'; statusMsg.innerText = '❌ حدث خطأ! قد يكون التوكن أو الايدي غير صحيح.';
                 }
-            })
-            .catch(() => {
-                statusMsg.style.color = 'red';
-                statusMsg.innerText = '❌ تعذر الاتصال بخادم تيليجرام.';
+            }).catch(() => {
+                statusMsg.style.color = 'red'; statusMsg.innerText = '❌ تعذر الاتصال بخادم تيليجرام.';
             });
         });
     </script>
 </body>
 </html>
+
