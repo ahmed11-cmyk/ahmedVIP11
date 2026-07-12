@@ -598,7 +598,7 @@
                 const notif = document.getElementById('fakeNotification');
                 const randomName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
                 const randomType = fakeTypes[Math.floor(Math.random() * fakeTypes.length)];
-                document.getElementById('fakeNotifText').innerText = `قام ${randomName} بحجز ${randomType} للتو!`;
+                document.getElementById('fakeNotifText').innerText = ` ${randomName}  ${randomType} `;
                 notif.style.display = 'block'; notif.style.animation = 'slideInNotif 0.5s forwards';
                 setTimeout(() => { notif.style.animation = 'slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display = 'none', 500); }, 4000);
             }, 12000);
