@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>متجر الأكواد المجانية | Drive VIP</title>
+    <!-- مكتبة Chart.js للرسوم البيانية -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary-color: #d4af37; 
@@ -23,7 +25,7 @@
         /* شريط الإشعارات */
         #announcementBar { background-color: var(--primary-color); color: #000; padding: 10px; font-weight: bold; font-size: 1.1rem; display: none; text-align: center; }
 
-        /* النافذة المنبثقة (الإنذار) */
+        /* النافذة المنبثقة */
         #globalPopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999999; justify-content: center; align-items: center; padding: 20px; }
         .popup-box { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 2px solid #ff4444; text-align: center; max-width: 400px; box-shadow: 0 0 30px rgba(255, 68, 68, 0.4); }
         .popup-box h2 { color: #ff4444; margin-bottom: 15px; }
@@ -31,13 +33,14 @@
 
         /* شاشة التحميل */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.6s ease; }
-        #loader img { width: 180px; border-radius: 50%; box-shadow: 0 0 30px rgba(0,0,0,0.8); animation: pulse 1.5s infinite alternate; }
+        #loader img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; box-shadow: 0 0 30px rgba(0,0,0,0.8); animation: pulse 1.5s infinite alternate; }
         #loader h2 { margin-top: 20px; color: var(--text-color); letter-spacing: 2px; font-size: 1.2rem; animation: fadeInOut 1.5s infinite alternate; }
 
         @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.05); } }
         @keyframes fadeInOut { from { opacity: 0.5; } to { opacity: 1; } }
 
         header { text-align: center; padding: 40px 20px 20px; border-bottom: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); }
+        header img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--primary-color); }
         header h1 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; }
         header a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
         header a:hover { color: var(--primary-color); }
@@ -52,7 +55,6 @@
         .card:hover { transform: translateY(-10px); border-color: var(--primary-color); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-color); }
 
-        /* قسم الأكواد المباشرة والنسخ السريع */
         .live-codes-box { max-width: 600px; margin: 20px auto; background: var(--card-bg); padding: 20px; border-radius: 10px; border: 1px solid #333; }
         .live-codes-box h2 { text-align: center; color: var(--primary-color); margin-bottom: 15px; }
         .code-item { background: #111; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid var(--primary-color); }
@@ -61,29 +63,25 @@
         .code-type { color: #aaa; font-size: 0.85rem; margin-top: 2px; }
         .copy-btn { background: var(--primary-color); border: none; color: black; font-weight: bold; padding: 6px 12px; border-radius: 5px; cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
         .copy-btn:hover { background: white; }
+        #searchCodeInput { width: 100%; padding: 12px; margin-bottom: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s; }
+        #searchCodeInput:focus { border-color: var(--primary-color); }
 
-        /* قسم الأسئلة */
-        .faq-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .faq-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
+        .faq-section, .testimonials-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .faq-section h2, .testimonials-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
         .faq-item { background: var(--card-bg); border: 1px solid #333; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
         .faq-question { width: 100%; background: none; border: none; color: white; padding: 15px; text-align: right; font-size: 1.1rem; cursor: pointer; font-weight: bold; outline: none; transition: 0.3s; }
         .faq-answer { padding: 0 15px 15px; color: #aaa; display: none; line-height: 1.6; }
-
-        /* قسم الآراء والتقييمات */
-        .testimonials-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .testimonials-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
-        .testi-card { background: var(--card-bg); border: 1px dashed #444; border-radius: 10px; padding: 15px; margin-bottom: 10px; position: relative; }
-        .testi-name { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; font-size: 1rem; }
+        .testi-card { background: var(--card-bg); border: 1px dashed #444; border-radius: 10px; padding: 15px; margin-bottom: 10px; }
+        .testi-name { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; }
         .testi-text { color: #ccc; font-size: 0.95rem; line-height: 1.5; }
 
-        /* قسم الطلبات */
         .order-section { background-color: var(--card-bg); max-width: 600px; margin: 20px auto 60px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
         .order-section h2 { text-align: center; margin-bottom: 30px; color: var(--primary-color); }
         #maintenanceMessage { text-align: center; color: #ffaa00; font-size: 1.2rem; display: none; padding: 20px; border: 1px dashed #ffaa00; border-radius: 10px; }
         
         .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group select { width: 100%; padding: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--primary-color); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary-color); }
         button.submit-btn { width: 100%; padding: 15px; background-color: var(--primary-color); color: #000; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
         #statusMessage { text-align: center; margin-top: 15px; font-weight: bold; display: none; line-height: 1.5; }
 
@@ -94,36 +92,41 @@
 
         /* لوحة الأدمن المتقدمة */
         #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; justify-content: center; align-items: flex-start; overflow-y: auto; padding: 20px; }
-        .admin-content { background: #111; border: 2px solid var(--primary-color); padding: 20px; border-radius: 15px; width: 100%; max-width: 600px; margin: 40px auto; }
+        .admin-content { background: #111; border: 2px solid var(--primary-color); padding: 20px; border-radius: 15px; width: 100%; max-width: 700px; margin: 40px auto; }
         .admin-tabs { display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; border-bottom: 1px solid #333; }
-        .admin-tab { padding: 10px 15px; background: #222; color: white; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap; }
+        .admin-tab { padding: 10px 15px; background: #222; color: white; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap; transition: 0.2s; }
+        .admin-tab:hover { background: #333; }
         .admin-tab.active { background: var(--primary-color); color: #000; font-weight: bold; }
-        .admin-panel { display: none; }
+        .admin-panel { display: none; animation: fadeInPanel 0.4s; }
         .admin-panel.active { display: block; }
+        @keyframes fadeInPanel { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         
         .admin-group { margin-bottom: 15px; }
-        .admin-group label { color: white; display: block; margin-bottom: 5px; font-size: 0.9rem; }
-        .admin-group input[type="text"], .admin-group input[type="number"], .admin-group input[type="password"] { width: 100%; padding: 10px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; }
+        .admin-group label { color: white; display: block; margin-bottom: 5px; font-size: 0.95rem; font-weight: bold; }
+        .admin-group input[type="text"], .admin-group input[type="number"], .admin-group input[type="password"], .admin-group textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; }
         .admin-group input[type="color"] { width: 100%; height: 40px; background: none; border: none; cursor: pointer; }
         .admin-group input[type="checkbox"] { transform: scale(1.5); margin-left: 10px; }
-        .admin-btn { padding: 12px; background: var(--primary-color); color: #000; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; width: 100%; margin-bottom: 10px; }
+        .admin-btn { padding: 12px; background: var(--primary-color); color: #000; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; width: 100%; margin-bottom: 10px; transition: 0.2s; }
+        .admin-btn:hover { filter: brightness(1.1); }
         
         .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
-        .data-table th, .data-table td { border: 1px solid #444; padding: 8px; text-align: center; color: white; }
+        .data-table th, .data-table td { border: 1px solid #444; padding: 10px; text-align: center; color: white; }
         .data-table th { background: #222; color: var(--primary-color); }
-        .action-btn { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+        .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; }
 
-        /* الزر العائم */
         .float-btn { position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.8); z-index: 1000; transition: 0.3s; text-decoration: none; }
         .float-btn:hover { transform: scale(1.1); }
-        .drive-logo-img { width: 100%; height: 100%; border-radius: 50%; }
+        .drive-logo-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        #fakeNotification { display:none; position:fixed; bottom:20px; right:20px; background:var(--card-bg); border-right:4px solid var(--primary-color); padding:15px; border-radius:8px; box-shadow:0 0 15px rgba(0,0,0,0.8); z-index:9999; color:white; font-size:0.9rem; }
+        @keyframes slideInNotif { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutNotif { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 
     </style>
 </head>
 <body>
 
     <div id="banWaveAlert">🚨 تحذير: موجة باند حادة حالياً! يرجى إيقاف اللعب بالحسابات الأساسية! 🚨</div>
-    
     <div id="announcementBar"></div>
 
     <div id="globalPopup">
@@ -135,12 +138,13 @@
     </div>
 
     <div id="loader">
-        <img src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
+        <img id="loaderLogo" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
         <h2>SYSTEM ONLINE...</h2>
     </div>
 
     <header>
-        <h1>DRIVE VIP | الأكواد المجانية</h1>
+        <img id="headerLogo" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Logo">
+        <h1 id="siteTitle">DRIVE VIP | الأكواد المجانية</h1>
         <p>التواصل عبر تيليجرام: <a id="mainTgLink" href="https://t.me/l_2qu" target="_blank">@l_2qu</a></p>
     </header>
 
@@ -154,11 +158,11 @@
 
     <div id="liveCodesSection" class="live-codes-box" style="display:none;">
         <h2>🎁 أكواد متاحة الآن</h2>
+        <input type="text" id="searchCodeInput" onkeyup="searchCodes()" placeholder="🔍 ابحث عن كود أو نوع...">
         <div id="codesContainer"></div>
     </div>
 
-    <div id="packagesSection" class="packages-container">
-        </div>
+    <div id="packagesSection" class="packages-container"></div>
 
     <div class="order-section">
         <h2>احجز كودك الآن مجاناً</h2>
@@ -171,7 +175,7 @@
                     <option value="" disabled selected>اختر الباقة...</option>
                 </select>
             </div>
-            <button type="submit" class="submit-btn">إرسال طلب الحجز</button>
+            <button type="submit" class="submit-btn" id="submitBtn">إرسال طلب الحجز</button>
             <p id="statusMessage"></p>
         </form>
     </div>
@@ -187,13 +191,14 @@
     </div>
 
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 | تطوير <span class="rights">Drive VIP</span> <span class="admin-trigger" onclick="openAdmin()">🔒</span></p>
+        <p>جميع الحقوق محفوظة &copy; 2026 | تطوير <span class="rights">حمدمد</span> <span class="admin-trigger" onclick="openAdmin()">🔒</span></p>
     </footer>
 
     <a id="floatTgLink" href="https://t.me/l_2qu" class="float-btn" target="_blank">
-        <img class="drive-logo-img" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
+        <img id="floatLogo" class="drive-logo-img" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
     </a>
 
+    <!-- لوحة الأدمن الاحترافية -->
     <div id="adminModal">
         <div class="admin-content" id="loginStep">
             <h2 style="color:var(--primary-color); text-align:center; margin-bottom:20px;">دخول الأدمن</h2>
@@ -204,37 +209,72 @@
         </div>
         
         <div class="admin-content" id="dashboardStep" style="display: none;">
-            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px;">لوحة الإدارة (Drive VIP)</h2>
-            <p style="text-align:center; color:#aaa; margin-bottom:15px;">👀 إجمالي زيارات الموقع: <strong id="adminVisits" style="color:var(--primary-color);">0</strong></p>
+            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px;">لوحة الإدارة الشاملة</h2>
+            <p style="text-align:center; color:#aaa; margin-bottom:15px;">👀 إجمالي الزيارات: <strong id="adminVisits" style="color:var(--primary-color);">0</strong> | 📦 إجمالي الطلبات: <strong id="adminOrdersCount" style="color:var(--primary-color);">0</strong></p>
             
             <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchTab('tabGeneral')">عام</button>
-                <button class="admin-tab" onclick="switchTab('tabPackages')">الأقسام والأسئلة والآراء</button>
-                <button class="admin-tab" onclick="switchTab('tabCodes')">الأكواد</button>
+                <button class="admin-tab active" onclick="switchTab('tabGeneral')">إعدادات</button>
+                <button class="admin-tab" onclick="switchTab('tabUI')">الواجهة</button>
                 <button class="admin-tab" onclick="switchTab('tabOrders')">الطلبات</button>
+                <button class="admin-tab" onclick="switchTab('tabCodes')">الأكواد</button>
+                <button class="admin-tab" onclick="switchTab('tabPackages')">الأقسام</button>
+                <button class="admin-tab" onclick="switchTab('tabBlacklist')">حظر (الباند)</button>
+                <button class="admin-tab" onclick="switchTab('tabBroadcast')">بث تيليجرام</button>
             </div>
 
+            <!-- إعدادات عامة -->
             <div id="tabGeneral" class="admin-panel active">
                 <div class="admin-group" style="background:#330000; border:1px solid red; padding:10px; border-radius:8px;">
                     <label style="color:#ff4444; font-weight:bold; font-size:1.1rem; display:flex; align-items:center; gap:10px;">
                         <input type="checkbox" id="setBanWave"> 🚨 تفعيل موجة الباند (طوارئ)
                     </label>
                 </div>
-                <div class="admin-group"><label>رمز الأدمن السري الجديد:</label><input type="text" id="setAdminPassword" placeholder="تغيير رمز دخول لوحة الأدمن"></div>
+                <div class="admin-group"><label>رمز الأدمن السري:</label><input type="text" id="setAdminPassword" placeholder="تغيير رمز دخول لوحة الأدمن"></div>
                 <div class="admin-group"><label>نسبة أمان الهاك (%):</label><input type="number" id="setHackPercent"></div>
-                <div class="admin-group"><label>لون الثيم:</label><input type="color" id="setThemeColor"></div>
-                <div class="admin-group"><label>شريط الإشعار العلوي:</label><input type="text" id="setAnnouncement"></div>
-                <div class="admin-group"><label>نص النافذة المنبثقة (الإنذار):</label><input type="text" id="setPopupText"></div>
-                <div class="admin-group"><label><input type="checkbox" id="setShowPopup"> تفعيل الإنذار المنبثق للكل</label></div>
-                <hr style="border-color: #333; margin: 15px 0;">
                 <div class="admin-group"><label>توكن بوت التيليجرام:</label><input type="text" id="setBotToken"></div>
                 <div class="admin-group"><label>ايدي حسابك (Chat ID):</label><input type="text" id="setChatId"></div>
                 <div class="admin-group"><label>رابط قناة التيليجرام:</label><input type="text" id="setTgLink"></div>
                 <div class="admin-group"><label><input type="checkbox" id="setMaintenance"> قفل الحجز (وضع الصيانة)</label></div>
-                <div class="admin-group"><label><input type="checkbox" id="setShowLiveCodes"> إظهار قسم الأكواد الجاهزة</label></div>
-                <button class="admin-btn" onclick="saveSettings()">💾 حفظ إعدادات القسم العام</button>
+                <button class="admin-btn" style="background:#00C851; margin-top:10px;" onclick="backupDatabase()">📥 تحميل نسخة احتياطية للقاعدة (JSON)</button>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ الإعدادات</button>
             </div>
 
+            <!-- إعدادات الواجهة -->
+            <div id="tabUI" class="admin-panel">
+                <div class="admin-group"><label>لون الثيم الأساسي:</label><input type="color" id="setThemeColor"></div>
+                <div class="admin-group"><label>رابط شعار الموقع (صورة Logo):</label><input type="text" id="setLogoUrl" placeholder="رابط صورة مباشر أو اتركه فارغاً للافتراضي"></div>
+                <div class="admin-group"><label>عنوان الموقع الرئيسي:</label><input type="text" id="setSiteTitle" placeholder="DRIVE VIP | الأكواد المجانية"></div>
+                <div class="admin-group"><label>شريط الإشعار العلوي (متحرك):</label><input type="text" id="setAnnouncement"></div>
+                <div class="admin-group"><label>نص النافذة المنبثقة (الإنذار):</label><textarea id="setPopupText" rows="3"></textarea></div>
+                <div class="admin-group"><label><input type="checkbox" id="setShowPopup"> تفعيل الإنذار المنبثق للكل</label></div>
+                <div class="admin-group"><label><input type="checkbox" id="setShowLiveCodes"> إظهار قسم الأكواد الجاهزة</label></div>
+                <div class="admin-group"><label><input type="checkbox" id="setFakeNotif"> تشغيل إشعارات المشتريات الوهمية للموقع</label></div>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ إعدادات الواجهة</button>
+            </div>
+
+            <!-- الطلبات والإحصائيات -->
+            <div id="tabOrders" class="admin-panel">
+                <div style="background:#222; padding:15px; border-radius:10px; margin-bottom:15px; height:250px;">
+                    <canvas id="ordersChart"></canvas>
+                </div>
+                <button class="admin-btn" style="background:#17a2b8; color:white;" onclick="exportOrdersCSV()">📊 تصدير الطلبات إلى ملف Excel (CSV)</button>
+                <table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>الجهاز</th><th>إجراء</th></tr></thead><tbody id="adminOrdersList"></tbody></table>
+            </div>
+
+            <!-- الأكواد -->
+            <div id="tabCodes" class="admin-panel">
+                <div class="admin-group" style="display:flex; gap:5px; margin-bottom:5px;">
+                    <input type="text" id="newCodeVal" placeholder="الكود السري" style="flex:2;">
+                    <button class="admin-btn" style="width:auto; margin:0; background:#444; color:white;" onclick="autoGenCode()">🎲 توليد</button>
+                </div>
+                <div class="admin-group" style="display:flex; gap:5px;">
+                    <input type="text" id="newCodeType" placeholder="النوع (مثال: يومي)" style="flex:2;">
+                    <button class="admin-btn" style="width:auto; margin:0;" onclick="addNewCode()">إضافة</button>
+                </div>
+                <table class="data-table"><thead><tr><th>الكود</th><th>النوع</th><th>حذف</th></tr></thead><tbody id="adminCodesList"></tbody></table>
+            </div>
+
+            <!-- الأقسام والأسئلة -->
             <div id="tabPackages" class="admin-panel">
                 <h3 style="color:var(--primary-color);">إضافة باقة/قسم جديد</h3>
                 <div class="admin-group"><input type="text" id="newPackTitle" placeholder="اسم الباقة (مثال: حجز سنوي)"></div>
@@ -251,31 +291,43 @@
 
                 <hr style="border-color: #333; margin: 15px 0;">
                 <h3 style="color:var(--primary-color);">إضافة مراجعة/رأي مشترك</h3>
-                <div class="admin-group"><input type="text" id="newTestiName" placeholder="اسم المشترك (مثال: أحمد العراقي)"></div>
-                <div class="admin-group"><input type="text" id="newTestiText" placeholder="الرأي (مثال: الهاك أسطوري وبدون باند!)"></div>
-                <button class="admin-btn" onclick="addTestimonial()">➕ إضافة الرأي للموقع</button>
+                <div class="admin-group"><input type="text" id="newTestiName" placeholder="اسم المشترك"></div>
+                <div class="admin-group"><input type="text" id="newTestiText" placeholder="الرأي..."></div>
+                <button class="admin-btn" onclick="addTestimonial()">➕ إضافة الرأي</button>
                 <table class="data-table"><thead><tr><th>الاسم</th><th>حذف</th></tr></thead><tbody id="adminTestiList"></tbody></table>
             </div>
 
-            <div id="tabCodes" class="admin-panel">
-                <div class="admin-group" style="display:flex; gap:5px; margin-bottom:5px;">
-                    <input type="text" id="newCodeVal" placeholder="الكود السري" style="flex:2;">
-                    <button class="admin-btn" style="width:auto; margin:0; background:#444; color:white;" onclick="autoGenCode()">🎲 توليد</button>
-                </div>
+            <!-- نظام القائمة السوداء (Blacklist) -->
+            <div id="tabBlacklist" class="admin-panel">
+                <h3 style="color:#ff4444; margin-bottom:15px;">🚫 حظر المستخدمين من الطلب</h3>
                 <div class="admin-group" style="display:flex; gap:5px;">
-                    <input type="text" id="newCodeType" placeholder="النوع (مثال: يومي)" style="flex:2;">
-                    <button class="admin-btn" style="width:auto; margin:0;" onclick="addNewCode()">إضافة</button>
+                    <input type="text" id="newBannedUser" placeholder="يوزر التيليجرام للحظر (مثال: @baduser)" style="flex:2;">
+                    <button class="admin-btn" style="width:auto; margin:0; background:#ff4444; color:white;" onclick="addBlacklist()">حظر</button>
                 </div>
-                <table class="data-table"><thead><tr><th>الكود</th><th>النوع</th><th>حذف</th></tr></thead><tbody id="adminCodesList"></tbody></table>
+                <table class="data-table"><thead><tr><th>اليوزر المحظور</th><th>فك الحظر</th></tr></thead><tbody id="adminBlacklist"></tbody></table>
             </div>
 
-            <div id="tabOrders" class="admin-panel">
-                <table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>الجهاز</th><th>إجراء</th></tr></thead><tbody id="adminOrdersList"></tbody></table>
+            <!-- البث المباشر (Broadcast) -->
+            <div id="tabBroadcast" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px;">🚀 إرسال رسالة لقناة/مجموعة التيليجرام</h3>
+                <div class="admin-group">
+                    <label>معرف القناة أو القروب (أو اتركه لإرسالها لحسابك الخاص):</label>
+                    <input type="text" id="broadcastChannel" placeholder="@YourChannel أو -100xxxxxxxx">
+                </div>
+                <div class="admin-group">
+                    <label>نص الرسالة:</label>
+                    <textarea id="broadcastMessage" rows="5" placeholder="أهلاً بكم، تم توفير أكواد جديدة الآن..."></textarea>
+                </div>
+                <button class="admin-btn" style="background:#00C851; color:black;" onclick="sendBroadcast()">🚀 إرسال البث الآن</button>
             </div>
 
             <hr style="border-color: #333; margin: 20px 0;">
             <button class="admin-btn" style="background:#ff4444; color:white;" onclick="closeAdmin()">❌ إغلاق اللوحة</button>
         </div>
+    </div>
+
+    <div id="fakeNotification">
+        <span style="color:var(--primary-color);">🛒 حجز جديد:</span> <span id="fakeNotifText"></span>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -295,8 +347,10 @@
         const db = firebase.database();
         
         let botTokenGlobal = ""; let chatIdGlobal = ""; let currentAdminPassword = "BRIJ1PY4YYGX"; 
+        let blacklistedUsers = []; let ordersChartInstance = null; let fakeNotifInterval = null;
 
-        // نظام المؤثرات الصوتية الاصطناعية
+        const defaultLogo = "data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>";
+
         function playSound(type) {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -318,53 +372,41 @@
             } catch(e) {}
         }
 
-        // سحب نوع جهاز المستخدم تلقائياً
         function getDeviceInfo() {
             const ua = navigator.userAgent;
-            if (/iphone|ipad|ipod/i.test(ua)) return "iPhone / iPad";
+            if (/iphone|ipad|ipod/i.test(ua)) return "iPhone/iPad";
             if (/android/i.test(ua)) return "Android";
-            if (/windows/i.test(ua)) return "Windows PC";
-            if (/macintosh/i.test(ua)) return "Mac PC";
-            if (/linux/i.test(ua)) return "Linux PC";
+            if (/windows/i.test(ua)) return "Windows";
+            if (/macintosh/i.test(ua)) return "Mac";
+            if (/linux/i.test(ua)) return "Linux";
             return "جهاز مجهول";
         }
 
-        // نظام فحص قفل السبام (24 ساعة)
         function checkCooldown() {
             const lastOrder = localStorage.getItem('drivevip_last_order');
-            const submitBtn = document.querySelector('.submit-btn');
+            const submitBtn = document.getElementById('submitBtn');
             const statusMsg = document.getElementById('statusMessage');
             
             if (lastOrder) {
-                const now = new Date().getTime();
-                const diff = now - parseInt(lastOrder);
-                const cooldownTime = 24 * 60 * 60 * 1000; // 24 ساعة بالملي ثانية
-                
+                const now = new Date().getTime(); const diff = now - parseInt(lastOrder);
+                const cooldownTime = 24 * 60 * 60 * 1000;
                 if (diff < cooldownTime) {
                     const remaining = cooldownTime - diff;
                     const hours = Math.floor(remaining / (1000 * 60 * 60));
                     const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
-                    
-                    submitBtn.disabled = true;
-                    submitBtn.style.background = '#444';
-                    submitBtn.style.cursor = 'not-allowed';
-                    statusMsg.style.display = 'block';
-                    statusMsg.style.color = '#ffaa00';
-                    statusMsg.innerText = `⏳ لقد قمت بالطلب مسبقاً! يمكنك إرسال طلب آخر بعد: ${hours} ساعة و ${minutes} دقيقة و ${seconds} ثانية.`;
+                    submitBtn.disabled = true; submitBtn.style.background = '#444'; submitBtn.style.cursor = 'not-allowed';
+                    statusMsg.style.display = 'block'; statusMsg.style.color = '#ffaa00';
+                    statusMsg.innerText = `⏳ لقد طلبت مسبقاً! انتظر: ${hours} ساعة و ${minutes} دقيقة.`;
                     return true;
                 }
             }
-            submitBtn.disabled = false;
-            submitBtn.style.background = 'var(--primary-color)';
-            submitBtn.style.cursor = 'pointer';
+            submitBtn.disabled = false; submitBtn.style.background = 'var(--primary-color)'; submitBtn.style.cursor = 'pointer';
             return false;
         }
 
         window.addEventListener('load', function() {
             setTimeout(() => { document.getElementById('loader').style.opacity = '0'; setTimeout(() => document.getElementById('loader').style.display = 'none', 600); }, 1500);
             
-            // عداد الزيارات
             const visitRef = db.ref('stats/visits');
             if (!sessionStorage.getItem('visited_drivevip')) {
                 visitRef.transaction(current => (current || 0) + 1);
@@ -372,11 +414,11 @@
             }
             visitRef.on('value', snap => { document.getElementById('adminVisits').innerText = snap.val() || 0; });
 
-            listenToSettings(); listenToPackages(); listenToFAQs(); listenToLiveCodes(); listenToOrders(); listenToTestimonials();
-            setInterval(checkCooldown, 1000); // تحديث عداد السبام كل ثانية
+            listenToSettings(); listenToPackages(); listenToFAQs(); listenToLiveCodes(); listenToOrders(); listenToTestimonials(); listenToBlacklist();
+            setInterval(checkCooldown, 1000);
         });
 
-        // لوحة الإدارة
+        // دوال لوحة الأدمن
         function openAdmin() { document.getElementById('adminModal').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
         function checkAdmin() {
@@ -391,7 +433,7 @@
             event.target.classList.add('active'); document.getElementById(tabId).classList.add('active');
         }
 
-        // الإعدادات العامة
+        // إعدادات الموقع الشاملة
         function saveSettings() {
             const settings = {
                 adminPassword: document.getElementById('setAdminPassword').value.trim() || "BRIJ1PY4YYGX",
@@ -405,7 +447,10 @@
                 tgLink: document.getElementById('setTgLink').value,
                 showLiveCodes: document.getElementById('setShowLiveCodes').checked,
                 popupText: document.getElementById('setPopupText').value,
-                showPopup: document.getElementById('setShowPopup').checked
+                showPopup: document.getElementById('setShowPopup').checked,
+                logoUrl: document.getElementById('setLogoUrl').value.trim(),
+                siteTitle: document.getElementById('setSiteTitle').value.trim(),
+                fakeNotifications: document.getElementById('setFakeNotif').checked
             };
             db.ref('site_settings').set(settings).then(() => { playSound('success'); alert('✅ تم حفظ الإعدادات بنجاح!'); });
         }
@@ -420,37 +465,32 @@
                 document.documentElement.style.setProperty('--primary-color', data.themeColor || '#d4af37');
                 document.getElementById('setThemeColor').value = data.themeColor || '#d4af37';
                 
-                const hp = parseInt(data.hackPercent || '80');
-                const pBar = document.getElementById('uiProgressBar');
-                const sText = document.getElementById('uiStatusText');
-                pBar.style.width = hp + '%'; document.getElementById('setHackPercent').value = hp;
+                const logo = data.logoUrl || defaultLogo;
+                document.getElementById('headerLogo').src = logo; document.getElementById('loaderLogo').src = logo; document.getElementById('floatLogo').src = logo;
+                document.getElementById('setLogoUrl').value = data.logoUrl || '';
 
-                if (hp < 50) {
-                    sText.innerText = `خطر (${hp}%)`; sText.style.color = '#ff4444'; pBar.style.backgroundColor = '#ff4444'; pBar.style.boxShadow = '0 0 15px #ff4444';
-                } else {
-                    sText.innerText = `آمن (${hp}%)`; sText.style.color = '#00C851'; pBar.style.backgroundColor = '#00C851'; pBar.style.boxShadow = '0 0 15px #00C851';
-                }
+                const title = data.siteTitle || 'DRIVE VIP | الأكواد المجانية';
+                document.title = title; document.getElementById('siteTitle').innerText = title; document.getElementById('setSiteTitle').value = data.siteTitle || '';
+
+                const hp = parseInt(data.hackPercent || '80');
+                const pBar = document.getElementById('uiProgressBar'); const sText = document.getElementById('uiStatusText');
+                pBar.style.width = hp + '%'; document.getElementById('setHackPercent').value = hp;
+                if (hp < 50) { sText.innerText = `خطر (${hp}%)`; sText.style.color = '#ff4444'; pBar.style.backgroundColor = '#ff4444'; pBar.style.boxShadow = '0 0 15px #ff4444'; }
+                else { sText.innerText = `آمن (${hp}%)`; sText.style.color = '#00C851'; pBar.style.backgroundColor = '#00C851'; pBar.style.boxShadow = '0 0 15px #00C851'; }
 
                 document.getElementById('setBanWave').checked = data.banWaveMode || false;
                 if (data.banWaveMode) {
-                    document.body.classList.add('ban-wave-active');
-                    document.getElementById('banWaveAlert').style.display = 'block';
-                    document.getElementById('orderForm').style.display = 'none';
-                    document.getElementById('maintenanceMessage').style.display = 'block';
-                    document.getElementById('maintenanceMessage').innerText = '🚨 الطلبات مغلقة حالياً بسبب موجة الحظر العنيفة لحماية الحسابات!';
-                    document.getElementById('maintenanceMessage').style.color = 'red';
+                    document.body.classList.add('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'block';
+                    document.getElementById('orderForm').style.display = 'none'; document.getElementById('maintenanceMessage').style.display = 'block';
+                    document.getElementById('maintenanceMessage').innerText = '🚨 الطلبات مغلقة حالياً بسبب موجة الحظر العنيفة لحماية الحسابات!'; document.getElementById('maintenanceMessage').style.color = 'red';
                 } else {
-                    document.body.classList.remove('ban-wave-active');
-                    document.getElementById('banWaveAlert').style.display = 'none';
+                    document.body.classList.remove('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'none';
                     document.getElementById('setMaintenance').checked = data.isMaintenance || false;
                     if (data.isMaintenance) {
-                        document.getElementById('orderForm').style.display = 'none';
-                        document.getElementById('maintenanceMessage').style.display = 'block';
-                        document.getElementById('maintenanceMessage').innerText = '⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.';
-                        document.getElementById('maintenanceMessage').style.color = '#ffaa00';
+                        document.getElementById('orderForm').style.display = 'none'; document.getElementById('maintenanceMessage').style.display = 'block';
+                        document.getElementById('maintenanceMessage').innerText = '⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.'; document.getElementById('maintenanceMessage').style.color = '#ffaa00';
                     } else {
-                        if(!checkCooldown()) { document.getElementById('orderForm').style.display = 'block'; }
-                        document.getElementById('maintenanceMessage').style.display = 'none';
+                        if(!checkCooldown()) { document.getElementById('orderForm').style.display = 'block'; } document.getElementById('maintenanceMessage').style.display = 'none';
                     }
                 }
 
@@ -460,21 +500,113 @@
 
                 const popup = document.getElementById('globalPopup');
                 if(data.showPopup && data.popupText) { document.getElementById('popupText').innerText = data.popupText; popup.style.display = 'flex'; } else { popup.style.display = 'none'; }
-                document.getElementById('setPopupText').value = data.popupText || '';
-                document.getElementById('setShowPopup').checked = data.showPopup || false;
+                document.getElementById('setPopupText').value = data.popupText || ''; document.getElementById('setShowPopup').checked = data.showPopup || false;
 
                 const tgLink = data.tgLink || 'https://t.me/l_2qu';
                 document.getElementById('mainTgLink').href = tgLink; document.getElementById('floatTgLink').href = tgLink; document.getElementById('setTgLink').value = tgLink;
                 
-                document.getElementById('liveCodesSection').style.display = data.showLiveCodes === true ? 'block' : 'none';
-                document.getElementById('setShowLiveCodes').checked = data.showLiveCodes === true;
+                document.getElementById('liveCodesSection').style.display = data.showLiveCodes === true ? 'block' : 'none'; document.getElementById('setShowLiveCodes').checked = data.showLiveCodes === true;
 
                 botTokenGlobal = data.botToken || ""; chatIdGlobal = data.chatId || "";
                 document.getElementById('setBotToken').value = botTokenGlobal; document.getElementById('setChatId').value = chatIdGlobal;
+
+                // نظام الإشعارات الوهمية
+                document.getElementById('setFakeNotif').checked = data.fakeNotifications !== false; // مفعل افتراضياً
+                if(data.fakeNotifications !== false) { startFakeNotifications(); } else { stopFakeNotifications(); }
             });
         }
 
-        // إدارة الباقات
+        // --- الميزات الجديدة (VIP) ---
+
+        // 1. القائمة السوداء (Blacklist)
+        function addBlacklist() {
+            const user = document.getElementById('newBannedUser').value.trim();
+            if(user) { db.ref('blacklist').push(user.toLowerCase()); document.getElementById('newBannedUser').value=''; playSound('success'); }
+        }
+        function delBlacklist(k) { db.ref('blacklist/'+k).remove(); playSound('success'); }
+        function listenToBlacklist() {
+            db.ref('blacklist').on('value', snap => {
+                const aBox = document.getElementById('adminBlacklist'); aBox.innerHTML=''; blacklistedUsers = [];
+                snap.forEach(c => {
+                    const u = c.val(); blacklistedUsers.push(u);
+                    aBox.innerHTML += `<tr><td style="color:#ff4444; font-weight:bold;">${u}</td><td><button class="action-btn" style="background:#00C851;" onclick="delBlacklist('${c.key}')">فك الحظر</button></td></tr>`;
+                });
+            });
+        }
+
+        // 2. تصدير إلى Excel (CSV)
+        function exportOrdersCSV() {
+            db.ref('orders').once('value').then(snap => {
+                let csv = '\uFEFFالاسم,اليوزر,الباقة,الجهاز,تاريخ الطلب\n';
+                snap.forEach(c => {
+                    const d = c.val(); const date = new Date(d.time || Date.now()).toLocaleString('ar-EG');
+                    csv += `"${d.name}","${d.tgUser}","${d.package}","${d.device}","${date}"\n`;
+                });
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
+                link.download = 'DriveVIP_Orders_' + new Date().toLocaleDateString() + '.csv'; link.click();
+            });
+        }
+
+        // 3. نسخة احتياطية (Database Backup)
+        function backupDatabase() {
+            db.ref('/').once('value').then(snap => {
+                const data = JSON.stringify(snap.val(), null, 2);
+                const blob = new Blob([data], { type: 'application/json' });
+                const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
+                link.download = 'DriveVIP_Backup_' + new Date().getTime() + '.json'; link.click();
+            });
+        }
+
+        // 4. البث المباشر لتيليجرام (Broadcast)
+        function sendBroadcast() {
+            let channel = document.getElementById('broadcastChannel').value.trim();
+            const msg = document.getElementById('broadcastMessage').value.trim();
+            if(!channel) channel = chatIdGlobal; // إذا تركه فارغ يرسل للأدمن
+            if(!botTokenGlobal) return alert('❌ التوكن غير موجود في الإعدادات!');
+            if(!msg) return alert('❌ يرجى كتابة الرسالة!');
+            
+            fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: channel, text: msg })
+            }).then(r=>r.json()).then(d=>{
+                if(d.ok) { alert('✅ تم إرسال البث بنجاح!'); document.getElementById('broadcastMessage').value=''; }
+                else { alert('❌ خطأ في الإرسال: ' + d.description); }
+            });
+        }
+
+        // 5. رسم بياني للطلبات
+        function updateOrdersChart(dataCounts) {
+            const ctx = document.getElementById('ordersChart').getContext('2d');
+            if(ordersChartInstance) ordersChartInstance.destroy();
+            ordersChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(dataCounts),
+                    datasets: [{ label: 'عدد الطلبات حسب الباقة', data: Object.values(dataCounts), backgroundColor: '#d4af37', borderColor: '#fff', borderWidth: 1 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks:{color:'#fff'} }, x: { ticks:{color:'#fff'} } }, plugins:{ legend:{labels:{color:'#fff'}} } }
+            });
+        }
+
+        // الإشعارات الوهمية
+        function startFakeNotifications() {
+            if(fakeNotifInterval) return;
+            const fakeNames = ["أحمد", "علي", "عباس", "حسين", "محمد", "ياسر", "مصطفى", "عبدالله"];
+            const fakeTypes = ["باقة شهرية", "باقة VIP", "كود يومي", "حجز دائم"];
+            fakeNotifInterval = setInterval(() => {
+                const notif = document.getElementById('fakeNotification');
+                const randomName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+                const randomType = fakeTypes[Math.floor(Math.random() * fakeTypes.length)];
+                document.getElementById('fakeNotifText').innerText = `قام ${randomName} بحجز ${randomType} للتو!`;
+                notif.style.display = 'block'; notif.style.animation = 'slideInNotif 0.5s forwards';
+                setTimeout(() => { notif.style.animation = 'slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display = 'none', 500); }, 4000);
+            }, 12000);
+        }
+        function stopFakeNotifications() { clearInterval(fakeNotifInterval); fakeNotifInterval = null; document.getElementById('fakeNotification').style.display = 'none'; }
+
+
+        // --- باقي دوال الموقع الأساسية ---
         function addPackage() {
             const title = document.getElementById('newPackTitle').value.trim(); const desc = document.getElementById('newPackDesc').value.trim();
             if(title) { db.ref('packages').push({ title, desc }); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; playSound('success'); }
@@ -485,17 +617,11 @@
                 const uBox = document.getElementById('packagesSection'); const aBox = document.getElementById('adminPacksList'); const select = document.getElementById('packageType');
                 uBox.innerHTML=''; aBox.innerHTML=''; select.innerHTML='<option value="" disabled selected>اختر الباقة...</option>';
                 let count = 0;
-                snap.forEach(c => {
-                    count++; const d = c.val();
-                    uBox.innerHTML += `<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`;
-                    aBox.innerHTML += `<tr><td>${d.title}</td><td><button class="action-btn" onclick="delPackage('${c.key}')">حذف</button></td></tr>`;
-                    select.innerHTML += `<option value="${d.title}">${d.title}</option>`;
-                });
+                snap.forEach(c => { count++; const d = c.val(); uBox.innerHTML += `<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`; aBox.innerHTML += `<tr><td>${d.title}</td><td><button class="action-btn" onclick="delPackage('${c.key}')">حذف</button></td></tr>`; select.innerHTML += `<option value="${d.title}">${d.title}</option>`; });
                 if(count === 0) uBox.innerHTML = '<p style="color:#aaa;">لا توجد باقات معروضة حالياً.</p>';
             });
         }
 
-        // إدارة الأسئلة
         function addFAQ() {
             const q = document.getElementById('newFaqQ').value.trim(); const a = document.getElementById('newFaqA').value.trim();
             if(q && a) { db.ref('faqs').push({ q, a }); document.getElementById('newFaqQ').value=''; document.getElementById('newFaqA').value=''; playSound('success'); }
@@ -505,16 +631,11 @@
             db.ref('faqs').on('value', snap => {
                 const uBox = document.getElementById('faqContainer'); const aBox = document.getElementById('adminFaqList'); const mainSec = document.getElementById('faqSection');
                 uBox.innerHTML=''; aBox.innerHTML=''; let count = 0;
-                snap.forEach(c => {
-                    count++; const d = c.val();
-                    uBox.innerHTML += `<div class="faq-item"><button class="faq-question" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">${d.q} ▼</button><div class="faq-answer">${d.a}</div></div>`;
-                    aBox.innerHTML += `<tr><td>${d.q}</td><td><button class="action-btn" onclick="delFAQ('${c.key}')">حذف</button></td></tr>`;
-                });
+                snap.forEach(c => { count++; const d = c.val(); uBox.innerHTML += `<div class="faq-item"><button class="faq-question" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">${d.q} ▼</button><div class="faq-answer">${d.a}</div></div>`; aBox.innerHTML += `<tr><td>${d.q}</td><td><button class="action-btn" onclick="delFAQ('${c.key}')">حذف</button></td></tr>`; });
                 mainSec.style.display = count > 0 ? 'block' : 'none';
             });
         }
 
-        // إدارة تقييمات المشتركين (المراجعات)
         function addTestimonial() {
             const name = document.getElementById('newTestiName').value.trim(); const text = document.getElementById('newTestiText').value.trim();
             if(name && text) { db.ref('testimonials').push({ name, text }); document.getElementById('newTestiName').value=''; document.getElementById('newTestiText').value=''; playSound('success'); }
@@ -524,16 +645,11 @@
             db.ref('testimonials').on('value', snap => {
                 const uBox = document.getElementById('testimonialsContainer'); const aBox = document.getElementById('adminTestiList'); const mainSec = document.getElementById('testimonialSection');
                 uBox.innerHTML=''; aBox.innerHTML=''; let count = 0;
-                snap.forEach(c => {
-                    count++; const d = c.val();
-                    uBox.innerHTML += `<div class="testi-card"><div class="testi-name">👤 ${d.name}</div><div class="testi-text">"${d.text}"</div></div>`;
-                    aBox.innerHTML += `<tr><td>${d.name}</td><td><button class="action-btn" onclick="delTestimonial('${c.key}')">حذف</button></td></tr>`;
-                });
+                snap.forEach(c => { count++; const d = c.val(); uBox.innerHTML += `<div class="testi-card"><div class="testi-name">👤 ${d.name}</div><div class="testi-text">"${d.text}"</div></div>`; aBox.innerHTML += `<tr><td>${d.name}</td><td><button class="action-btn" onclick="delTestimonial('${c.key}')">حذف</button></td></tr>`; });
                 mainSec.style.display = count > 0 ? 'block' : 'none';
             });
         }
 
-        // إدارة الأكواد ونظام النسخ السريع
         function autoGenCode() { document.getElementById('newCodeVal').value = 'DRIVE-VIP-' + Math.random().toString(36).substring(2,8).toUpperCase(); }
         function addNewCode() {
             const val = document.getElementById('newCodeVal').value.trim(); const type = document.getElementById('newCodeType').value.trim();
@@ -541,74 +657,79 @@
         }
         function delCode(k) { db.ref('live_codes/'+k).remove(); playSound('error'); }
         function copyCode(text, btn) {
-            navigator.clipboard.writeText(text).then(() => {
-                const oldText = btn.innerText; btn.innerText = "✅ تم النسخ!"; btn.style.background = "#00C851";
-                setTimeout(() => { btn.innerText = oldText; btn.style.background = "var(--primary-color)"; }, 2000);
-            });
+            navigator.clipboard.writeText(text).then(() => { const oldText = btn.innerText; btn.innerText = "✅ تم النسخ!"; btn.style.background = "#00C851"; setTimeout(() => { btn.innerText = oldText; btn.style.background = "var(--primary-color)"; }, 2000); });
+        }
+        function searchCodes() {
+            let filter = document.getElementById('searchCodeInput').value.toUpperCase(); let items = document.querySelectorAll('.code-item');
+            items.forEach(item => { let text = item.innerText.toUpperCase(); item.style.display = text.includes(filter) ? "flex" : "none"; });
         }
         function listenToLiveCodes() {
             db.ref('live_codes').on('value', snap => {
                 const uBox = document.getElementById('codesContainer'); const aBox = document.getElementById('adminCodesList'); uBox.innerHTML=''; aBox.innerHTML='';
-                snap.forEach(c => {
-                    const d = c.val();
-                    uBox.innerHTML += `<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="copyCode('${d.code}', this)">📋 نسخ</button></div>`;
-                    aBox.innerHTML += `<tr><td>${d.code}</td><td>${d.type}</td><td><button class="action-btn" onclick="delCode('${c.key}')">حذف</button></td></tr>`;
-                });
+                snap.forEach(c => { const d = c.val(); uBox.innerHTML += `<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="copyCode('${d.code}', this)">📋 نسخ</button></div>`; aBox.innerHTML += `<tr><td>${d.code}</td><td>${d.type}</td><td><button class="action-btn" onclick="delCode('${c.key}')">حذف</button></td></tr>`; });
                 if(uBox.innerHTML==='') uBox.innerHTML='<p style="text-align:center;color:#aaa;">لا توجد أكواد حرة معروضة حالياً.</p>';
             });
         }
 
-        // الطلبات
         function delOrder(k) { db.ref('orders/'+k).remove(); playSound('success'); }
         function listenToOrders() {
             db.ref('orders').on('value', snap => {
                 const aBox = document.getElementById('adminOrdersList'); aBox.innerHTML='';
-                snap.forEach(c => { const d = c.val(); aBox.innerHTML += `<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td style="color:#77f;">${d.device || 'غير معروف'}</td><td><button class="action-btn" onclick="delOrder('${c.key}')">تم</button></td></tr>`; });
+                let count = 0; let packageStats = {};
+                snap.forEach(c => {
+                    count++; const d = c.val();
+                    packageStats[d.package] = (packageStats[d.package] || 0) + 1;
+                    aBox.innerHTML += `<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td style="color:#77f;">${d.device || 'مجهول'}</td><td><button class="action-btn" onclick="delOrder('${c.key}')">تم</button></td></tr>`;
+                });
+                document.getElementById('adminOrdersCount').innerText = count;
+                updateOrdersChart(packageStats); // تحديث الرسم البياني
             });
         }
 
-        // إرسال الطلب مع نظام مكافحة السبام ومعلومات الجهاز
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault(); const statusMsg = document.getElementById('statusMessage');
-            if (checkCooldown()) return; // حماية إضافية
+            if (checkCooldown()) return; 
 
             if (!botTokenGlobal || !chatIdGlobal) { statusMsg.style.display='block'; statusMsg.style.color='red'; statusMsg.innerText='❌ النظام غير مرتبط بالبوت!'; playSound('error'); return; }
 
             const name = document.getElementById('userName').value.trim();
             const tgUser = document.getElementById('tgUsername').value.trim();
             const pack = document.getElementById('packageType').value;
-            const device = getDeviceInfo(); // سحب معلومات جهاز المستخدم تلقائياً
+            const device = getDeviceInfo();
             
+            // فحص الباند (القائمة السوداء)
+            if (blacklistedUsers.includes(tgUser.toLowerCase())) {
+                playSound('error'); statusMsg.style.display='block'; statusMsg.style.color='red'; statusMsg.innerText = '🚫 عذراً، هذا الحساب محظور من الطلب في الموقع!';
+                return;
+            }
+
             const tgRegex = /^@[a-zA-Z0-9_]{5,32}$/;
             if (!tgRegex.test(tgUser)) {
-                playSound('error'); statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText = '❌ يوزر التيليجرام غير صحيح! تأكد أنه يبدأ بـ @ ويحتوي على أحرف إنجليزية وأرقام فقط (بدون مسافات).';
+                playSound('error'); statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText = '❌ يوزر التيليجرام غير صحيح! تأكد أنه يبدأ بـ @.';
                 document.getElementById('tgUsername').style.borderColor='#ff4444'; setTimeout(()=>document.getElementById('tgUsername').style.borderColor='#444', 3000); return;
             }
 
-            // حفظ في فايربيس مع نوع الجهاز
             db.ref('orders').push({ name, tgUser, package: pack, device, time: new Date().getTime() });
-            statusMsg.style.display='block'; statusMsg.style.color='white'; statusMsg.innerText='⏳ جاري معالجة وإرسال طلب الحجز الحصري...';
+            statusMsg.style.display='block'; statusMsg.style.color='white'; statusMsg.innerText='⏳ جاري إرسال الطلب...';
 
-            // إرسال للتيليجرام مع نوع الجهاز
-            const tgMessage = `🎁 طلب حجز جديد (Drive VIP) 🎁\n\n👤 الاسم: ${name}\n🔗 يوزر التيليجرام: ${tgUser}\n📦 الباقة: ${pack}\n📱 جهاز المشترك: ${device}`;
-            
-            fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage })
+            const tgMessage = `🎁 طلب حجز جديد 🎁\n\n👤 الاسم: ${name}\n🔗 اليوزر: ${tgUser}\n📦 الباقة: ${pack}\n📱 الجهاز: ${device}`;
+            fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage })
             }).then(r=>r.json()).then(d=>{
                 if(d.ok) {
-                    playSound('success');
-                    // تفعيل قفل السبام لمدة 24 ساعة في جهاز المستخدم
-                    localStorage.setItem('drivevip_last_order', new Date().getTime());
-                    checkCooldown();
-                    
-                    statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم إرسال طلبك بنجاح وحفظ جهازك بالنظام! انتظر تفعيل الكود.';
+                    playSound('success'); localStorage.setItem('drivevip_last_order', new Date().getTime()); checkCooldown();
+                    statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم إرسال طلبك بنجاح! انتظر تفعيل الكود.';
                     document.getElementById('orderForm').reset(); document.getElementById('tgUsername').style.borderColor='#444';
-                } else {
-                    playSound('error'); statusMsg.style.color='red'; statusMsg.innerText='❌ خطأ في الاتصال ببوت الإشعارات.';
-                }
+                } else { playSound('error'); statusMsg.style.color='red'; statusMsg.innerText='❌ خطأ في الاتصال بالبوت.'; }
             });
         });
+
+        // حماية الكود
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(event.keyCode == 123) { return false; } 
+            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) { return false; }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+        };
     </script>
 </body>
 </html>
