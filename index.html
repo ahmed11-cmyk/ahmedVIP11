@@ -98,11 +98,6 @@
         .data-table th, .data-table td { border: 1px solid #444; padding: 10px; text-align: center; color: white; }
         .data-table th { background: #222; color: var(--primary-color); }
         .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; }
-
-        .float-btn { position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.8); z-index: 1000; transition: 0.3s; text-decoration: none; }
-        .float-btn:hover { transform: scale(1.1); }
-        .drive-logo-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
     </style>
 </head>
 <body>
@@ -126,7 +121,6 @@
         </div>
     </div>
 
-    <div id="banWaveAlert">🚨 تحذير: موجة باند حادة حالياً! يرجى إيقاف اللعب بالحسابات الأساسية! 🚨</div>
     <div id="announcementBar"></div>
 
     <div id="loader">
@@ -137,7 +131,7 @@
     <header>
         <img src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>">
         <h1>DRIVE VIP | الأكواد المجانية</h1>
-        <!-- شريط الأزرار الخارجية الديناميكية -->
+        <!-- شريط الأزرار الخارجية -->
         <div id="externalLinksBar" class="external-links-container"></div>
     </header>
 
@@ -152,7 +146,7 @@
         <h2>احجز كودك الآن</h2>
         <div id="maintenanceMessage">⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.</div>
         <form id="orderForm">
-            <!-- حقل المصيدة المخفي للحماية -->
+            <!-- مصيدة البوتات (Honeypot) -->
             <input type="text" id="hp_field" style="display:none;" autocomplete="off">
             
             <div class="form-group"><input type="text" id="userName" placeholder="الاسم الكامل" required></div>
@@ -192,11 +186,12 @@
             <div class="admin-tabs">
                 <button class="admin-tab active" onclick="switchTab('tabGeneral')">إعدادات</button>
                 <button class="admin-tab" onclick="switchTab('tabOrders')">الطلبات</button>
-                <button class="admin-tab" onclick="switchTab('tabVault')">المخزن السري (آلي)</button>
+                <button class="admin-tab" onclick="switchTab('tabVault')">المخزن السري</button>
                 <button class="admin-tab" onclick="switchTab('tabPromo')">أكواد VIP</button>
                 <button class="admin-tab" onclick="switchTab('tabPackages')">الأقسام</button>
                 <button class="admin-tab" onclick="switchTab('tabBlacklist')">الباند</button>
-                <button class="admin-tab" onclick="switchTab('tabLinks')">أزرار وروابط</button>
+                <button class="admin-tab" onclick="switchTab('tabLinks')">روابط</button>
+                <button class="admin-tab" onclick="switchTab('tabCooldowns')">المحاولات ⏳</button>
             </div>
 
             <!-- إعدادات -->
@@ -219,10 +214,9 @@
                         <input type="checkbox" id="setAutoDeliveryToggle" style="transform:scale(1.5); margin-left:10px;" onchange="toggleAutoDelivery()"> 
                         ⚡ تفعيل التسليم التلقائي (الآلي)
                     </label>
-                    <p style="color:#aaa; font-size:0.9rem; margin-top:5px;">إذا تم تفعيله، سيقوم الموقع بسحب كود من القائمة أدناه وتسليمه للمشترك فور الطلب.</p>
                 </div>
                 <div class="admin-group" style="display:flex; gap:5px;">
-                    <input type="text" id="newVaultCode" placeholder="أدخل كود جديد للمخزن..." style="flex:2;">
+                    <input type="text" id="newVaultCode" placeholder="أدخل كود جديد..." style="flex:2;">
                     <button class="admin-btn" style="width:auto; margin:0;" onclick="addVaultCode()">تخزين</button>
                 </div>
                 <table class="data-table"><thead><tr><th>الكود الجاهز للتسليم</th><th>حذف</th></tr></thead><tbody id="adminVaultList"></tbody></table>
@@ -231,7 +225,7 @@
             <!-- أكواد الخصم -->
             <div id="tabPromo" class="admin-panel">
                 <div class="admin-group" style="display:flex; gap:5px;">
-                    <input type="text" id="newPromoCode" placeholder="الكلمة السرية (مثال: VIP2026)" style="flex:2;">
+                    <input type="text" id="newPromoCode" placeholder="الكلمة السرية" style="flex:2;">
                     <button class="admin-btn" style="width:auto; margin:0; background:#17a2b8; color:white;" onclick="addPromoCode()">إضافة</button>
                 </div>
                 <table class="data-table"><thead><tr><th>الكود السري</th><th>حذف</th></tr></thead><tbody id="adminPromoList"></tbody></table>
@@ -239,7 +233,7 @@
 
             <!-- الأقسام -->
             <div id="tabPackages" class="admin-panel">
-                <div class="admin-group"><input type="text" id="newPackTitle" placeholder="اسم الباقة (مثال: حجز سنوي)"></div>
+                <div class="admin-group"><input type="text" id="newPackTitle" placeholder="اسم الباقة"></div>
                 <button class="admin-btn" onclick="addPackage()">➕ إضافة الباقة</button>
                 <table class="data-table" style="margin-bottom:20px;"><thead><tr><th>الباقة</th><th>حذف</th></tr></thead><tbody id="adminPacksList"></tbody></table>
             </div>
@@ -247,7 +241,7 @@
             <!-- الباند -->
             <div id="tabBlacklist" class="admin-panel">
                 <div class="admin-group" style="display:flex; gap:5px;">
-                    <input type="text" id="newBannedUser" placeholder="يوزر التيليجرام للحظر" style="flex:2;">
+                    <input type="text" id="newBannedUser" placeholder="يوزر للحظر" style="flex:2;">
                     <button class="admin-btn" style="width:auto; margin:0; background:#ff4444; color:white;" onclick="addBlacklist()">حظر</button>
                 </div>
                 <table class="data-table"><thead><tr><th>اليوزر المحظور</th><th>فك</th></tr></thead><tbody id="adminBlacklist"></tbody></table>
@@ -255,13 +249,24 @@
 
             <!-- الأزرار الخارجية -->
             <div id="tabLinks" class="admin-panel">
-                <h3 style="color:var(--primary-color); margin-bottom:10px;">إضافة زر رابط خارجي (قناة، موقع، الخ)</h3>
                 <div class="admin-group">
-                    <input type="text" id="linkTitle" placeholder="عنوان الزر (مثال: اشترك في قناتي)" style="margin-bottom:5px;">
-                    <input type="text" id="linkUrl" placeholder="رابط URL (مثال: https://t.me/yourchannel)">
+                    <input type="text" id="linkTitle" placeholder="عنوان الزر" style="margin-bottom:5px;">
+                    <input type="text" id="linkUrl" placeholder="رابط URL">
                 </div>
                 <button class="admin-btn" style="background:#17a2b8; color:white;" onclick="addLink()">إضافة الزر للموقع</button>
                 <table class="data-table"><thead><tr><th>العنوان</th><th>الرابط</th><th>حذف</th></tr></thead><tbody id="adminLinksList"></tbody></table>
+            </div>
+
+            <!-- نظام المحاولات والتصفير -->
+            <div id="tabCooldowns" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:10px;">⏳ تصفير المحاولات (قفل الـ 24 ساعة)</h3>
+                <p style="color:#aaa; font-size:0.9rem; margin-bottom:15px;">اكتب يوزر الشخص لفك الحظر عنه والسماح له بالطلب فوراً.</p>
+                <div class="admin-group" style="display:flex; gap:5px;">
+                    <input type="text" id="resetTgUser" placeholder="يوزر التيليجرام (مثل: @user)" style="flex:2;">
+                    <button class="admin-btn" style="width:auto; margin:0; background:#00C851; color:white;" onclick="resetUserCooldown()">تصفير لليوزر</button>
+                </div>
+                <button class="admin-btn" style="background:#ffaa00; color:black; margin-top:10px;" onclick="resetAllCooldowns()">🗑️ تصفير لجميع المستخدمين</button>
+                <p id="cooldownMsg" style="color:#00C851; display:none; margin-top:10px; text-align:center; font-weight:bold;"></p>
             </div>
 
             <button class="admin-btn" style="background:#ff4444; color:white; margin-top:20px;" onclick="closeAdmin()">❌ إغلاق اللوحة</button>
@@ -290,12 +295,10 @@
 
         window.addEventListener('load', function() {
             setTimeout(() => { document.getElementById('loader').style.opacity = '0'; setTimeout(() => document.getElementById('loader').style.display = 'none', 600); }, 1500);
-            
             if (!localStorage.getItem('drivevip_welcome_shown')) {
                 setTimeout(() => { document.getElementById('welcomeModal').style.display = 'flex'; }, 2000);
                 localStorage.setItem('drivevip_welcome_shown', 'true');
             }
-
             listenToSettings(); listenToPackages(); listenToOrders(); listenToBlacklist(); listenToPromo(); listenToVault(); listenToLinks();
         });
 
@@ -315,8 +318,7 @@
             event.target.classList.add('active'); document.getElementById(tabId).classList.add('active');
         }
 
-        // --- وظائف قواعد البيانات ---
-        
+        // --- وظائف قواعد البيانات للإعدادات والمحتوى ---
         function saveSettings() {
             db.ref('site_settings').update({
                 botToken: document.getElementById('setBotToken').value,
@@ -340,71 +342,49 @@
         }
 
         function toggleAutoDelivery() { db.ref('site_settings').update({ autoDelivery: document.getElementById('setAutoDeliveryToggle').checked }); }
-        
-        function addVaultCode() {
-            const v = document.getElementById('newVaultCode').value.trim();
-            if(v) { db.ref('vault_codes').push(v); document.getElementById('newVaultCode').value=''; }
-        }
-        function listenToVault() {
-            db.ref('vault_codes').on('value', snap => {
-                const aBox = document.getElementById('adminVaultList'); aBox.innerHTML=''; vaultCodesList = [];
-                snap.forEach(c => {
-                    vaultCodesList.push({ key: c.key, val: c.val() });
-                    aBox.innerHTML += `<tr><td>${c.val()}</td><td><button class="action-btn" onclick="db.ref('vault_codes/${c.key}').remove()">حذف</button></td></tr>`;
-                });
-            });
-        }
-
-        function addPackage() {
-            const title = document.getElementById('newPackTitle').value.trim();
-            if(title) { db.ref('packages').push({ title }); document.getElementById('newPackTitle').value=''; }
-        }
-        function listenToPackages() {
-            db.ref('packages').on('value', snap => {
-                const uBox = document.getElementById('packagesSection'); const aBox = document.getElementById('adminPacksList'); const select = document.getElementById('packageType');
-                uBox.innerHTML=''; aBox.innerHTML=''; select.innerHTML='<option value="" disabled selected>اختر الباقة...</option>';
-                snap.forEach(c => { const d = c.val(); uBox.innerHTML += `<div class="card"><h3>${d.title}</h3></div>`; aBox.innerHTML += `<tr><td>${d.title}</td><td><button class="action-btn" onclick="db.ref('packages/${c.key}').remove()">حذف</button></td></tr>`; select.innerHTML += `<option value="${d.title}">${d.title}</option>`; });
-            });
-        }
-
-        function addPromoCode() {
-            const p = document.getElementById('newPromoCode').value.trim().toUpperCase();
-            if(p) { db.ref('promo_codes').push(p); document.getElementById('newPromoCode').value=''; }
-        }
-        function listenToPromo() {
-            db.ref('promo_codes').on('value', snap => {
-                const aBox = document.getElementById('adminPromoList'); aBox.innerHTML=''; validPromoCodes = [];
-                snap.forEach(c => { validPromoCodes.push(c.val()); aBox.innerHTML += `<tr><td>${c.val()}</td><td><button class="action-btn" onclick="db.ref('promo_codes/${c.key}').remove()">حذف</button></td></tr>`; });
-            });
-        }
-
+        function addVaultCode() { const v = document.getElementById('newVaultCode').value.trim(); if(v) { db.ref('vault_codes').push(v); document.getElementById('newVaultCode').value=''; } }
+        function listenToVault() { db.ref('vault_codes').on('value', snap => { const aBox = document.getElementById('adminVaultList'); aBox.innerHTML=''; vaultCodesList = []; snap.forEach(c => { vaultCodesList.push({ key: c.key, val: c.val() }); aBox.innerHTML += `<tr><td>${c.val()}</td><td><button class="action-btn" onclick="db.ref('vault_codes/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
+        function addPackage() { const title = document.getElementById('newPackTitle').value.trim(); if(title) { db.ref('packages').push({ title }); document.getElementById('newPackTitle').value=''; } }
+        function listenToPackages() { db.ref('packages').on('value', snap => { const uBox = document.getElementById('packagesSection'); const aBox = document.getElementById('adminPacksList'); const select = document.getElementById('packageType'); uBox.innerHTML=''; aBox.innerHTML=''; select.innerHTML='<option value="" disabled selected>اختر الباقة...</option>'; snap.forEach(c => { const d = c.val(); uBox.innerHTML += `<div class="card"><h3>${d.title}</h3></div>`; aBox.innerHTML += `<tr><td>${d.title}</td><td><button class="action-btn" onclick="db.ref('packages/${c.key}').remove()">حذف</button></td></tr>`; select.innerHTML += `<option value="${d.title}">${d.title}</option>`; }); }); }
+        function addPromoCode() { const p = document.getElementById('newPromoCode').value.trim().toUpperCase(); if(p) { db.ref('promo_codes').push(p); document.getElementById('newPromoCode').value=''; } }
+        function listenToPromo() { db.ref('promo_codes').on('value', snap => { const aBox = document.getElementById('adminPromoList'); aBox.innerHTML=''; validPromoCodes = []; snap.forEach(c => { validPromoCodes.push(c.val()); aBox.innerHTML += `<tr><td>${c.val()}</td><td><button class="action-btn" onclick="db.ref('promo_codes/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
         function addBlacklist() { const u = document.getElementById('newBannedUser').value.trim().toLowerCase(); if(u) db.ref('blacklist').push(u); document.getElementById('newBannedUser').value=''; }
         function listenToBlacklist() { db.ref('blacklist').on('value', snap => { const aBox = document.getElementById('adminBlacklist'); aBox.innerHTML=''; blacklistedUsers = []; snap.forEach(c => { blacklistedUsers.push(c.val()); aBox.innerHTML += `<tr><td>${c.val()}</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('blacklist/${c.key}').remove()">فك</button></td></tr>`; }); }); }
-        
         function listenToOrders() { db.ref('orders').on('value', snap => { const aBox = document.getElementById('adminOrdersList'); aBox.innerHTML=''; snap.forEach(c => { const d = c.val(); aBox.innerHTML += `<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td><span style="color:#00C851;">${d.promo || 'لا يوجد'}</span></td></tr>`; }); }); }
+        function addLink() { const title = document.getElementById('linkTitle').value.trim(); const url = document.getElementById('linkUrl').value.trim(); if(title && url) { db.ref('external_links').push({ title, url }); document.getElementById('linkTitle').value = ''; document.getElementById('linkUrl').value = ''; } }
+        function listenToLinks() { db.ref('external_links').on('value', snap => { const bar = document.getElementById('externalLinksBar'); const aBox = document.getElementById('adminLinksList'); bar.innerHTML = ''; aBox.innerHTML = ''; snap.forEach(c => { const d = c.val(); bar.innerHTML += `<a href="${d.url}" class="ext-btn" target="_blank">${d.title}</a>`; aBox.innerHTML += `<tr><td>${d.title}</td><td><small>${d.url}</small></td><td><button class="action-btn" onclick="db.ref('external_links/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
 
-        function addLink() {
-            const title = document.getElementById('linkTitle').value.trim();
-            const url = document.getElementById('linkUrl').value.trim();
-            if(title && url) { db.ref('external_links').push({ title, url }); document.getElementById('linkTitle').value = ''; document.getElementById('linkUrl').value = ''; }
-        }
-        function listenToLinks() {
-            db.ref('external_links').on('value', snap => {
-                const bar = document.getElementById('externalLinksBar'); const aBox = document.getElementById('adminLinksList');
-                bar.innerHTML = ''; aBox.innerHTML = '';
-                snap.forEach(c => {
-                    const d = c.val();
-                    bar.innerHTML += `<a href="${d.url}" class="ext-btn" target="_blank">${d.title}</a>`;
-                    aBox.innerHTML += `<tr><td>${d.title}</td><td><small>${d.url}</small></td><td><button class="action-btn" onclick="db.ref('external_links/${c.key}').remove()">حذف</button></td></tr>`;
+        // --- وظائف التصفير للمحاولات ---
+        function formatUser(u) { return u.toLowerCase().replace(/[@.#$\[\]]/g, ''); } // تنظيف اليوزر حتى يقبله الفايربيس كـ Key
+        
+        function resetUserCooldown() {
+            const u = document.getElementById('resetTgUser').value.trim();
+            if(u) {
+                db.ref('cooldowns/' + formatUser(u)).remove().then(() => {
+                    const msg = document.getElementById('cooldownMsg');
+                    msg.innerText = `✅ تم تصفير محاولات ${u} بنجاح!`;
+                    msg.style.display = 'block'; setTimeout(() => msg.style.display = 'none', 3000);
+                    document.getElementById('resetTgUser').value = '';
                 });
-            });
+            }
         }
 
-        // --- نظام معالجة الطلبات ---
+        function resetAllCooldowns() {
+            if(confirm("هل أنت متأكد من تصفير الحظر لجميع المستخدمين؟")) {
+                db.ref('cooldowns').remove().then(() => {
+                    const msg = document.getElementById('cooldownMsg');
+                    msg.innerText = "✅ تم تصفير المحاولات للجميع!";
+                    msg.style.display = 'block'; setTimeout(() => msg.style.display = 'none', 3000);
+                });
+            }
+        }
+
+        // --- نظام معالجة الطلبات والحماية (Anti-Spam 24h) ---
         document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault(); const statusMsg = document.getElementById('statusMessage');
+            e.preventDefault(); 
+            const statusMsg = document.getElementById('statusMessage');
             
-            // نظام الحماية (المصيدة المخفية)
+            // المصيدة المخفية
             if (document.getElementById('hp_field').value !== "") { return; } 
             
             const name = document.getElementById('userName').value.trim();
@@ -412,51 +392,83 @@
             const pack = document.getElementById('packageType').value;
             const promo = document.getElementById('promoCodeInput').value.trim().toUpperCase();
 
-            // فحص الباند
-            if (blacklistedUsers.includes(tgUser.toLowerCase())) { statusMsg.style.display='block'; statusMsg.style.color='red'; statusMsg.innerText = '🚫 حسابك غير مصرح له بالطلب.'; return; }
-
-            const isPromoValid = promo && validPromoCodes.includes(promo);
-            statusMsg.style.display='block'; statusMsg.style.color='white'; statusMsg.innerText='⏳ جاري المعالجة...';
-
-            // نظام التسليم الآلي
-            if (autoDeliveryActive && vaultCodesList.length > 0) {
-                const pulledCode = vaultCodesList[0];
-                db.ref('vault_codes/' + pulledCode.key).remove(); 
-                db.ref('orders').push({ name, tgUser, package: pack, promo: promo, type: 'آلي' });
-                
-                statusMsg.style.display = 'none'; document.getElementById('orderForm').reset();
-                document.getElementById('deliveredCodeVal').innerText = pulledCode.val;
-                document.getElementById('autoDeliveryModal').style.display = 'flex';
-                
-                // إشعار للأدمن
-                const tgMessage = `⚡ تمت عملية تسليم آلي ⚡\n\n👤 لـ: ${tgUser}\n📦 الباقة: ${pack}\n🔑 الكود المُسلّم: ${pulledCode.val}`;
-                fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage }) });
+            // فحص صيغة اليوزر
+            if (!tgUser.startsWith('@') || tgUser.length < 4) {
+                statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; 
+                statusMsg.innerText = '🚫 يرجى إدخال يوزر تيليجرام صحيح يبدأ بـ @';
                 return;
             }
 
-            // نظام الإرسال اليدوي العادي (مع أزرار تفاعلية)
-            db.ref('orders').push({ name, tgUser, package: pack, promo: isPromoValid ? promo + ' (صالح)' : (promo || 'لا يوجد') });
-            
-            const tgMessage = `🎁 طلب حجز جديد 🎁\n\n👤 الاسم: ${name}\n🔗 اليوزر: ${tgUser}\n📦 الباقة: ${pack}\n💎 كود الـ VIP: ${isPromoValid ? '✅ صحيح ('+promo+')' : (promo ? '❌ خاطئ' : 'لا يوجد')}`;
-            
-            const replyMarkup = {
-                inline_keyboard: [
-                    [ { text: "✅ تم تسليم الطلب", callback_data: "done" }, { text: "🚫 حظر المشترك", callback_data: "ban" } ],
-                    [ { text: "💬 تواصل مع العميل مباشرة", url: `https://t.me/${tgUser.replace('@', '')}` } ]
-                ]
-            };
+            // فحص الباند
+            if (blacklistedUsers.includes(tgUser.toLowerCase())) { 
+                statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; 
+                statusMsg.innerText = '🚫 حسابك محظور من استخدام الموقع.'; 
+                return; 
+            }
 
-            fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, { 
-                method: 'POST', headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage, reply_markup: replyMarkup })
-            }).then(r=>r.json()).then(d=>{
-                if(d.ok) {
-                    statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم رفع الطلب للإدارة بنجاح!';
-                    document.getElementById('orderForm').reset();
-                } else { statusMsg.style.color='red'; statusMsg.innerText='❌ تأكد من إضافة توكن البوت وايدي حسابك في لوحة الإدارة أولاً!'; }
+            statusMsg.style.display='block'; statusMsg.style.color='white'; statusMsg.innerText='⏳ جاري التحقق من الصلاحية...';
+
+            const formattedTgUser = formatUser(tgUser);
+            const now = new Date().getTime();
+
+            // التحقق من قاعدة البيانات لقفل الـ 24 ساعة
+            db.ref('cooldowns/' + formattedTgUser).once('value').then(snap => {
+                const lastOrderTime = snap.val();
+                
+                // 86400000 مللي ثانية = 24 ساعة
+                if (lastOrderTime && (now - lastOrderTime < 86400000)) {
+                    statusMsg.style.color='#ffaa00'; 
+                    statusMsg.innerText = '⏳ لقد قمت بالطلب مسبقاً.. لا يمكنك الطلب إلا مرة واحدة كل 24 ساعة.';
+                    return;
+                }
+
+                // إذا اجتاز الشروط، نكمل عملية الطلب
+                statusMsg.innerText='⏳ جاري المعالجة وإرسال الطلب...';
+                const isPromoValid = promo && validPromoCodes.includes(promo);
+
+                // حفظ وقت الطلب الجديد لقفل اليوزر 24 ساعة
+                db.ref('cooldowns/' + formattedTgUser).set(now);
+
+                // نظام التسليم الآلي
+                if (autoDeliveryActive && vaultCodesList.length > 0) {
+                    const pulledCode = vaultCodesList[0];
+                    db.ref('vault_codes/' + pulledCode.key).remove(); 
+                    db.ref('orders').push({ name, tgUser, package: pack, promo: promo, type: 'آلي' });
+                    
+                    statusMsg.style.display = 'none'; document.getElementById('orderForm').reset();
+                    document.getElementById('deliveredCodeVal').innerText = pulledCode.val;
+                    document.getElementById('autoDeliveryModal').style.display = 'flex';
+                    
+                    const tgMessage = `⚡ تمت عملية تسليم آلي ⚡\n\n👤 لـ: ${tgUser}\n📦 الباقة: ${pack}\n🔑 الكود المُسلّم: ${pulledCode.val}`;
+                    fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage }) });
+                    return;
+                }
+
+                // نظام الإرسال العادي
+                db.ref('orders').push({ name, tgUser, package: pack, promo: isPromoValid ? promo + ' (صالح)' : (promo || 'لا يوجد') });
+                
+                const tgMessage = `🎁 طلب حجز جديد 🎁\n\n👤 الاسم: ${name}\n🔗 اليوزر: ${tgUser}\n📦 الباقة: ${pack}\n💎 كود الـ VIP: ${isPromoValid ? '✅ صحيح ('+promo+')' : (promo ? '❌ خاطئ' : 'لا يوجد')}`;
+                
+                const replyMarkup = {
+                    inline_keyboard: [
+                        [ { text: "✅ تم تسليم الطلب", callback_data: "done" }, { text: "🚫 حظر المشترك", callback_data: "ban" } ],
+                        [ { text: "💬 تواصل مع العميل مباشرة", url: `https://t.me/${tgUser.replace('@', '')}` } ]
+                    ]
+                };
+
+                fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, { 
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage, reply_markup: replyMarkup })
+                }).then(r=>r.json()).then(d=>{
+                    if(d.ok) {
+                        statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم رفع الطلب للإدارة بنجاح!';
+                        document.getElementById('orderForm').reset();
+                    } else { 
+                        statusMsg.style.color='#ff4444'; statusMsg.innerText='❌ خطأ.. تأكد من إضافة توكن البوت وايدي حسابك في لوحة الإدارة!'; 
+                    }
+                });
             });
         });
-
     </script>
 </body>
 </html>
