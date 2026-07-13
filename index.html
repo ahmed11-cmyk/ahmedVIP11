@@ -380,7 +380,8 @@
             ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            ctx.fillStyle = '#00FF41'; // اللون الأخضر الفاقع للهاكرز
+            // تم تغيير اللون إلى الذهبي ليتناسب مع ثيم الموقع بدلاً من الأخضر
+            ctx.fillStyle = '#d4af37'; 
             ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < drops.length; i++) {
@@ -396,7 +397,9 @@
 
         window.addEventListener('resize', initMatrix);
         initMatrix();
-        setInterval(drawMatrix, 35); // سرعة سقوط الرموز
+        
+        // تم زيادة الرقم هنا لإبطاء سرعة نزول الرموز (كان 35 أصبح 75)
+        setInterval(drawMatrix, 75); 
         // --------------------------------------------------
 
         const firebaseConfig = {
@@ -609,7 +612,7 @@
 
         function updateOrdersChart(dataCounts) { const ctx=document.getElementById('ordersChart').getContext('2d'); if(ordersChartInstance) ordersChartInstance.destroy(); ordersChartInstance=new Chart(ctx, { type:'bar', data:{ labels:Object.keys(dataCounts), datasets:[{ label:'عدد الطلبات', data:Object.values(dataCounts), backgroundColor:'#d4af37', borderColor:'#fff', borderWidth:1 }] }, options:{ responsive:true, maintainAspectRatio:false, scales:{y:{beginAtZero:true,ticks:{color:'#fff'}}, x:{ticks:{color:'#fff'}}}, plugins:{legend:{labels:{color:'#fff'}}} } }); }
 
-        function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مبرمج ومطور الموقع"]; const types=["@l_2qu"]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]}  ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 12000); }
+                function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مبرمج ومطور الموقع"]; const types=["@l_2qu"]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]}  ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 12000); }
         function stopFakeNotifications() { clearInterval(fakeNotifInterval); fakeNotifInterval=null; document.getElementById('fakeNotification').style.display='none'; }
 
         function addPackage() { const t=document.getElementById('newPackTitle').value.trim(); const d=document.getElementById('newPackDesc').value.trim(); if(t) { db.ref('packages').push({title:t,desc:d}); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; playSound('success'); } }
