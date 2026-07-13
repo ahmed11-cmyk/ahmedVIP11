@@ -16,8 +16,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; padding-bottom: 50px; transition: 0.3s; position: relative; }
 
-        /* --- تأثيرات الخلفية المتحركة --- */
-        #bgCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.6; }
+        /* --- تأثيرات خلفية الهاكر الماتريكس --- */
+        #bgCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.35; }
 
         body.ban-wave-active { border-top: 8px solid #ff4444; border-bottom: 8px solid #ff4444; }
         #banWaveAlert { display: none; background-color: #ff4444; color: white; padding: 15px; text-align: center; font-size: 1.3rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; animation: flashRed 1s infinite alternate; }
@@ -359,47 +359,45 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // --- سكربت الخلفية المتحركة (الجسيمات) ---
+        // --- سكربت خلفية الهاكر الكلاسيكية (Matrix Rain) ---
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
-        let particlesArray = [];
+        let columns, drops;
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*<>/?';
+        const fontSize = 16;
 
-        function initParticles() {
+        function initMatrix() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particlesArray = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                const size = (Math.random() * 3) + 1;
-                const x = Math.random() * (innerWidth - size * 2) + size * 2;
-                const y = Math.random() * (innerHeight - size * 2) + size * 2;
-                const directionX = (Math.random() * 1) - 0.5;
-                const directionY = (Math.random() * 1) - 0.5;
-                const color = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#d4af37';
-                particlesArray.push({x, y, directionX, directionY, size, color});
+            columns = canvas.width / fontSize;
+            drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
             }
         }
 
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) {
-                let p = particlesArray[i];
-                p.x += p.directionX;
-                p.y += p.directionY;
-                if (p.x > innerWidth || p.x < 0) p.directionX = -p.directionX;
-                if (p.y > innerHeight || p.y < 0) p.directionY = -p.directionY;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = p.color;
-                ctx.fill();
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00FF41'; // اللون الأخضر الفاقع للهاكرز
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
             }
         }
 
-        window.addEventListener('resize', initParticles);
-        initParticles();
-        animateParticles();
-        // ----------------------------------------
+        window.addEventListener('resize', initMatrix);
+        initMatrix();
+        setInterval(drawMatrix, 35); // سرعة سقوط الرموز
+        // --------------------------------------------------
 
         const firebaseConfig = {
             apiKey: "AIzaSyDhp-hVKq-Sb6i4dLtthcvDg8Fsvya9Vv8",
@@ -543,9 +541,6 @@
 
                 document.documentElement.style.setProperty('--primary-color', data.themeColor || '#d4af37');
                 document.getElementById('setThemeColor').value = data.themeColor || '#d4af37';
-                
-                // تحديث لون الجسيمات المتحركة عند تغيير الثيم
-                initParticles();
 
                 const logo = data.logoUrl || defaultLogo;
                 document.getElementById('headerLogo').src = logo; document.getElementById('loaderLogo').src = logo; document.getElementById('floatLogo').src = logo;
@@ -617,7 +612,6 @@
         function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مبرمج ومطور الموقع"]; const types=["@l_2qu"]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]}  ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 12000); }
         function stopFakeNotifications() { clearInterval(fakeNotifInterval); fakeNotifInterval=null; document.getElementById('fakeNotification').style.display='none'; }
 
-        /* -- استكمال بقية الدوال التي انقطعت -- */
         function addPackage() { const t=document.getElementById('newPackTitle').value.trim(); const d=document.getElementById('newPackDesc').value.trim(); if(t) { db.ref('packages').push({title:t,desc:d}); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; playSound('success'); } }
         function delPackage(k) { db.ref('packages/'+k).remove(); playSound('error'); }
         function listenToPackages() { db.ref('packages').on('value', snap => { const u=document.getElementById('packagesSection'); const a=document.getElementById('adminPacksList'); const s=document.getElementById('packageType'); u.innerHTML=''; a.innerHTML=''; s.innerHTML='<option value="" disabled selected>اختر الباقة...</option>'; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`; a.innerHTML+=`<tr><td>${d.title}</td><td><button class="action-btn" onclick="delPackage('${c.key}')">حذف</button></td></tr>`; s.innerHTML+=`<option value="${d.title}">${d.title}</option>`; }); }); }
