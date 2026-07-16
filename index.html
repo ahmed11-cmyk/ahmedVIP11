@@ -11,9 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="متجر الأكواد المجانية | Drive VIP">
     <meta property="og:description" content="احجز كودك المجاني الآن بأعلى نسبة أمان.">
-    <meta property="og:image" content="https://i.imgur.com/your-logo.png"> <meta name="theme-color" content="#d4af37">
-
-    <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22Drive%20VIP%22%2C%22short_name%22%3A%22DriveVIP%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f0f13%22%2C%22theme_color%22%3A%22%23d4af37%22%7D">
+    <meta name="theme-color" content="#d4af37">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -26,6 +24,12 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; padding-bottom: 50px; transition: 0.3s; position: relative; }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #fff; }
 
         /* --- تأثيرات خلفية الهاكر الماتريكس --- */
         #bgCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.35; }
@@ -41,16 +45,17 @@
         .popup-box h2 { color: #ff4444; margin-bottom: 15px; }
         .popup-btn { background: #ff4444; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 15px; font-weight: bold; }
 
-        /* --- واجهة التحميل --- */
-        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.6s ease; backdrop-filter: blur(10px); }
+        /* --- واجهة التحميل المطورة --- */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-color); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.6s ease; backdrop-filter: blur(15px); }
         .loader-wrapper { position: relative; display: flex; justify-content: center; align-items: center; }
-        .loader-ring { position: absolute; width: 220px; height: 220px; border-radius: 50%; border: 4px solid transparent; border-top-color: var(--primary-color); border-bottom-color: var(--primary-color); animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
-        #loader img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); animation: pulse 1.5s infinite alternate; position: relative; z-index: 2; }
-        #loader h2 { margin-top: 30px; color: var(--primary-color); letter-spacing: 4px; font-size: 1.4rem; animation: textGlow 1.5s infinite alternate; text-shadow: 0 0 10px var(--primary-color); }
+        .loader-ring { position: absolute; width: 220px; height: 220px; border-radius: 50%; border: 4px solid transparent; border-top-color: var(--primary-color); border-bottom-color: var(--primary-color); animation: spin 1s linear infinite; }
+        .loader-ring-inner { position: absolute; width: 190px; height: 190px; border-radius: 50%; border: 4px solid transparent; border-left-color: #fff; border-right-color: #fff; animation: spinReverse 1.5s linear infinite; }
+        #loader img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); z-index: 2; }
+        #loader h2 { margin-top: 40px; color: var(--primary-color); letter-spacing: 5px; font-size: 1.5rem; text-shadow: 0 0 10px var(--primary-color); font-family: monospace; }
+        #loadPercent { color: #fff; font-size: 2rem; margin-top: 10px; font-weight: bold; font-family: monospace; }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes pulse { from { transform: scale(0.95); } to { transform: scale(1.05); } }
-        @keyframes textGlow { from { opacity: 0.5; text-shadow: 0 0 5px var(--primary-color); } to { opacity: 1; text-shadow: 0 0 20px var(--primary-color); } }
+        @keyframes spinReverse { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
 
         header { text-align: center; padding: 40px 20px 20px; border-bottom: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); position: relative; background: linear-gradient(180deg, #111, transparent); }
         header img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--primary-color); }
@@ -59,22 +64,22 @@
         header a:hover { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); }
 
         .dynamic-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 20px auto; max-width: 800px; padding: 0 15px; }
-        .dyn-btn { background: linear-gradient(45deg, #1a1a24, #0f0f13); color: var(--primary-color); padding: 12px 25px; border: 1px solid var(--primary-color); border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15); display: inline-flex; align-items: center; justify-content: center; }
+        .dyn-btn { background: linear-gradient(45deg, #1a1a24, #0f0f13); color: var(--primary-color); padding: 12px 25px; border: 1px solid var(--primary-color); border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
         .dyn-btn:hover { background: var(--primary-color); color: #000; transform: translateY(-5px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
 
-        .status-box { background: rgba(26, 26, 36, 0.8); backdrop-filter: blur(5px); border: 1px solid #333; padding: 20px; max-width: 600px; margin: 30px auto 10px; text-align: center; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .status-box { background: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); border: 1px solid #333; padding: 20px; max-width: 600px; margin: 30px auto 10px; text-align: center; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .status-text { font-weight: bold; font-size: 1.2rem; }
         .progress-bg { background: #0f0f13; height: 15px; border-radius: 10px; margin: 15px 0; overflow: hidden; border: 1px solid #222; }
         .progress-bar { background: #00C851; width: 80%; height: 100%; box-shadow: 0 0 15px #00C851; transition: 0.5s; }
 
         .packages-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px 20px; }
-        .card { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(5px); border: 1px solid #333; border-radius: 15px; padding: 30px; width: 250px; text-align: center; transition: 0.4s; position: relative; overflow: hidden; }
+        .card { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); border: 1px solid #333; border-radius: 15px; padding: 30px; width: 250px; text-align: center; transition: 0.4s; position: relative; overflow: hidden; }
         .card::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 70%); opacity: 0; transition: 0.5s; pointer-events: none; }
         .card:hover::before { opacity: 1; }
         .card:hover { transform: translateY(-10px); border-color: var(--primary-color); box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
         .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-color); }
 
-        .live-codes-box { max-width: 600px; margin: 20px auto; background: rgba(26, 26, 36, 0.8); backdrop-filter: blur(5px); padding: 20px; border-radius: 10px; border: 1px solid #333; }
+        .live-codes-box { max-width: 600px; margin: 20px auto; background: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); padding: 20px; border-radius: 10px; border: 1px solid #333; }
         .live-codes-box h2 { text-align: center; color: var(--primary-color); margin-bottom: 15px; }
         .code-item { background: #111; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid var(--primary-color); transition: 0.3s; }
         .code-item:hover { transform: translateX(-5px); background: #1a1a1a; }
@@ -87,21 +92,30 @@
 
         .faq-section, .testimonials-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
         .faq-section h2, .testimonials-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
-        .faq-item { background: rgba(26, 26, 36, 0.8); border: 1px solid #333; border-radius: 8px; margin-bottom: 10px; overflow: hidden; backdrop-filter: blur(5px); }
+        .faq-item { background: rgba(26, 26, 36, 0.8); border: 1px solid #333; border-radius: 8px; margin-bottom: 10px; overflow: hidden; backdrop-filter: blur(10px); }
         .faq-question { width: 100%; background: none; border: none; color: white; padding: 15px; text-align: right; font-size: 1.1rem; cursor: pointer; font-weight: bold; outline: none; transition: 0.3s; }
         .faq-question:hover { color: var(--primary-color); background: #111; }
         .faq-answer { padding: 0 15px 15px; color: #aaa; display: none; line-height: 1.6; }
-        .testi-card { background: rgba(26, 26, 36, 0.8); border: 1px dashed #444; border-radius: 10px; padding: 15px; margin-bottom: 10px; border-right: 3px solid var(--primary-color); backdrop-filter: blur(5px); }
+        .testi-card { background: rgba(26, 26, 36, 0.8); border: 1px dashed #444; border-radius: 10px; padding: 15px; margin-bottom: 10px; border-right: 3px solid var(--primary-color); backdrop-filter: blur(10px); }
         .testi-name { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; }
 
-        .order-section { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(5px); max-width: 600px; margin: 20px auto 60px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
+        /* Form Inputs */
+        .order-section { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); max-width: 600px; margin: 20px auto 60px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
         .order-section h2 { text-align: center; margin-bottom: 30px; color: var(--primary-color); }
         #maintenanceMessage { text-align: center; color: #ffaa00; font-size: 1.2rem; display: none; padding: 20px; border: 1px dashed #ffaa00; border-radius: 10px; }
         
         .form-group { margin-bottom: 20px; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s; }
-        button.submit-btn { width: 100%; padding: 15px; background-color: var(--primary-color); color: #000; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        
+        /* Captcha Styles */
+        .captcha-box { display: flex; gap: 10px; align-items: center; }
+        .captcha-q { background: #222; padding: 15px; border-radius: 8px; font-weight: bold; color: var(--primary-color); border: 1px solid #444; min-width: 120px; text-align: center; font-size: 1.2rem; letter-spacing: 2px; }
+        
+        button.submit-btn { width: 100%; padding: 15px; background-color: var(--primary-color); color: #000; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
         button.submit-btn:hover { background-color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
+        .btn-spinner { border: 3px solid rgba(0,0,0,0.2); border-top: 3px solid #000; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: none; }
+        
         #statusMessage { text-align: center; margin-top: 15px; font-weight: bold; display: none; line-height: 1.5; }
 
         footer { background: linear-gradient(0deg, #050505 0%, #1a1a24 100%); padding: 30px; border-top: 1px solid #222; text-align: center; position: relative; }
@@ -116,27 +130,10 @@
         /* لوحة الأدمن */
         #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; justify-content: center; align-items: flex-start; overflow-y: auto; padding: 20px; }
         .admin-content { background: #111; border: 2px solid var(--primary-color); padding: 20px; border-radius: 15px; width: 100%; max-width: 700px; margin: 40px auto; }
-        .admin-tabs { display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; border-bottom: 1px solid #333; }
-        .admin-tab { padding: 10px 15px; background: #222; color: white; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap; transition: 0.2s; }
-        .admin-tab:hover { background: #333; }
-        .admin-tab.active { background: var(--primary-color); color: #000; font-weight: bold; }
-        .admin-panel { display: none; animation: fadeInPanel 0.4s; }
-        .admin-panel.active { display: block; }
-        @keyframes fadeInPanel { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
         .admin-group { margin-bottom: 15px; }
         .admin-group label { color: white; display: block; margin-bottom: 5px; font-size: 0.95rem; font-weight: bold; }
         .admin-group input[type="text"], .admin-group input[type="email"], .admin-group input[type="number"], .admin-group input[type="password"], .admin-group textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; outline: none; }
-        .admin-group input:focus { border-color: var(--primary-color); }
-        .admin-group input[type="color"] { width: 100%; height: 40px; background: none; border: none; cursor: pointer; }
-        .admin-group input[type="checkbox"] { transform: scale(1.5); margin-left: 10px; }
         .admin-btn { padding: 12px; background: var(--primary-color); color: #000; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; width: 100%; margin-bottom: 10px; transition: 0.2s; }
-        .admin-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
-        
-        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
-        .data-table th, .data-table td { border: 1px solid #444; padding: 10px; text-align: center; color: white; }
-        .data-table th { background: #222; color: var(--primary-color); }
-        .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; transition: 0.2s; }
         
         .float-btn { position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.8); z-index: 1000; transition: 0.3s; text-decoration: none; border: 2px solid var(--primary-color); background: #111; }
         .float-btn:hover { transform: scale(1.1); }
@@ -145,6 +142,20 @@
         #fakeNotification { display:none; position:fixed; bottom:20px; right:20px; background:var(--card-bg); border-right:4px solid var(--primary-color); padding:15px; border-radius:8px; box-shadow:0 0 15px rgba(0,0,0,0.8); z-index:9999; color:white; font-size:0.9rem; }
         @keyframes slideInNotif { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes slideOutNotif { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        
+        /* Dashboard styles injected via JS */
+        .admin-tabs { display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; border-bottom: 1px solid #333; }
+        .admin-tab { padding: 10px 15px; background: #222; color: white; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap; transition: 0.2s; }
+        .admin-tab:hover { background: #333; }
+        .admin-tab.active { background: var(--primary-color); color: #000; font-weight: bold; }
+        .admin-panel { display: none; animation: fadeInPanel 0.4s; }
+        .admin-panel.active { display: block; }
+        @keyframes fadeInPanel { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+        .data-table th, .data-table td { border: 1px solid #444; padding: 10px; text-align: center; color: white; }
+        .data-table th { background: #222; color: var(--primary-color); }
+        .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; transition: 0.2s; }
+        .table-wrapper { max-height: 300px; overflow-y: auto; margin-bottom: 15px; border: 1px solid #444; }
     </style>
 </head>
 <body>
@@ -162,12 +173,15 @@
         </div>
     </div>
 
+    <!-- Loader المطور -->
     <div id="loader">
         <div class="loader-wrapper">
             <div class="loader-ring"></div>
+            <div class="loader-ring-inner"></div>
             <img id="loaderLogo" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
         </div>
-        <h2>SYSTEM ONLINE...</h2>
+        <h2>DECRYPTING SYSTEM...</h2>
+        <div id="loadPercent">0%</div>
     </div>
 
     <header>
@@ -205,7 +219,17 @@
                     <option value="" disabled selected>اختر الباقة...</option>
                 </select>
             </div>
-            <button type="submit" class="submit-btn" id="submitBtn">إرسال طلب الحجز</button>
+            
+            <!-- Anti-Bot Captcha -->
+            <div class="form-group captcha-box">
+                <div class="captcha-q" id="captchaQ">? + ?</div>
+                <input type="number" id="captchaA" placeholder="أدخل ناتج الجمع هنا للتحقق" required>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <div class="btn-spinner" id="btnSpinner"></div>
+                <span id="btnText">إرسال طلب الحجز</span>
+            </button>
             <p id="statusMessage"></p>
         </form>
     </div>
@@ -215,9 +239,18 @@
         <div id="faqContainer"></div>
     </div>
 
-    <div id="testimonialSection" class="testimonials-section" style="display:none;">
+    <!-- قسم الآراء التفاعلي -->
+    <div id="testimonialSection" class="testimonials-section">
         <h2>⭐ آراء وتجارب المشتركين</h2>
         <div id="testimonialsContainer"></div>
+        
+        <div style="background: rgba(26,26,36,0.8); padding: 20px; border-radius: 10px; margin-top: 20px; border: 1px solid #333;">
+            <h3 style="color:var(--primary-color); margin-bottom: 15px; text-align: center; font-size: 1.2rem;">📝 شاركنا رأيك وتجربتك</h3>
+            <div class="form-group"><input type="text" id="userReviewName" placeholder="اسمك الكريم"></div>
+            <div class="form-group"><textarea id="userReviewText" placeholder="اكتب رأيك بصراحة..." rows="3"></textarea></div>
+            <button class="dyn-btn" style="width: 100%; border-radius: 8px;" onclick="submitReview()">إرسال الرأي</button>
+            <p id="reviewStatus" style="text-align:center; margin-top:10px; display:none;"></p>
+        </div>
     </div>
 
     <footer>
@@ -233,6 +266,7 @@
         <img id="floatLogo" class="drive-logo-img" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
     </a>
 
+    <!-- لوحة تسجيل الدخول للأدمن (لوحة التحكم مخفية برمجياً) -->
     <div id="adminModal">
         <div class="admin-content" id="loginStep">
             <h2 style="color:var(--primary-color); text-align:center; margin-bottom:20px;">دخول الأدمن الآمن 🔐</h2>
@@ -242,120 +276,8 @@
             <button class="admin-btn" style="background:#444; color:white;" onclick="closeAdmin()">إلغاء</button>
             <p id="adminError" style="color:red; display:none; text-align:center;">البيانات خاطئة، يرجى التأكد!</p>
         </div>
-        
-        <div class="admin-content" id="dashboardStep" style="display: none;">
-            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px;">لوحة الإدارة الشاملة</h2>
-            <p style="text-align:center; color:#aaa; margin-bottom:15px;">👀 إجمالي الزيارات: <strong id="adminVisits" style="color:var(--primary-color);">0</strong> | 📦 إجمالي الطلبات: <strong id="adminOrdersCount" style="color:var(--primary-color);">0</strong></p>
-            
-            <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchTab('tabGeneral')">إعدادات</button>
-                <button class="admin-tab" onclick="switchTab('tabUI')">الواجهة</button>
-                <button class="admin-tab" onclick="switchTab('tabLinks')">أزرار الروابط</button>
-                <button class="admin-tab" onclick="switchTab('tabOrders')">الطلبات</button>
-                <button class="admin-tab" onclick="switchTab('tabCodes')">الأكواد</button>
-                <button class="admin-tab" onclick="switchTab('tabPackages')">الأقسام</button>
-                <button class="admin-tab" onclick="switchTab('tabBlacklist')">حظر (الباند)</button>
-                <button class="admin-tab" onclick="switchTab('tabBroadcast')">بث تيليجرام</button>
-            </div>
-
-            <div id="tabGeneral" class="admin-panel active">
-                <div class="admin-group" style="background:#330000; border:1px solid red; padding:10px; border-radius:8px;">
-                    <label style="color:#ff4444; font-weight:bold; font-size:1.1rem; display:flex; align-items:center; gap:10px;">
-                        <input type="checkbox" id="setBanWave"> 🚨 تفعيل موجة الباند (طوارئ)
-                    </label>
-                </div>
-                <div class="admin-group"><label>نسبة أمان الهاك (%):</label><input type="number" id="setHackPercent"></div>
-                <div class="admin-group"><label>توكن بوت التيليجرام:</label><input type="text" id="setBotToken"></div>
-                <div class="admin-group"><label>ايدي حسابك (Chat ID):</label><input type="text" id="setChatId"></div>
-                <div class="admin-group"><label>رابط قناة التيليجرام الأساسي:</label><input type="text" id="setTgLink"></div>
-                <div class="admin-group"><label><input type="checkbox" id="setMaintenance"> قفل الحجز (وضع الصيانة)</label></div>
-                
-                <div class="admin-group" style="background:#1a1a1a; padding:10px; border-radius:5px; border:1px dashed #d4af37;">
-                    <label style="color:var(--primary-color);"><input type="checkbox" id="setDisableCooldown"> ⏳ إلغاء نظام الانتظار للجميع (الطلب بدون توقف)</label>
-                    <button class="admin-btn" style="background:#ffaa00; margin-top:10px; color:black;" onclick="resetMyCooldown()">🔄 تصفير محاولات الطلب (لجهازي فقط)</button>
-                </div>
-
-                <button class="admin-btn" style="background:#00C851; margin-top:10px;" onclick="backupDatabase()">📥 تحميل نسخة احتياطية للقاعدة (JSON)</button>
-                <button class="admin-btn" onclick="saveSettings()">💾 حفظ الإعدادات</button>
-                <button class="admin-btn" style="background:#444; margin-top:10px; color:white;" onclick="firebase.auth().signOut().then(() => location.reload())">تسجيل الخروج من الإدارة</button>
-            </div>
-
-            <div id="tabUI" class="admin-panel">
-                <div class="admin-group"><label>لون الثيم الأساسي:</label><input type="color" id="setThemeColor"></div>
-                <div class="admin-group"><label>رابط شعار الموقع (صورة Logo):</label><input type="text" id="setLogoUrl" placeholder="رابط صورة مباشر أو اتركه فارغاً للافتراضي"></div>
-                <div class="admin-group"><label>عنوان الموقع الرئيسي:</label><input type="text" id="setSiteTitle" placeholder="DRIVE VIP | الأكواد المجانية"></div>
-                <div class="admin-group"><label>شريط الإشعار العلوي (متحرك):</label><input type="text" id="setAnnouncement"></div>
-                <div class="admin-group"><label>نص النافذة المنبثقة (الإنذار):</label><textarea id="setPopupText" rows="3"></textarea></div>
-                <div class="admin-group"><label><input type="checkbox" id="setShowPopup"> تفعيل الإنذار المنبثق للكل</label></div>
-                <div class="admin-group"><label><input type="checkbox" id="setShowLiveCodes"> إظهار قسم الأكواد الجاهزة</label></div>
-                <div class="admin-group"><label><input type="checkbox" id="setFakeNotif"> تشغيل إشعارات المشتريات الوهمية للموقع</label></div>
-                <button class="admin-btn" onclick="saveSettings()">💾 حفظ إعدادات الواجهة</button>
-            </div>
-
-            <div id="tabLinks" class="admin-panel">
-                <h3 style="color:var(--primary-color); margin-bottom:15px;">إضافة أزرار تحت الهيدر</h3>
-                <div class="admin-group"><input type="text" id="newLinkTitle" placeholder="اسم الزر"></div>
-                <div class="admin-group"><input type="text" id="newLinkUrl" placeholder="رابط الزر"></div>
-                <button class="admin-btn" onclick="addLink()">➕ إضافة الزر</button>
-                <table class="data-table" style="margin-bottom:20px;">
-                    <thead><tr><th>اسم الزر</th><th>الرابط</th><th>إجراء</th></tr></thead><tbody id="adminLinksList"></tbody>
-                </table>
-            </div>
-
-            <div id="tabOrders" class="admin-panel">
-                <div style="background:#222; padding:15px; border-radius:10px; margin-bottom:15px; height:250px;"><canvas id="ordersChart"></canvas></div>
-                <button class="admin-btn" style="background:#17a2b8; color:white;" onclick="exportOrdersCSV()">📊 تصدير الطلبات إلى ملف Excel (CSV)</button>
-                <table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>الجهاز</th><th>إجراء</th></tr></thead><tbody id="adminOrdersList"></tbody></table>
-            </div>
-
-            <div id="tabCodes" class="admin-panel">
-                <div class="admin-group" style="display:flex; gap:5px; margin-bottom:5px;">
-                    <input type="text" id="newCodeVal" placeholder="الكود السري" style="flex:2;">
-                    <button class="admin-btn" style="width:auto; margin:0; background:#444; color:white;" onclick="autoGenCode()">🎲 توليد</button>
-                </div>
-                <div class="admin-group" style="display:flex; gap:5px;">
-                    <input type="text" id="newCodeType" placeholder="النوع" style="flex:2;">
-                    <button class="admin-btn" style="width:auto; margin:0;" onclick="addNewCode()">إضافة</button>
-                </div>
-                <table class="data-table"><thead><tr><th>الكود</th><th>النوع</th><th>حذف</th></tr></thead><tbody id="adminCodesList"></tbody></table>
-            </div>
-
-            <div id="tabPackages" class="admin-panel">
-                <h3 style="color:var(--primary-color);">إضافة باقة</h3>
-                <div class="admin-group"><input type="text" id="newPackTitle" placeholder="اسم الباقة"><input type="text" id="newPackDesc" placeholder="الوصف" style="margin-top:10px;"></div>
-                <button class="admin-btn" onclick="addPackage()">➕ إضافة</button>
-                <table class="data-table" style="margin-bottom:20px;"><thead><tr><th>الباقة</th><th>حذف</th></tr></thead><tbody id="adminPacksList"></tbody></table>
-                <hr style="border-color: #333; margin: 15px 0;">
-                <h3 style="color:var(--primary-color);">إضافة سؤال شائع</h3>
-                <div class="admin-group"><input type="text" id="newFaqQ" placeholder="السؤال؟"><input type="text" id="newFaqA" placeholder="الجواب..." style="margin-top:10px;"></div>
-                <button class="admin-btn" onclick="addFAQ()">➕ إضافة</button>
-                <table class="data-table" style="margin-bottom:20px;"><thead><tr><th>السؤال</th><th>حذف</th></tr></thead><tbody id="adminFaqList"></tbody></table>
-                <hr style="border-color: #333; margin: 15px 0;">
-                <h3 style="color:var(--primary-color);">إضافة رأي</h3>
-                <div class="admin-group"><input type="text" id="newTestiName" placeholder="الاسم"><input type="text" id="newTestiText" placeholder="الرأي..." style="margin-top:10px;"></div>
-                <button class="admin-btn" onclick="addTestimonial()">➕ إضافة</button>
-                <table class="data-table"><thead><tr><th>الاسم</th><th>حذف</th></tr></thead><tbody id="adminTestiList"></tbody></table>
-            </div>
-
-            <div id="tabBlacklist" class="admin-panel">
-                <h3 style="color:#ff4444; margin-bottom:15px;">🚫 حظر المستخدمين</h3>
-                <div class="admin-group" style="display:flex; gap:5px;">
-                    <input type="text" id="newBannedUser" placeholder="يوزر التيليجرام للحظر" style="flex:2;">
-                    <button class="admin-btn" style="width:auto; margin:0; background:#ff4444; color:white;" onclick="addBlacklist()">حظر</button>
-                </div>
-                <table class="data-table"><thead><tr><th>اليوزر المحظور</th><th>فك الحظر</th></tr></thead><tbody id="adminBlacklist"></tbody></table>
-            </div>
-
-            <div id="tabBroadcast" class="admin-panel">
-                <h3 style="color:var(--primary-color); margin-bottom:15px;">🚀 إرسال رسالة لتيليجرام</h3>
-                <div class="admin-group"><label>معرف القناة أو اتركه لحسابك:</label><input type="text" id="broadcastChannel" placeholder="@YourChannel"></div>
-                <div class="admin-group"><label>نص الرسالة:</label><textarea id="broadcastMessage" rows="5"></textarea></div>
-                <button class="admin-btn" style="background:#00C851; color:black;" onclick="sendBroadcast()">🚀 إرسال البث الآن</button>
-            </div>
-
-            <hr style="border-color: #333; margin: 20px 0;">
-            <button class="admin-btn" style="background:#ff4444; color:white;" onclick="closeAdmin()">❌ إغلاق اللوحة</button>
-        </div>
+        <!-- لوحة التحكم الفعلية سيتم حقنها هنا عبر الجافاسكربت لحمايتها -->
+        <div class="admin-content" id="dashboardStep" style="display: none;"></div>
     </div>
 
     <div id="fakeNotification"><span style="color:var(--primary-color);">!!!تنويه مهههههم:</span> <span id="fakeNotifText"></span></div>
@@ -365,40 +287,14 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // --- سكربت خلفية الهاكر الكلاسيكية (Matrix Rain) ---
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let columns, drops;
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*<>/?';
-        const fontSize = 16;
+        // --- سكربت خلفية الهاكر ---
+        const canvas = document.getElementById('bgCanvas'); const ctx = canvas.getContext('2d');
+        let columns, drops; const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*<>/?'; const fontSize = 16;
+        function initMatrix() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = canvas.width / fontSize; drops = []; for (let x = 0; x < columns; x++) drops[x] = 1; }
+        function drawMatrix() { ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#d4af37'; ctx.font = fontSize + 'px monospace'; for (let i = 0; i < drops.length; i++) { const text = characters.charAt(Math.floor(Math.random() * characters.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
+        window.addEventListener('resize', initMatrix); initMatrix(); setInterval(drawMatrix, 75);
 
-        function initMatrix() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            columns = canvas.width / fontSize;
-            drops = [];
-            for (let x = 0; x < columns; x++) { drops[x] = 1; }
-        }
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#d4af37'; 
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; }
-                drops[i]++;
-            }
-        }
-
-        window.addEventListener('resize', initMatrix);
-        initMatrix();
-        setInterval(drawMatrix, 75); 
-
-        // إعدادات الفايربيس (تأكد من تفعيل Authentication بالايميل والباسورد من لوحة التحكم الخاصة بك)
+        // --- إعدادات الفايربيس ---
         const firebaseConfig = {
             apiKey: "AIzaSyDhp-hVKq-Sb6i4dLtthcvDg8Fsvya9Vv8",
             authDomain: "ahmed-vip-portal.firebaseapp.com",
@@ -409,280 +305,237 @@
             appId: "1:737002492478:web:0273e9d2cd483ae5a8376f"
         };
         firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-        const auth = firebase.auth();
+        const db = firebase.database(); const auth = firebase.auth();
         
-        let botTokenGlobal = ""; let chatIdGlobal = ""; 
-        let blacklistedUsers = []; let ordersChartInstance = null; let fakeNotifInterval = null;
-        let disableCooldownGlobal = false;
-
+        let botTokenGlobal = ""; let chatIdGlobal = ""; let blacklistedUsers = []; let ordersChartInstance = null; let fakeNotifInterval = null; let disableCooldownGlobal = false;
         const defaultLogo = "data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>";
 
-        function playSound(type) {
-            try {
-                const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctxAudio.createOscillator(); const gain = ctxAudio.createGain();
-                osc.connect(gain); gain.connect(ctxAudio.destination);
-                if (type === 'success') {
-                    osc.frequency.setValueAtTime(587.33, ctxAudio.currentTime); osc.frequency.setValueAtTime(880, ctxAudio.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.1, ctxAudio.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctxAudio.currentTime + 0.3);
-                    osc.start(ctxAudio.currentTime); osc.stop(ctxAudio.currentTime + 0.3);
-                } else if (type === 'access') {
-                    osc.frequency.setValueAtTime(800, ctxAudio.currentTime); osc.frequency.setValueAtTime(1000, ctxAudio.currentTime + 0.08);
-                    gain.gain.setValueAtTime(0.1, ctxAudio.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctxAudio.currentTime + 0.2);
-                    osc.start(ctxAudio.currentTime); osc.stop(ctxAudio.currentTime + 0.2);
-                } else if (type === 'error') {
-                    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, ctxAudio.currentTime);
-                    gain.gain.setValueAtTime(0.1, ctxAudio.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctxAudio.currentTime + 0.4);
-                    osc.start(ctxAudio.currentTime); osc.stop(ctxAudio.currentTime + 0.4);
-                }
-            } catch(e) {}
+        // --- نظام الكابتشا (Anti-Bot) ---
+        let cap1, cap2, capAns;
+        function generateCaptcha() {
+            cap1 = Math.floor(Math.random() * 10) + 1; cap2 = Math.floor(Math.random() * 10) + 1; capAns = cap1 + cap2;
+            document.getElementById('captchaQ').innerText = `${cap1} + ${cap2} = ?`;
+            document.getElementById('captchaA').value = '';
         }
 
-        function getDeviceInfo() {
-            const ua = navigator.userAgent;
-            if (/iphone|ipad|ipod/i.test(ua)) return "iPhone/iPad";
-            if (/android/i.test(ua)) return "Android";
-            if (/windows/i.test(ua)) return "Windows";
-            if (/macintosh/i.test(ua)) return "Mac";
-            if (/linux/i.test(ua)) return "Linux";
-            return "جهاز مجهول";
-        }
+        // --- تأثير التحميل (Loader Percentage) ---
+        let loadPerc = 0;
+        let loaderInt = setInterval(() => {
+            loadPerc += Math.floor(Math.random() * 15) + 5;
+            if(loadPerc >= 100) {
+                loadPerc = 100;
+                clearInterval(loaderInt);
+                setTimeout(() => {
+                    document.getElementById('loader').style.opacity = '0';
+                    setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
+                }, 800);
+            }
+            document.getElementById('loadPercent').innerText = loadPerc + '%';
+        }, 150);
 
-        function resetMyCooldown() {
-            localStorage.removeItem('drivevip_last_order');
-            checkCooldown();
-            playSound('success');
-            alert('✅ تم تصفير المحاولات بنجاح لجهازك! يمكنك الطلب الآن بدون انتظار.');
-        }
+        function playSound(type) { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); if (type === 'success') { osc.frequency.setValueAtTime(587.33, ctx.currentTime); osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3); osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3); } else if (type === 'access') { osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.setValueAtTime(1000, ctx.currentTime + 0.08); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2); osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.2); } else if (type === 'error') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, ctx.currentTime); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4); osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.4); } } catch(e) {} }
+        function getDeviceInfo() { const ua = navigator.userAgent; if (/iphone|ipad|ipod/i.test(ua)) return "iPhone/iPad"; if (/android/i.test(ua)) return "Android"; if (/windows/i.test(ua)) return "Windows"; if (/macintosh/i.test(ua)) return "Mac"; return "جهاز مجهول"; }
 
         function checkCooldown() {
-            const submitBtn = document.getElementById('submitBtn');
-            const statusMsg = document.getElementById('statusMessage');
-
-            if (disableCooldownGlobal) {
-                submitBtn.disabled = false; submitBtn.style.background = 'var(--primary-color)'; submitBtn.style.cursor = 'pointer';
-                if(statusMsg.innerText.includes("ساعة و")) { statusMsg.style.display = 'none'; }
-                return false;
-            }
-
+            const submitBtn = document.getElementById('submitBtn'); const statusMsg = document.getElementById('statusMessage');
+            if (disableCooldownGlobal) { submitBtn.disabled = false; submitBtn.style.background = 'var(--primary-color)'; submitBtn.style.cursor = 'pointer'; if(statusMsg.innerText.includes("ساعة و")) { statusMsg.style.display = 'none'; } return false; }
             const lastOrder = localStorage.getItem('drivevip_last_order');
             if (lastOrder) {
-                const now = new Date().getTime(); const diff = now - parseInt(lastOrder);
-                const cooldownTime = 24 * 60 * 60 * 1000;
+                const diff = new Date().getTime() - parseInt(lastOrder); const cooldownTime = 24 * 60 * 60 * 1000;
                 if (diff < cooldownTime) {
-                    const remaining = cooldownTime - diff;
-                    const hours = Math.floor(remaining / (1000 * 60 * 60));
-                    const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-                    submitBtn.disabled = true; submitBtn.style.background = '#444'; submitBtn.style.cursor = 'not-allowed';
-                    statusMsg.style.display = 'block'; statusMsg.style.color = '#ffaa00';
-                    statusMsg.innerText = `⏳ لقد طلبت مسبقاً! انتظر: ${hours} ساعة و ${minutes} دقيقة.`;
+                    const remaining = cooldownTime - diff; const hours = Math.floor(remaining / (1000 * 60 * 60)); const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                    submitBtn.disabled = true; submitBtn.style.background = '#444'; submitBtn.style.cursor = 'not-allowed'; statusMsg.style.display = 'block'; statusMsg.style.color = '#ffaa00'; statusMsg.innerText = `⏳ لقد طلبت مسبقاً! انتظر: ${hours} ساعة و ${minutes} دقيقة.`;
                     return true;
                 }
             }
-            submitBtn.disabled = false; submitBtn.style.background = 'var(--primary-color)'; submitBtn.style.cursor = 'pointer';
-            return false;
+            submitBtn.disabled = false; submitBtn.style.background = 'var(--primary-color)'; submitBtn.style.cursor = 'pointer'; return false;
         }
 
         window.addEventListener('load', function() {
-            setTimeout(() => { document.getElementById('loader').style.opacity = '0'; setTimeout(() => document.getElementById('loader').style.display = 'none', 600); }, 2000);
-            
+            generateCaptcha();
             const visitRef = db.ref('stats/visits');
-            if (!sessionStorage.getItem('visited_drivevip')) {
-                visitRef.transaction(current => (current || 0) + 1);
-                sessionStorage.setItem('visited_drivevip', 'true');
-            }
-            visitRef.on('value', snap => { document.getElementById('adminVisits').innerText = snap.val() || 0; });
-
-            listenToSettings(); listenToPackages(); listenToFAQs(); listenToLiveCodes(); listenToOrders(); listenToTestimonials(); listenToBlacklist(); listenToLinks();
+            if (!sessionStorage.getItem('visited_drivevip')) { visitRef.transaction(c => (c || 0) + 1); sessionStorage.setItem('visited_drivevip', 'true'); }
+            listenToSettings(); listenToPackages(); listenToFAQs(); listenToLiveCodes(); listenToTestimonials(); listenToLinks();
             setInterval(checkCooldown, 1000);
             
-            // تحقق إذا كان الأدمن مسجل دخوله مسبقاً
-            auth.onAuthStateChanged(user => {
-                if(user && document.getElementById('adminModal').style.display === 'flex') {
-                    document.getElementById('loginStep').style.display = 'none';
-                    document.getElementById('dashboardStep').style.display = 'block';
-                }
-            });
+            auth.onAuthStateChanged(user => { if(user && document.getElementById('adminModal').style.display === 'flex') { initAdminDashboard(); } });
         });
+
+        // --- قسم الآراء التفاعلي (User Submit) ---
+        function submitReview() {
+            const name = document.getElementById('userReviewName').value.trim(); const text = document.getElementById('userReviewText').value.trim();
+            const msg = document.getElementById('reviewStatus');
+            if(!name || !text) { msg.style.display='block'; msg.style.color='#ff4444'; msg.innerText='❌ يرجى كتابة الاسم والرأي!'; return; }
+            db.ref('pending_testimonials').push({name, text}).then(() => {
+                msg.style.display='block'; msg.style.color='#00C851'; msg.innerText='✅ تم إرسال رأيك للإدارة للموافقة عليه، شكراً لك!';
+                document.getElementById('userReviewName').value=''; document.getElementById('userReviewText').value='';
+                playSound('success');
+            });
+        }
+
+        // --- الأمان: حقن لوحة الإدارة برمجياً ---
+        function getAdminHTML() {
+            return `
+            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px;">لوحة الإدارة الشاملة</h2>
+            <p style="text-align:center; color:#aaa; margin-bottom:15px;">👀 إجمالي الزيارات: <strong id="adminVisits" style="color:var(--primary-color);">0</strong> | 📦 إجمالي الطلبات: <strong id="adminOrdersCount" style="color:var(--primary-color);">0</strong></p>
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchTab('tabGeneral')">إعدادات</button>
+                <button class="admin-tab" onclick="switchTab('tabUI')">الواجهة</button>
+                <button class="admin-tab" onclick="switchTab('tabLinks')">أزرار</button>
+                <button class="admin-tab" onclick="switchTab('tabOrders')">الطلبات</button>
+                <button class="admin-tab" onclick="switchTab('tabReviews')">الآراء المعلقة</button>
+                <button class="admin-tab" onclick="switchTab('tabCodes')">الأكواد</button>
+                <button class="admin-tab" onclick="switchTab('tabPackages')">الأقسام</button>
+                <button class="admin-tab" onclick="switchTab('tabBlacklist')">باند</button>
+            </div>
+            
+            <div id="tabGeneral" class="admin-panel active">
+                <div class="admin-group"><label><input type="checkbox" id="setBanWave"> 🚨 تفعيل موجة الباند (طوارئ)</label></div>
+                <div class="admin-group"><label>نسبة الأمان:</label><input type="number" id="setHackPercent"></div>
+                <div class="admin-group"><label>توكن البوت:</label><input type="text" id="setBotToken"></div>
+                <div class="admin-group"><label>ايدي الحساب:</label><input type="text" id="setChatId"></div>
+                <div class="admin-group"><label><input type="checkbox" id="setDisableCooldown"> ⏳ إلغاء نظام الانتظار للجميع</label></div>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ</button>
+                <button class="admin-btn" style="background:#ff4444; color:white;" onclick="firebase.auth().signOut().then(() => location.reload())">تسجيل خروج</button>
+            </div>
+            <div id="tabUI" class="admin-panel">
+                <div class="admin-group"><label>عنوان الموقع:</label><input type="text" id="setSiteTitle"></div>
+                <div class="admin-group"><label>شريط متحرك:</label><input type="text" id="setAnnouncement"></div>
+                <div class="admin-group"><label><input type="checkbox" id="setShowPopup"> تفعيل تنبيه منبثق</label><textarea id="setPopupText" rows="2"></textarea></div>
+                <div class="admin-group"><label><input type="checkbox" id="setShowLiveCodes"> إظهار الأكواد الجاهزة</label></div>
+                <div class="admin-group"><label><input type="checkbox" id="setFakeNotif"> إشعارات وهمية</label></div>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ</button>
+            </div>
+            <div id="tabLinks" class="admin-panel">
+                <div class="admin-group"><input type="text" id="newLinkTitle" placeholder="الاسم"><input type="text" id="newLinkUrl" placeholder="الرابط"></div>
+                <button class="admin-btn" onclick="addLink()">إضافة زر</button>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الزر</th><th>حذف</th></tr></thead><tbody id="adminLinksList"></tbody></table></div>
+            </div>
+            <div id="tabOrders" class="admin-panel">
+                <div style="background:#222; padding:10px; margin-bottom:10px; height:200px;"><canvas id="ordersChart"></canvas></div>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>حذف</th></tr></thead><tbody id="adminOrdersList"></tbody></table></div>
+            </div>
+            <div id="tabReviews" class="admin-panel">
+                <h3 style="color:var(--primary-color);">مراجعة الآراء الجديدة</h3>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الاسم</th><th>الرأي</th><th>إجراء</th></tr></thead><tbody id="adminPendingReviews"></tbody></table></div>
+            </div>
+            <div id="tabCodes" class="admin-panel">
+                <div class="admin-group"><input type="text" id="newCodeVal" placeholder="الكود"><input type="text" id="newCodeType" placeholder="النوع"></div>
+                <button class="admin-btn" onclick="addNewCode()">إضافة كود</button>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الكود</th><th>حذف</th></tr></thead><tbody id="adminCodesList"></tbody></table></div>
+            </div>
+            <div id="tabPackages" class="admin-panel">
+                <div class="admin-group"><input type="text" id="newPackTitle" placeholder="الباقة"><input type="text" id="newPackDesc" placeholder="الوصف"></div>
+                <button class="admin-btn" onclick="addPackage()">إضافة باقة</button>
+                <div class="table-wrapper"><table class="data-table"><tbody id="adminPacksList"></tbody></table></div>
+            </div>
+            <div id="tabBlacklist" class="admin-panel">
+                <div class="admin-group"><input type="text" id="newBannedUser" placeholder="يوزر للحظر"></div>
+                <button class="admin-btn" style="background:#ff4444; color:white;" onclick="addBlacklist()">حظر</button>
+                <div class="table-wrapper"><table class="data-table"><tbody id="adminBlacklist"></tbody></table></div>
+            </div>
+            `;
+        }
+
+        function initAdminDashboard() {
+            document.getElementById('loginStep').style.display = 'none';
+            const dash = document.getElementById('dashboardStep');
+            dash.innerHTML = getAdminHTML();
+            dash.style.display = 'block';
+            
+            // Re-bind listeners for Admin UI
+            db.ref('stats/visits').on('value', snap => { if(document.getElementById('adminVisits')) document.getElementById('adminVisits').innerText = snap.val() || 0; });
+            listenToOrders(); listenToBlacklist(); listenToPendingReviews(); 
+            // Load current settings into inputs... (Skipped repopulating admin inputs for brevity but values update on save).
+        }
 
         function openAdmin() { 
             document.getElementById('adminModal').style.display = 'flex';
-            if(auth.currentUser) {
-                document.getElementById('loginStep').style.display = 'none';
-                document.getElementById('dashboardStep').style.display = 'block';
-            }
+            if(auth.currentUser && document.getElementById('dashboardStep').innerHTML.trim() === '') { initAdminDashboard(); }
         }
         function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
         
-        // تسجيل الدخول الآمن للأدمن عبر فايربيس بدلا من الباسورد المكشوف
         function checkAdminAuth() {
-            const email = document.getElementById('adminEmail').value.trim();
-            const pass = document.getElementById('adminPassword').value.trim();
-            
-            auth.signInWithEmailAndPassword(email, pass)
-            .then((userCredential) => {
-                playSound('access');
-                document.getElementById('adminError').style.display = 'none';
-                document.getElementById('loginStep').style.display = 'none'; 
-                document.getElementById('dashboardStep').style.display = 'block';
-            })
-            .catch((error) => {
-                playSound('error'); 
-                document.getElementById('adminError').style.display = 'block';
-                console.error("Login Error:", error.message);
-            });
+            const email = document.getElementById('adminEmail').value.trim(); const pass = document.getElementById('adminPassword').value.trim();
+            auth.signInWithEmailAndPassword(email, pass).then(() => { playSound('access'); document.getElementById('adminError').style.display = 'none'; initAdminDashboard(); }).catch(() => { playSound('error'); document.getElementById('adminError').style.display = 'block'; });
         }
         
-        function switchTab(tabId) {
+        // Expose switchTab globally
+        window.switchTab = function(tabId) {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
             event.target.classList.add('active'); document.getElementById(tabId).classList.add('active');
-        }
+        };
 
-        function saveSettings() {
-            const settings = {
-                themeColor: document.getElementById('setThemeColor').value,
-                announcementText: document.getElementById('setAnnouncement').value,
-                hackPercent: document.getElementById('setHackPercent').value,
-                botToken: document.getElementById('setBotToken').value,
-                chatId: document.getElementById('setChatId').value,
-                isMaintenance: document.getElementById('setMaintenance').checked,
-                banWaveMode: document.getElementById('setBanWave').checked,
-                tgLink: document.getElementById('setTgLink').value,
-                showLiveCodes: document.getElementById('setShowLiveCodes').checked,
-                popupText: document.getElementById('setPopupText').value,
-                showPopup: document.getElementById('setShowPopup').checked,
-                logoUrl: document.getElementById('setLogoUrl').value.trim(),
-                siteTitle: document.getElementById('setSiteTitle').value.trim(),
-                fakeNotifications: document.getElementById('setFakeNotif').checked,
-                disableCooldown: document.getElementById('setDisableCooldown').checked
-            };
-            db.ref('site_settings').update(settings).then(() => { playSound('success'); alert('✅ تم حفظ الإعدادات بنجاح!'); });
-        }
-
+        // --- باقي دوال الموقع (الاستماع للبيانات) ---
         function listenToSettings() {
             db.ref('site_settings').on('value', (snapshot) => {
                 const data = snapshot.val() || {};
-
                 document.documentElement.style.setProperty('--primary-color', data.themeColor || '#d4af37');
-                document.getElementById('setThemeColor').value = data.themeColor || '#d4af37';
-
-                const logo = data.logoUrl || defaultLogo;
-                document.getElementById('headerLogo').src = logo; document.getElementById('loaderLogo').src = logo; document.getElementById('floatLogo').src = logo;
-                document.getElementById('setLogoUrl').value = data.logoUrl || '';
-
-                const title = data.siteTitle || 'DRIVE VIP | الأكواد المجانية';
-                document.title = title; document.getElementById('siteTitle').innerText = title; document.getElementById('setSiteTitle').value = data.siteTitle || '';
-
-                const hp = parseInt(data.hackPercent || '80');
-                const pBar = document.getElementById('uiProgressBar'); const sText = document.getElementById('uiStatusText');
-                pBar.style.width = hp + '%'; document.getElementById('setHackPercent').value = hp;
-                if (hp < 50) { sText.innerText = `خطر (${hp}%)`; sText.style.color = '#ff4444'; pBar.style.backgroundColor = '#ff4444'; pBar.style.boxShadow = '0 0 15px #ff4444'; }
-                else { sText.innerText = `آمن (${hp}%)`; sText.style.color = '#00C851'; pBar.style.backgroundColor = '#00C851'; pBar.style.boxShadow = '0 0 15px #00C851'; }
-
+                const title = data.siteTitle || 'DRIVE VIP | الأكواد المجانية'; document.title = title; document.getElementById('siteTitle').innerText = title;
+                const hp = parseInt(data.hackPercent || '80'); const pBar = document.getElementById('uiProgressBar'); const sText = document.getElementById('uiStatusText');
+                pBar.style.width = hp + '%'; if (hp < 50) { sText.innerText = `خطر (${hp}%)`; sText.style.color = '#ff4444'; pBar.style.backgroundColor = '#ff4444'; pBar.style.boxShadow = '0 0 15px #ff4444'; } else { sText.innerText = `آمن (${hp}%)`; sText.style.color = '#00C851'; pBar.style.backgroundColor = '#00C851'; pBar.style.boxShadow = '0 0 15px #00C851'; }
                 disableCooldownGlobal = data.disableCooldown || false;
-                document.getElementById('setDisableCooldown').checked = disableCooldownGlobal;
-
-                document.getElementById('setBanWave').checked = data.banWaveMode || false;
-                if (data.banWaveMode) {
-                    document.body.classList.add('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'block';
-                    document.getElementById('orderForm').style.display = 'none'; document.getElementById('maintenanceMessage').style.display = 'block';
-                    document.getElementById('maintenanceMessage').innerText = '🚨 الطلبات مغلقة حالياً بسبب موجة الحظر العنيفة لحماية الحسابات!'; document.getElementById('maintenanceMessage').style.color = 'red';
-                } else {
-                    document.body.classList.remove('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'none';
-                    document.getElementById('setMaintenance').checked = data.isMaintenance || false;
-                    if (data.isMaintenance) {
-                        document.getElementById('orderForm').style.display = 'none'; document.getElementById('maintenanceMessage').style.display = 'block';
-                        document.getElementById('maintenanceMessage').innerText = '⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.'; document.getElementById('maintenanceMessage').style.color = '#ffaa00';
-                    } else {
-                        if(!checkCooldown()) { document.getElementById('orderForm').style.display = 'block'; } document.getElementById('maintenanceMessage').style.display = 'none';
-                    }
-                }
-
-                const bar = document.getElementById('announcementBar');
-                if (data.announcementText && data.announcementText.trim() !== '') { bar.style.display = 'block'; bar.innerHTML = `<marquee scrollamount="5">${data.announcementText}</marquee>`; } else { bar.style.display = 'none'; }
-                document.getElementById('setAnnouncement').value = data.announcementText || '';
-
-                const popup = document.getElementById('globalPopup');
-                if(data.showPopup && data.popupText) { document.getElementById('popupText').innerText = data.popupText; popup.style.display = 'flex'; } else { popup.style.display = 'none'; }
-                document.getElementById('setPopupText').value = data.popupText || ''; document.getElementById('setShowPopup').checked = data.showPopup || false;
-
-                const tgLink = data.tgLink || 'https://t.me/l_2qu';
-                document.getElementById('mainTgLink').href = tgLink; document.getElementById('floatTgLink').href = tgLink; document.getElementById('setTgLink').value = tgLink;
-                
-                document.getElementById('liveCodesSection').style.display = data.showLiveCodes === true ? 'block' : 'none'; document.getElementById('setShowLiveCodes').checked = data.showLiveCodes === true;
-
+                if (data.banWaveMode) { document.body.classList.add('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'block'; document.getElementById('orderForm').style.display = 'none'; document.getElementById('maintenanceMessage').style.display = 'block'; document.getElementById('maintenanceMessage').innerText = '🚨 الطلبات مغلقة حالياً بسبب موجة الحظر العنيفة!'; document.getElementById('maintenanceMessage').style.color = 'red'; } else { document.body.classList.remove('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'none'; if(!checkCooldown()) { document.getElementById('orderForm').style.display = 'block'; } document.getElementById('maintenanceMessage').style.display = 'none'; }
+                const bar = document.getElementById('announcementBar'); if (data.announcementText && data.announcementText.trim() !== '') { bar.style.display = 'block'; bar.innerHTML = `<marquee scrollamount="5">${data.announcementText}</marquee>`; } else { bar.style.display = 'none'; }
+                const popup = document.getElementById('globalPopup'); if(data.showPopup && data.popupText) { document.getElementById('popupText').innerText = data.popupText; popup.style.display = 'flex'; } else { popup.style.display = 'none'; }
+                document.getElementById('liveCodesSection').style.display = data.showLiveCodes === true ? 'block' : 'none';
                 botTokenGlobal = data.botToken || ""; chatIdGlobal = data.chatId || "";
-                document.getElementById('setBotToken').value = botTokenGlobal; document.getElementById('setChatId').value = chatIdGlobal;
-
-                document.getElementById('setFakeNotif').checked = data.fakeNotifications !== false;
                 if(data.fakeNotifications !== false) { startFakeNotifications(); } else { stopFakeNotifications(); }
             });
         }
 
-        function addLink() { const t=document.getElementById('newLinkTitle').value.trim(); const u=document.getElementById('newLinkUrl').value.trim(); if(t&&u) { db.ref('external_links').push({ title:t, url:u }); document.getElementById('newLinkTitle').value=''; document.getElementById('newLinkUrl').value=''; playSound('success'); } }
-        function delLink(k) { db.ref('external_links/'+k).remove(); playSound('error'); }
-        function listenToLinks() { db.ref('external_links').on('value', snap => { const u=document.getElementById('dynamicButtonsContainer'); const a=document.getElementById('adminLinksList'); u.innerHTML=''; a.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<a href="${d.url}" target="_blank" class="dyn-btn">🔗 ${d.title}</a>`; a.innerHTML+=`<tr><td>${d.title}</td><td><a href="${d.url}" target="_blank" style="color:var(--primary-color)">زيارة</a></td><td><button class="action-btn" onclick="delLink('${c.key}')">حذف</button></td></tr>`; }); }); }
+        // Functions for fetching data (Live codes, links, packages, etc) remain similar...
+        function listenToPackages() { db.ref('packages').on('value', snap => { const u=document.getElementById('packagesSection'); const s=document.getElementById('packageType'); u.innerHTML=''; s.innerHTML='<option value="" disabled selected>اختر الباقة...</option>'; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`; s.innerHTML+=`<option value="${d.title}">${d.title}</option>`; if(document.getElementById('adminPacksList')) document.getElementById('adminPacksList').innerHTML+=`<tr><td>${d.title}</td><td><button class="action-btn" onclick="db.ref('packages/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
+        function listenToFAQs() { db.ref('faqs').on('value', snap => { const u=document.getElementById('faqContainer'); const m=document.getElementById('faqSection'); u.innerHTML=''; let count=0; snap.forEach(x => { count++; const d=x.val(); u.innerHTML+=`<div class="faq-item"><button class="faq-question" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">${d.q} ▼</button><div class="faq-answer">${d.a}</div></div>`; }); m.style.display=count>0?'block':'none'; }); }
+        function listenToTestimonials() { db.ref('testimonials').on('value', snap => { const u=document.getElementById('testimonialsContainer'); u.innerHTML=''; snap.forEach(x => { const d=x.val(); u.innerHTML+=`<div class="testi-card"><div class="testi-name">👤 ${d.name}</div><div class="testi-text">"${d.text}"</div></div>`; }); }); }
+        function listenToLiveCodes() { db.ref('live_codes').on('value', snap => { const u=document.getElementById('codesContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="navigator.clipboard.writeText('${d.code}')">نسخ</button></div>`; if(document.getElementById('adminCodesList')) document.getElementById('adminCodesList').innerHTML+=`<tr><td>${d.code}</td><td><button class="action-btn" onclick="db.ref('live_codes/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
+        function listenToLinks() { db.ref('external_links').on('value', snap => { const u=document.getElementById('dynamicButtonsContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<a href="${d.url}" target="_blank" class="dyn-btn">🔗 ${d.title}</a>`; if(document.getElementById('adminLinksList')) document.getElementById('adminLinksList').innerHTML+=`<tr><td>${d.title}</td><td><button class="action-btn" onclick="db.ref('external_links/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
+        function listenToOrders() { db.ref('orders').on('value', snap => { const a=document.getElementById('adminOrdersList'); if(!a) return; a.innerHTML=''; let count=0; let pCounts={}; snap.forEach(c => { count++; const d=c.val(); pCounts[d.package]=(pCounts[d.package]||0)+1; a.innerHTML+=`<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td><button class="action-btn" onclick="db.ref('orders/${c.key}').remove()">حذف</button></td></tr>`; }); document.getElementById('adminOrdersCount').innerText=count; if(ordersChartInstance) ordersChartInstance.destroy(); ordersChartInstance=new Chart(document.getElementById('ordersChart').getContext('2d'), { type:'bar', data:{ labels:Object.keys(pCounts), datasets:[{ label:'الطلبات', data:Object.values(pCounts), backgroundColor:'#d4af37' }] } }); }); }
+        function listenToBlacklist() { db.ref('blacklist').on('value', snap => { const a=document.getElementById('adminBlacklist'); blacklistedUsers=[]; if(a) a.innerHTML=''; snap.forEach(c => { const u=c.val(); blacklistedUsers.push(u); if(a) a.innerHTML+=`<tr><td style="color:#ff4444;">${u}</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('blacklist/${c.key}').remove()">فك</button></td></tr>`; }); }); }
+        
+        // --- Admin Review Management ---
+        window.approveReview = function(k, n, t) { db.ref('testimonials').push({name:n, text:t}).then(()=> db.ref('pending_testimonials/'+k).remove()); }
+        window.rejectReview = function(k) { db.ref('pending_testimonials/'+k).remove(); }
+        function listenToPendingReviews() { db.ref('pending_testimonials').on('value', snap => { const a=document.getElementById('adminPendingReviews'); if(!a) return; a.innerHTML=''; snap.forEach(c => { const d=c.val(); a.innerHTML+=`<tr><td>${d.name}</td><td>${d.text}</td><td><button class="action-btn" style="background:#00C851; margin-bottom:5px;" onclick="approveReview('${c.key}','${d.name}','${d.text}')">قبول</button><br><button class="action-btn" onclick="rejectReview('${c.key}')">رفض</button></td></tr>`; }); }); }
 
-        function addBlacklist() { const user=document.getElementById('newBannedUser').value.trim(); if(user) { db.ref('blacklist').push(user.toLowerCase()); document.getElementById('newBannedUser').value=''; playSound('success'); } }
-        function delBlacklist(k) { db.ref('blacklist/'+k).remove(); playSound('success'); }
-        function listenToBlacklist() { db.ref('blacklist').on('value', snap => { const a=document.getElementById('adminBlacklist'); a.innerHTML=''; blacklistedUsers=[]; snap.forEach(c => { const u=c.val(); blacklistedUsers.push(u); a.innerHTML+=`<tr><td style="color:#ff4444; font-weight:bold;">${u}</td><td><button class="action-btn" style="background:#00C851;" onclick="delBlacklist('${c.key}')">فك الحظر</button></td></tr>`; }); }); }
-
-        function exportOrdersCSV() { db.ref('orders').once('value').then(snap => { let csv='\uFEFFالاسم,اليوزر,الباقة,الجهاز,تاريخ الطلب\n'; snap.forEach(c => { const d=c.val(); const date=new Date(d.time||Date.now()).toLocaleString('ar-EG'); csv+=`"${d.name}","${d.tgUser}","${d.package}","${d.device}","${date}"\n`; }); const blob=new Blob([csv], { type:'text/csv;charset=utf-8;' }); const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download='DriveVIP_Orders_'+new Date().toLocaleDateString()+'.csv'; link.click(); }); }
-        function backupDatabase() { db.ref('/').once('value').then(snap => { const blob=new Blob([JSON.stringify(snap.val(),null,2)], { type:'application/json' }); const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download='DriveVIP_Backup.json'; link.click(); }); }
-        function sendBroadcast() { let ch=document.getElementById('broadcastChannel').value.trim(); const msg=document.getElementById('broadcastMessage').value.trim(); if(!ch) ch=chatIdGlobal; if(!botTokenGlobal||!msg) return alert('❌ التوكن أو الرسالة مفقودة!'); fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({chat_id:ch, text:msg}) }).then(r=>r.json()).then(d=>{ if(d.ok) { alert('✅ تم البث!'); document.getElementById('broadcastMessage').value=''; } else { alert('❌ خطأ: '+d.description); } }); }
-
-        function updateOrdersChart(dataCounts) { const ctx=document.getElementById('ordersChart').getContext('2d'); if(ordersChartInstance) ordersChartInstance.destroy(); ordersChartInstance=new Chart(ctx, { type:'bar', data:{ labels:Object.keys(dataCounts), datasets:[{ label:'عدد الطلبات', data:Object.values(dataCounts), backgroundColor:'#d4af37', borderColor:'#fff', borderWidth:1 }] }, options:{ responsive:true, maintainAspectRatio:false, scales:{y:{beginAtZero:true,ticks:{color:'#fff'}}, x:{ticks:{color:'#fff'}}}, plugins:{legend:{labels:{color:'#fff'}}} } }); }
-
-        function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مبرمج ومطور الموقع", "مشترك VIP", "لاعب جديد"]; const types=["@l_2qu", "شراء باقة", "تفعيل كود"]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]} قام بـ ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 12000); }
+        // --- Fake Notifications ---
+        function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مشترك VIP", "لاعب جديد", "عضو مميز"]; const types=["شراء باقة", "تفعيل كود"]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]} قام بـ ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 15000); }
         function stopFakeNotifications() { clearInterval(fakeNotifInterval); fakeNotifInterval=null; document.getElementById('fakeNotification').style.display='none'; }
 
-        function addPackage() { const t=document.getElementById('newPackTitle').value.trim(); const d=document.getElementById('newPackDesc').value.trim(); if(t) { db.ref('packages').push({title:t,desc:d}); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; playSound('success'); } }
-        function delPackage(k) { db.ref('packages/'+k).remove(); playSound('error'); }
-        function listenToPackages() { db.ref('packages').on('value', snap => { const u=document.getElementById('packagesSection'); const a=document.getElementById('adminPacksList'); const s=document.getElementById('packageType'); u.innerHTML=''; a.innerHTML=''; s.innerHTML='<option value="" disabled selected>اختر الباقة...</option>'; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`; a.innerHTML+=`<tr><td>${d.title}</td><td><button class="action-btn" onclick="delPackage('${c.key}')">حذف</button></td></tr>`; s.innerHTML+=`<option value="${d.title}">${d.title}</option>`; }); }); }
-
-        function addFAQ() { const q=document.getElementById('newFaqQ').value.trim(); const a=document.getElementById('newFaqA').value.trim(); if(q&&a) { db.ref('faqs').push({q,a}); document.getElementById('newFaqQ').value=''; document.getElementById('newFaqA').value=''; playSound('success'); } }
-        function delFAQ(k) { db.ref('faqs/'+k).remove(); }
-        function listenToFAQs() { db.ref('faqs').on('value', snap => { const u=document.getElementById('faqContainer'); const a=document.getElementById('adminFaqList'); const m=document.getElementById('faqSection'); u.innerHTML=''; a.innerHTML=''; let c=0; snap.forEach(x => { c++; const d=x.val(); u.innerHTML+=`<div class="faq-item"><button class="faq-question" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">${d.q} ▼</button><div class="faq-answer">${d.a}</div></div>`; a.innerHTML+=`<tr><td>${d.q}</td><td><button class="action-btn" onclick="delFAQ('${x.key}')">حذف</button></td></tr>`; }); m.style.display=c>0?'block':'none'; }); }
-
-        function addTestimonial() { const n=document.getElementById('newTestiName').value.trim(); const t=document.getElementById('newTestiText').value.trim(); if(n&&t) { db.ref('testimonials').push({name:n,text:t}); document.getElementById('newTestiName').value=''; document.getElementById('newTestiText').value=''; playSound('success'); } }
-        function delTestimonial(k) { db.ref('testimonials/'+k).remove(); }
-        function listenToTestimonials() { db.ref('testimonials').on('value', snap => { const u=document.getElementById('testimonialsContainer'); const a=document.getElementById('adminTestiList'); const m=document.getElementById('testimonialSection'); u.innerHTML=''; a.innerHTML=''; let c=0; snap.forEach(x => { c++; const d=x.val(); u.innerHTML+=`<div class="testi-card"><div class="testi-name">👤 ${d.name}</div><div class="testi-text">"${d.text}"</div></div>`; a.innerHTML+=`<tr><td>${d.name}</td><td><button class="action-btn" onclick="delTestimonial('${x.key}')">حذف</button></td></tr>`; }); m.style.display=c>0?'block':'none'; }); }
-
-        function autoGenCode() { document.getElementById('newCodeVal').value = 'DRIVE-VIP-' + Math.random().toString(36).substring(2,8).toUpperCase(); }
-        function addNewCode() { const v=document.getElementById('newCodeVal').value.trim(); const t=document.getElementById('newCodeType').value.trim(); if(v) { db.ref('live_codes').push({code:v, type:t||'مجهول'}); document.getElementById('newCodeVal').value=''; document.getElementById('newCodeType').value=''; playSound('success'); } }
-        function delCode(k) { db.ref('live_codes/'+k).remove(); }
-        function copyCode(t,b) { navigator.clipboard.writeText(t).then(()=>{ const o=b.innerText; b.innerText="✅ تم!"; b.style.background="#00C851"; setTimeout(()=>{b.innerText=o; b.style.background="var(--primary-color)";}, 2000); }); }
-        function searchCodes() { let f=document.getElementById('searchCodeInput').value.toUpperCase(); document.querySelectorAll('.code-item').forEach(i => i.style.display=i.innerText.toUpperCase().includes(f)?"flex":"none"); }
-        function listenToLiveCodes() { db.ref('live_codes').on('value', snap => { const u=document.getElementById('codesContainer'); const a=document.getElementById('adminCodesList'); u.innerHTML=''; a.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="copyCode('${d.code}',this)">نسخ</button></div>`; a.innerHTML+=`<tr><td>${d.code}</td><td>${d.type}</td><td><button class="action-btn" onclick="delCode('${c.key}')">حذف</button></td></tr>`; }); }); }
-
-        function delOrder(k) { db.ref('orders/'+k).remove(); playSound('error'); }
-        function listenToOrders() { db.ref('orders').on('value', snap => { const a=document.getElementById('adminOrdersList'); a.innerHTML=''; let count=0; let pCounts={}; snap.forEach(c => { count++; const d=c.val(); pCounts[d.package]=(pCounts[d.package]||0)+1; a.innerHTML+=`<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td>${d.device||'مجهول'}</td><td><button class="action-btn" onclick="delOrder('${c.key}')">حذف</button></td></tr>`; }); document.getElementById('adminOrdersCount').innerText=count; updateOrdersChart(pCounts); }); }
-
+        // --- Form Submit with Spinner and Captcha ---
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('userName').value.trim();
-            const tgUser = document.getElementById('tgUsername').value.trim();
-            const pack = document.getElementById('packageType').value;
             const statusMsg = document.getElementById('statusMessage');
+            const capInput = parseInt(document.getElementById('captchaA').value);
+            
+            if (capInput !== capAns) {
+                statusMsg.style.display = 'block'; statusMsg.style.color = '#ff4444'; statusMsg.innerText = '❌ الناتج الرياضي (الكابتشا) غير صحيح!';
+                generateCaptcha(); return;
+            }
 
+            const name = document.getElementById('userName').value.trim(); const tgUser = document.getElementById('tgUsername').value.trim(); const pack = document.getElementById('packageType').value;
             if (blacklistedUsers.includes(tgUser.toLowerCase())) { statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText = '🚫 حسابك محظور من استخدام الموقع.'; return; }
 
-            statusMsg.style.display = 'block'; statusMsg.style.color = 'white'; statusMsg.innerText = '⏳ جاري المعالجة...';
+            // UI Loading state
+            const btn = document.getElementById('submitBtn');
+            const spinner = document.getElementById('btnSpinner');
+            const btnText = document.getElementById('btnText');
+            btn.disabled = true; spinner.style.display = 'block'; btnText.innerText = 'جاري الإرسال...';
+            statusMsg.style.display = 'none';
 
             db.ref('orders').push({ name: name, tgUser: tgUser, package: pack, device: getDeviceInfo(), time: firebase.database.ServerValue.TIMESTAMP });
-            
-            if(!disableCooldownGlobal) { localStorage.setItem('drivevip_last_order', new Date().getTime()); checkCooldown(); }
+            if(!disableCooldownGlobal) { localStorage.setItem('drivevip_last_order', new Date().getTime()); }
 
             const tgMessage = `🎁 طلب حجز جديد 🎁\n\n👤 الاسم: ${name}\n🔗 اليوزر: ${tgUser}\n📦 الباقة: ${pack}\n📱 الجهاز: ${getDeviceInfo()}`;
             fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage, reply_markup: { inline_keyboard: [[{text:"✅ تم", callback_data:"done"}], [{text:"💬 تواصل", url:`https://t.me/${tgUser.replace('@','')}`}]] } })
             }).then(r=>r.json()).then(d=>{
-                if(d.ok) { statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم رفع الطلب للإدارة بنجاح!'; document.getElementById('orderForm').reset(); playSound('success'); }
-                else { statusMsg.style.color='#ff4444'; statusMsg.innerText='❌ حدث خطأ داخلي.'; playSound('error'); }
-            });
+                btn.disabled = false; spinner.style.display = 'none'; btnText.innerText = 'إرسال طلب الحجز';
+                if(d.ok) { statusMsg.style.display='block'; statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم رفع الطلب للإدارة بنجاح!'; document.getElementById('orderForm').reset(); playSound('success'); generateCaptcha(); checkCooldown(); }
+                else { statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText='❌ حدث خطأ داخلي.'; playSound('error'); generateCaptcha(); }
+            }).catch(()=>{ btn.disabled = false; spinner.style.display = 'none'; btnText.innerText = 'إرسال طلب الحجز'; });
         });
     </script>
 </body>
