@@ -58,7 +58,7 @@
         @keyframes spinReverse { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
 
         header { text-align: center; padding: 40px 20px 20px; border-bottom: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); position: relative; background: linear-gradient(180deg, #111, transparent); }
-        header img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--primary-color); }
+        header img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--primary-color); transition: 0.3s; }
         header h1 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3); }
         header a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
         header a:hover { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); }
@@ -90,8 +90,8 @@
         .copy-btn:hover { background: white; transform: scale(1.05); }
         #searchCodeInput { width: 100%; padding: 12px; margin-bottom: 15px; background-color: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; transition: 0.3s; }
 
-        .faq-section, .testimonials-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .faq-section h2, .testimonials-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
+        .faq-section, .testimonials-section, .support-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .faq-section h2, .testimonials-section h2, .support-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; }
         .faq-item { background: rgba(26, 26, 36, 0.8); border: 1px solid #333; border-radius: 8px; margin-bottom: 10px; overflow: hidden; backdrop-filter: blur(10px); }
         .faq-question { width: 100%; background: none; border: none; color: white; padding: 15px; text-align: right; font-size: 1.1rem; cursor: pointer; font-weight: bold; outline: none; transition: 0.3s; }
         .faq-question:hover { color: var(--primary-color); background: #111; }
@@ -100,8 +100,8 @@
         .testi-name { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; }
 
         /* Form Inputs */
-        .order-section { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); max-width: 600px; margin: 20px auto 60px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
-        .order-section h2 { text-align: center; margin-bottom: 30px; color: var(--primary-color); }
+        .order-section, .support-section-box { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); max-width: 600px; margin: 20px auto 40px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .order-section h2, .support-section-box h2 { text-align: center; margin-bottom: 30px; color: var(--primary-color); }
         #maintenanceMessage { text-align: center; color: #ffaa00; font-size: 1.2rem; display: none; padding: 20px; border: 1px dashed #ffaa00; border-radius: 10px; }
         
         .form-group { margin-bottom: 20px; }
@@ -116,25 +116,16 @@
         button.submit-btn:hover { background-color: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
         .btn-spinner { border: 3px solid rgba(0,0,0,0.2); border-top: 3px solid #000; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: none; }
         
-        #statusMessage { text-align: center; margin-top: 15px; font-weight: bold; display: none; line-height: 1.5; }
+        .status-msg { text-align: center; margin-top: 15px; font-weight: bold; display: none; line-height: 1.5; }
 
-        footer { background: linear-gradient(0deg, #050505 0%, #1a1a24 100%); padding: 30px; border-top: 1px solid #222; text-align: center; position: relative; }
+        footer { background: linear-gradient(0deg, #050505 0%, #1a1a24 100%); padding: 30px; border-top: 1px solid #222; text-align: center; position: relative; margin-top: 50px;}
         .rights-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
         .rights-text { font-size: 1rem; color: #888; }
         .dev-name { background: linear-gradient(90deg, #d4af37, #ffffff, #d4af37); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; font-size: 1.6rem; font-weight: 900; animation: shine 3s linear infinite; letter-spacing: 2px; display: block; margin-top: 5px; }
         @keyframes shine { to { background-position: 200% center; } }
-        .admin-trigger { cursor: pointer; opacity: 0; position: absolute; right: 20px; bottom: 20px; font-size: 1.5rem; transition: 0.3s; }
-        footer:hover .admin-trigger { opacity: 0.2; }
+        .admin-trigger { cursor: pointer; opacity: 0.1; position: absolute; right: 20px; bottom: 20px; font-size: 1.5rem; transition: 0.3s; }
         .admin-trigger:hover { opacity: 1; transform: scale(1.1); }
 
-        /* لوحة الأدمن */
-        #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; justify-content: center; align-items: flex-start; overflow-y: auto; padding: 20px; }
-        .admin-content { background: #111; border: 2px solid var(--primary-color); padding: 20px; border-radius: 15px; width: 100%; max-width: 700px; margin: 40px auto; }
-        .admin-group { margin-bottom: 15px; }
-        .admin-group label { color: white; display: block; margin-bottom: 5px; font-size: 0.95rem; font-weight: bold; }
-        .admin-group input[type="text"], .admin-group input[type="email"], .admin-group input[type="number"], .admin-group input[type="password"], .admin-group textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; outline: none; }
-        .admin-btn { padding: 12px; background: var(--primary-color); color: #000; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; width: 100%; margin-bottom: 10px; transition: 0.2s; }
-        
         .float-btn { position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.8); z-index: 1000; transition: 0.3s; text-decoration: none; border: 2px solid var(--primary-color); background: #111; }
         .float-btn:hover { transform: scale(1.1); }
         .drive-logo-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
@@ -143,7 +134,16 @@
         @keyframes slideInNotif { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes slideOutNotif { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
         
-        /* Dashboard styles injected via JS */
+        /* لوحة الأدمن الشاملة */
+        #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; justify-content: center; align-items: flex-start; overflow-y: auto; padding: 20px; }
+        .admin-content { background: #111; border: 2px solid var(--primary-color); padding: 20px; border-radius: 15px; width: 100%; max-width: 850px; margin: 40px auto; }
+        .admin-group { margin-bottom: 15px; }
+        .admin-group label { color: white; display: block; margin-bottom: 5px; font-size: 0.95rem; font-weight: bold; }
+        .admin-group input[type="text"], .admin-group input[type="email"], .admin-group input[type="number"], .admin-group input[type="password"], .admin-group textarea, .admin-group input[type="color"] { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; outline: none; }
+        .admin-btn { padding: 12px; background: var(--primary-color); color: #000; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; width: 100%; margin-bottom: 10px; transition: 0.2s; }
+        .admin-btn.red { background: #ff4444; color: white; }
+        .admin-btn.green { background: #00C851; color: white; }
+        
         .admin-tabs { display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; border-bottom: 1px solid #333; }
         .admin-tab { padding: 10px 15px; background: #222; color: white; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap; transition: 0.2s; }
         .admin-tab:hover { background: #333; }
@@ -151,11 +151,14 @@
         .admin-panel { display: none; animation: fadeInPanel 0.4s; }
         .admin-panel.active { display: block; }
         @keyframes fadeInPanel { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
         .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
         .data-table th, .data-table td { border: 1px solid #444; padding: 10px; text-align: center; color: white; }
         .data-table th { background: #222; color: var(--primary-color); }
-        .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; transition: 0.2s; }
+        .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; transition: 0.2s; font-weight: bold; }
         .table-wrapper { max-height: 300px; overflow-y: auto; margin-bottom: 15px; border: 1px solid #444; }
+        .flex-row { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+        .flex-row input { flex: 1; }
     </style>
 </head>
 <body>
@@ -208,6 +211,7 @@
 
     <div id="packagesSection" class="packages-container"></div>
 
+    <!-- قسم الطلبات -->
     <div class="order-section">
         <h2>احجز كودك الآن مجاناً</h2>
         <div id="maintenanceMessage">⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.</div>
@@ -220,17 +224,29 @@
                 </select>
             </div>
             
-            <!-- Anti-Bot Captcha -->
             <div class="form-group captcha-box">
                 <div class="captcha-q" id="captchaQ">? + ?</div>
-                <input type="number" id="captchaA" placeholder="أدخل ناتج الجمع هنا للتحقق" required>
+                <input type="number" id="captchaA" placeholder="أدخل ناتج الجمع للتحقق" required>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">
                 <div class="btn-spinner" id="btnSpinner"></div>
                 <span id="btnText">إرسال طلب الحجز</span>
             </button>
-            <p id="statusMessage"></p>
+            <p id="statusMessage" class="status-msg"></p>
+        </form>
+    </div>
+
+    <!-- قسم الدعم الفني والتذاكر -->
+    <div class="support-section-box">
+        <h2>💬 الدعم الفني والتذاكر</h2>
+        <form id="ticketForm">
+            <div class="form-group"><input type="text" id="ticketUser" placeholder="يوزر التيليجرام للتواصل" required></div>
+            <div class="form-group"><textarea id="ticketMsg" placeholder="اكتب مشكلتك أو استفسارك هنا بوضوح..." rows="4" required></textarea></div>
+            <button type="submit" class="submit-btn" id="ticketBtn">
+                <span id="ticketBtnText">إرسال التذكرة للإدارة</span>
+            </button>
+            <p id="ticketStatusMsg" class="status-msg"></p>
         </form>
     </div>
 
@@ -239,7 +255,6 @@
         <div id="faqContainer"></div>
     </div>
 
-    <!-- قسم الآراء التفاعلي -->
     <div id="testimonialSection" class="testimonials-section">
         <h2>⭐ آراء وتجارب المشتركين</h2>
         <div id="testimonialsContainer"></div>
@@ -249,7 +264,7 @@
             <div class="form-group"><input type="text" id="userReviewName" placeholder="اسمك الكريم"></div>
             <div class="form-group"><textarea id="userReviewText" placeholder="اكتب رأيك بصراحة..." rows="3"></textarea></div>
             <button class="dyn-btn" style="width: 100%; border-radius: 8px;" onclick="submitReview()">إرسال الرأي</button>
-            <p id="reviewStatus" style="text-align:center; margin-top:10px; display:none;"></p>
+            <p id="reviewStatus" class="status-msg"></p>
         </div>
     </div>
 
@@ -266,7 +281,7 @@
         <img id="floatLogo" class="drive-logo-img" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
     </a>
 
-    <!-- لوحة تسجيل الدخول للأدمن (لوحة التحكم مخفية برمجياً) -->
+    <!-- لوحة تسجيل الدخول للأدمن -->
     <div id="adminModal">
         <div class="admin-content" id="loginStep">
             <h2 style="color:var(--primary-color); text-align:center; margin-bottom:20px;">دخول الأدمن الآمن 🔐</h2>
@@ -274,9 +289,9 @@
             <div class="admin-group"><input type="password" id="adminPassword" placeholder="كلمة المرور"></div>
             <button class="admin-btn" onclick="checkAdminAuth()">تسجيل الدخول</button>
             <button class="admin-btn" style="background:#444; color:white;" onclick="closeAdmin()">إلغاء</button>
-            <p id="adminError" style="color:red; display:none; text-align:center;">البيانات خاطئة، يرجى التأكد!</p>
+            <p id="adminError" style="color:red; display:none; text-align:center; margin-top:10px;">البيانات خاطئة، يرجى التأكد!</p>
         </div>
-        <!-- لوحة التحكم الفعلية سيتم حقنها هنا عبر الجافاسكربت لحمايتها -->
+        <!-- لوحة التحكم الفعلية سيتم حقنها هنا -->
         <div class="admin-content" id="dashboardStep" style="display: none;"></div>
     </div>
 
@@ -291,10 +306,10 @@
         const canvas = document.getElementById('bgCanvas'); const ctx = canvas.getContext('2d');
         let columns, drops; const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*<>/?'; const fontSize = 16;
         function initMatrix() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = canvas.width / fontSize; drops = []; for (let x = 0; x < columns; x++) drops[x] = 1; }
-        function drawMatrix() { ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#d4af37'; ctx.font = fontSize + 'px monospace'; for (let i = 0; i < drops.length; i++) { const text = characters.charAt(Math.floor(Math.random() * characters.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
+        function drawMatrix() { ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = 'var(--primary-color)'; ctx.font = fontSize + 'px monospace'; for (let i = 0; i < drops.length; i++) { const text = characters.charAt(Math.floor(Math.random() * characters.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
         window.addEventListener('resize', initMatrix); initMatrix(); setInterval(drawMatrix, 75);
 
-        // --- إعدادات الفايربيس ---
+        // --- إعدادات الفايربيس (ضع بياناتك الحقيقية هنا) ---
         const firebaseConfig = {
             apiKey: "AIzaSyDhp-hVKq-Sb6i4dLtthcvDg8Fsvya9Vv8",
             authDomain: "ahmed-vip-portal.firebaseapp.com",
@@ -307,9 +322,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database(); const auth = firebase.auth();
         
-        let botTokenGlobal = ""; let chatIdGlobal = ""; let blacklistedUsers = []; let ordersChartInstance = null; let fakeNotifInterval = null; let disableCooldownGlobal = false;
-        const defaultLogo = "data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>";
-
+        let botTokenGlobal = ""; let chatIdGlobal = ""; let discordWebhookUrl = ""; let blacklistedUsers = []; let ordersDataForExport = []; let ordersChartInstance = null; let fakeNotifInterval = null; let disableCooldownGlobal = false;
+        
         // --- نظام الكابتشا (Anti-Bot) ---
         let cap1, cap2, capAns;
         function generateCaptcha() {
@@ -318,13 +332,12 @@
             document.getElementById('captchaA').value = '';
         }
 
-        // --- تأثير التحميل (Loader Percentage) ---
+        // --- تأثير التحميل (Loader) ---
         let loadPerc = 0;
         let loaderInt = setInterval(() => {
             loadPerc += Math.floor(Math.random() * 15) + 5;
             if(loadPerc >= 100) {
-                loadPerc = 100;
-                clearInterval(loaderInt);
+                loadPerc = 100; clearInterval(loaderInt);
                 setTimeout(() => {
                     document.getElementById('loader').style.opacity = '0';
                     setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
@@ -361,7 +374,13 @@
             auth.onAuthStateChanged(user => { if(user && document.getElementById('adminModal').style.display === 'flex') { initAdminDashboard(); } });
         });
 
-        // --- قسم الآراء التفاعلي (User Submit) ---
+        // --- نظام ديسكورد ---
+        function sendToDiscord(message) {
+            if(!discordWebhookUrl || discordWebhookUrl.trim() === "") return;
+            fetch(discordWebhookUrl, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: message }) }).catch(e => console.log(e));
+        }
+
+        // --- قسم الآراء ---
         function submitReview() {
             const name = document.getElementById('userReviewName').value.trim(); const text = document.getElementById('userReviewText').value.trim();
             const msg = document.getElementById('reviewStatus');
@@ -373,66 +392,98 @@
             });
         }
 
-        // --- الأمان: حقن لوحة الإدارة برمجياً ---
+        // --- سجل الإدارة ---
+        function logAdminAction(actionText) {
+            const time = new Date().toLocaleString('ar-EG');
+            db.ref('admin_logs').push({ time, actionText });
+        }
+
+        // --- حقن لوحة الإدارة الشاملة ---
         function getAdminHTML() {
             return `
-            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px;">لوحة الإدارة الشاملة</h2>
+            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px;">لوحة الإدارة الشاملة | حمدمد</h2>
             <p style="text-align:center; color:#aaa; margin-bottom:15px;">👀 إجمالي الزيارات: <strong id="adminVisits" style="color:var(--primary-color);">0</strong> | 📦 إجمالي الطلبات: <strong id="adminOrdersCount" style="color:var(--primary-color);">0</strong></p>
             <div class="admin-tabs">
-                <button class="admin-tab active" onclick="switchTab('tabGeneral')">إعدادات</button>
+                <button class="admin-tab active" onclick="switchTab('tabGeneral')">إعدادات عامة</button>
                 <button class="admin-tab" onclick="switchTab('tabUI')">الواجهة</button>
-                <button class="admin-tab" onclick="switchTab('tabLinks')">أزرار</button>
                 <button class="admin-tab" onclick="switchTab('tabOrders')">الطلبات</button>
-                <button class="admin-tab" onclick="switchTab('tabReviews')">الآراء المعلقة</button>
+                <button class="admin-tab" onclick="switchTab('tabTickets')">التذاكر</button>
+                <button class="admin-tab" onclick="switchTab('tabReviews')">الآراء</button>
                 <button class="admin-tab" onclick="switchTab('tabCodes')">الأكواد</button>
-                <button class="admin-tab" onclick="switchTab('tabPackages')">الأقسام</button>
+                <button class="admin-tab" onclick="switchTab('tabPackages')">الباقات</button>
                 <button class="admin-tab" onclick="switchTab('tabBlacklist')">باند</button>
+                <button class="admin-tab" onclick="switchTab('tabLoyalty')">الولاء</button>
+                <button class="admin-tab" onclick="switchTab('tabLogs')">سجل الإدارة</button>
             </div>
             
             <div id="tabGeneral" class="admin-panel active">
                 <div class="admin-group"><label><input type="checkbox" id="setBanWave"> 🚨 تفعيل موجة الباند (طوارئ)</label></div>
                 <div class="admin-group"><label>نسبة الأمان:</label><input type="number" id="setHackPercent"></div>
-                <div class="admin-group"><label>توكن البوت:</label><input type="text" id="setBotToken"></div>
-                <div class="admin-group"><label>ايدي الحساب:</label><input type="text" id="setChatId"></div>
+                <div class="admin-group"><label>توكن البوت (تيليجرام):</label><input type="text" id="setBotToken"></div>
+                <div class="admin-group"><label>ايدي الحساب (تيليجرام):</label><input type="text" id="setChatId"></div>
+                <div class="admin-group"><label>رابط ديسكورد (Webhook):</label><input type="text" id="setDiscordWebhook" placeholder="https://discord.com/api/webhooks/..."></div>
                 <div class="admin-group"><label><input type="checkbox" id="setDisableCooldown"> ⏳ إلغاء نظام الانتظار للجميع</label></div>
-                <button class="admin-btn" onclick="saveSettings()">💾 حفظ</button>
-                <button class="admin-btn" style="background:#ff4444; color:white;" onclick="firebase.auth().signOut().then(() => location.reload())">تسجيل خروج</button>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+                <button class="admin-btn red" onclick="firebase.auth().signOut().then(() => location.reload())">تسجيل خروج</button>
             </div>
+            
             <div id="tabUI" class="admin-panel">
+                <div class="admin-group"><label>اللون الأساسي:</label><input type="color" id="setThemeColor" style="height:40px; padding:0;"></div>
+                <div class="admin-group"><label>رابط اللوجو (URL):</label><input type="text" id="setLogoUrl" placeholder="رابط صورة اللوجو (اختياري)"></div>
                 <div class="admin-group"><label>عنوان الموقع:</label><input type="text" id="setSiteTitle"></div>
                 <div class="admin-group"><label>شريط متحرك:</label><input type="text" id="setAnnouncement"></div>
                 <div class="admin-group"><label><input type="checkbox" id="setShowPopup"> تفعيل تنبيه منبثق</label><textarea id="setPopupText" rows="2"></textarea></div>
                 <div class="admin-group"><label><input type="checkbox" id="setShowLiveCodes"> إظهار الأكواد الجاهزة</label></div>
                 <div class="admin-group"><label><input type="checkbox" id="setFakeNotif"> إشعارات وهمية</label></div>
-                <button class="admin-btn" onclick="saveSettings()">💾 حفظ</button>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ التعديلات</button>
             </div>
-            <div id="tabLinks" class="admin-panel">
-                <div class="admin-group"><input type="text" id="newLinkTitle" placeholder="الاسم"><input type="text" id="newLinkUrl" placeholder="الرابط"></div>
-                <button class="admin-btn" onclick="addLink()">إضافة زر</button>
-                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الزر</th><th>حذف</th></tr></thead><tbody id="adminLinksList"></tbody></table></div>
-            </div>
+
             <div id="tabOrders" class="admin-panel">
+                <div class="flex-row">
+                    <input type="text" id="searchOrderInput" placeholder="🔍 ابحث عن يوزر..." onkeyup="filterOrdersTable()">
+                    <button class="admin-btn green" style="width:auto; margin:0;" onclick="exportOrdersCSV()">📥 تصدير CSV</button>
+                    <button class="admin-btn red" style="width:auto; margin:0;" onclick="clearAllOrders()">🗑️ مسح الكل</button>
+                </div>
                 <div style="background:#222; padding:10px; margin-bottom:10px; height:200px;"><canvas id="ordersChart"></canvas></div>
                 <div class="table-wrapper"><table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>حذف</th></tr></thead><tbody id="adminOrdersList"></tbody></table></div>
             </div>
+
+            <div id="tabTickets" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:10px;">تذاكر الدعم الفني</h3>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>اليوزر</th><th>المشكلة</th><th>إجراء</th></tr></thead><tbody id="adminTicketsList"></tbody></table></div>
+            </div>
+
             <div id="tabReviews" class="admin-panel">
                 <h3 style="color:var(--primary-color);">مراجعة الآراء الجديدة</h3>
                 <div class="table-wrapper"><table class="data-table"><thead><tr><th>الاسم</th><th>الرأي</th><th>إجراء</th></tr></thead><tbody id="adminPendingReviews"></tbody></table></div>
             </div>
+
             <div id="tabCodes" class="admin-panel">
                 <div class="admin-group"><input type="text" id="newCodeVal" placeholder="الكود"><input type="text" id="newCodeType" placeholder="النوع"></div>
                 <button class="admin-btn" onclick="addNewCode()">إضافة كود</button>
                 <div class="table-wrapper"><table class="data-table"><thead><tr><th>الكود</th><th>حذف</th></tr></thead><tbody id="adminCodesList"></tbody></table></div>
             </div>
+
             <div id="tabPackages" class="admin-panel">
                 <div class="admin-group"><input type="text" id="newPackTitle" placeholder="الباقة"><input type="text" id="newPackDesc" placeholder="الوصف"></div>
                 <button class="admin-btn" onclick="addPackage()">إضافة باقة</button>
                 <div class="table-wrapper"><table class="data-table"><tbody id="adminPacksList"></tbody></table></div>
             </div>
+
             <div id="tabBlacklist" class="admin-panel">
                 <div class="admin-group"><input type="text" id="newBannedUser" placeholder="يوزر للحظر"></div>
-                <button class="admin-btn" style="background:#ff4444; color:white;" onclick="addBlacklist()">حظر</button>
+                <button class="admin-btn red" onclick="addBlacklist()">حظر المستخدم</button>
                 <div class="table-wrapper"><table class="data-table"><tbody id="adminBlacklist"></tbody></table></div>
+            </div>
+
+            <div id="tabLoyalty" class="admin-panel">
+                <p style="color:#aaa; margin-bottom:10px;">يتم إضافة 10 نقاط تلقائياً لكل يوزر يقوم بطلب كود.</p>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>اليوزر</th><th>النقاط</th></tr></thead><tbody id="adminLoyaltyList"></tbody></table></div>
+            </div>
+
+            <div id="tabLogs" class="admin-panel">
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الوقت</th><th>الحدث</th></tr></thead><tbody id="adminLogsList"></tbody></table></div>
+                <button class="admin-btn red" onclick="db.ref('admin_logs').remove(); logAdminAction('تم مسح السجل بالكامل');">مسح السجل</button>
             </div>
             `;
         }
@@ -445,9 +496,48 @@
             
             // Re-bind listeners for Admin UI
             db.ref('stats/visits').on('value', snap => { if(document.getElementById('adminVisits')) document.getElementById('adminVisits').innerText = snap.val() || 0; });
-            listenToOrders(); listenToBlacklist(); listenToPendingReviews(); 
-            // Load current settings into inputs... (Skipped repopulating admin inputs for brevity but values update on save).
+            listenToOrders(); listenToBlacklist(); listenToPendingReviews(); listenToTickets(); listenToLoyalty(); listenToLogs();
+            
+            // جلب الإعدادات الحالية لملء الحقول
+            db.ref('site_settings').once('value').then(snap => {
+                const d = snap.val() || {};
+                if(document.getElementById('setBanWave')) document.getElementById('setBanWave').checked = d.banWaveMode || false;
+                if(document.getElementById('setHackPercent')) document.getElementById('setHackPercent').value = d.hackPercent || 80;
+                if(document.getElementById('setBotToken')) document.getElementById('setBotToken').value = d.botToken || "";
+                if(document.getElementById('setChatId')) document.getElementById('setChatId').value = d.chatId || "";
+                if(document.getElementById('setDiscordWebhook')) document.getElementById('setDiscordWebhook').value = d.discordWebhook || "";
+                if(document.getElementById('setDisableCooldown')) document.getElementById('setDisableCooldown').checked = d.disableCooldown || false;
+                if(document.getElementById('setThemeColor')) document.getElementById('setThemeColor').value = d.themeColor || "#d4af37";
+                if(document.getElementById('setLogoUrl')) document.getElementById('setLogoUrl').value = d.logoUrl || "";
+                if(document.getElementById('setSiteTitle')) document.getElementById('setSiteTitle').value = d.siteTitle || "DRIVE VIP | الأكواد المجانية";
+                if(document.getElementById('setAnnouncement')) document.getElementById('setAnnouncement').value = d.announcementText || "";
+                if(document.getElementById('setShowPopup')) document.getElementById('setShowPopup').checked = d.showPopup || false;
+                if(document.getElementById('setPopupText')) document.getElementById('setPopupText').value = d.popupText || "";
+                if(document.getElementById('setShowLiveCodes')) document.getElementById('setShowLiveCodes').checked = d.showLiveCodes || false;
+                if(document.getElementById('setFakeNotif')) document.getElementById('setFakeNotif').checked = d.fakeNotifications !== false;
+            });
+            logAdminAction("تسجيل دخول للوحة الإدارة");
         }
+
+        window.saveSettings = function() {
+            const data = {
+                banWaveMode: document.getElementById('setBanWave').checked,
+                hackPercent: document.getElementById('setHackPercent').value,
+                botToken: document.getElementById('setBotToken').value,
+                chatId: document.getElementById('setChatId').value,
+                discordWebhook: document.getElementById('setDiscordWebhook').value,
+                disableCooldown: document.getElementById('setDisableCooldown').checked,
+                themeColor: document.getElementById('setThemeColor').value,
+                logoUrl: document.getElementById('setLogoUrl').value,
+                siteTitle: document.getElementById('setSiteTitle').value,
+                announcementText: document.getElementById('setAnnouncement').value,
+                showPopup: document.getElementById('setShowPopup').checked,
+                popupText: document.getElementById('setPopupText').value,
+                showLiveCodes: document.getElementById('setShowLiveCodes').checked,
+                fakeNotifications: document.getElementById('setFakeNotif').checked
+            };
+            db.ref('site_settings').set(data).then(() => { alert('تم الحفظ بنجاح!'); logAdminAction("تعديل إعدادات الموقع"); });
+        };
 
         function openAdmin() { 
             document.getElementById('adminModal').style.display = 'flex';
@@ -460,19 +550,19 @@
             auth.signInWithEmailAndPassword(email, pass).then(() => { playSound('access'); document.getElementById('adminError').style.display = 'none'; initAdminDashboard(); }).catch(() => { playSound('error'); document.getElementById('adminError').style.display = 'block'; });
         }
         
-        // Expose switchTab globally
         window.switchTab = function(tabId) {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
             event.target.classList.add('active'); document.getElementById(tabId).classList.add('active');
         };
 
-        // --- باقي دوال الموقع (الاستماع للبيانات) ---
+        // --- الاستماع للبيانات من Firebase ---
         function listenToSettings() {
             db.ref('site_settings').on('value', (snapshot) => {
                 const data = snapshot.val() || {};
                 document.documentElement.style.setProperty('--primary-color', data.themeColor || '#d4af37');
                 const title = data.siteTitle || 'DRIVE VIP | الأكواد المجانية'; document.title = title; document.getElementById('siteTitle').innerText = title;
+                if(data.logoUrl) { document.getElementById('headerLogo').src = data.logoUrl; document.getElementById('floatLogo').src = data.logoUrl; }
                 const hp = parseInt(data.hackPercent || '80'); const pBar = document.getElementById('uiProgressBar'); const sText = document.getElementById('uiStatusText');
                 pBar.style.width = hp + '%'; if (hp < 50) { sText.innerText = `خطر (${hp}%)`; sText.style.color = '#ff4444'; pBar.style.backgroundColor = '#ff4444'; pBar.style.boxShadow = '0 0 15px #ff4444'; } else { sText.innerText = `آمن (${hp}%)`; sText.style.color = '#00C851'; pBar.style.backgroundColor = '#00C851'; pBar.style.boxShadow = '0 0 15px #00C851'; }
                 disableCooldownGlobal = data.disableCooldown || false;
@@ -480,30 +570,72 @@
                 const bar = document.getElementById('announcementBar'); if (data.announcementText && data.announcementText.trim() !== '') { bar.style.display = 'block'; bar.innerHTML = `<marquee scrollamount="5">${data.announcementText}</marquee>`; } else { bar.style.display = 'none'; }
                 const popup = document.getElementById('globalPopup'); if(data.showPopup && data.popupText) { document.getElementById('popupText').innerText = data.popupText; popup.style.display = 'flex'; } else { popup.style.display = 'none'; }
                 document.getElementById('liveCodesSection').style.display = data.showLiveCodes === true ? 'block' : 'none';
-                botTokenGlobal = data.botToken || ""; chatIdGlobal = data.chatId || "";
+                botTokenGlobal = data.botToken || ""; chatIdGlobal = data.chatId || ""; discordWebhookUrl = data.discordWebhook || "";
                 if(data.fakeNotifications !== false) { startFakeNotifications(); } else { stopFakeNotifications(); }
             });
         }
 
-        // Functions for fetching data (Live codes, links, packages, etc) remain similar...
-        function listenToPackages() { db.ref('packages').on('value', snap => { const u=document.getElementById('packagesSection'); const s=document.getElementById('packageType'); u.innerHTML=''; s.innerHTML='<option value="" disabled selected>اختر الباقة...</option>'; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`; s.innerHTML+=`<option value="${d.title}">${d.title}</option>`; if(document.getElementById('adminPacksList')) document.getElementById('adminPacksList').innerHTML+=`<tr><td>${d.title}</td><td><button class="action-btn" onclick="db.ref('packages/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
+        function listenToPackages() { db.ref('packages').on('value', snap => { const u=document.getElementById('packagesSection'); const s=document.getElementById('packageType'); u.innerHTML=''; s.innerHTML='<option value="" disabled selected>اختر الباقة...</option>'; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`; s.innerHTML+=`<option value="${d.title}">${d.title}</option>`; if(document.getElementById('adminPacksList')) document.getElementById('adminPacksList').innerHTML+=`<tr><td>${d.title}</td><td><button class="action-btn" onclick="db.ref('packages/${c.key}').remove(); logAdminAction('تم حذف باقة');">حذف</button></td></tr>`; }); }); }
         function listenToFAQs() { db.ref('faqs').on('value', snap => { const u=document.getElementById('faqContainer'); const m=document.getElementById('faqSection'); u.innerHTML=''; let count=0; snap.forEach(x => { count++; const d=x.val(); u.innerHTML+=`<div class="faq-item"><button class="faq-question" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">${d.q} ▼</button><div class="faq-answer">${d.a}</div></div>`; }); m.style.display=count>0?'block':'none'; }); }
         function listenToTestimonials() { db.ref('testimonials').on('value', snap => { const u=document.getElementById('testimonialsContainer'); u.innerHTML=''; snap.forEach(x => { const d=x.val(); u.innerHTML+=`<div class="testi-card"><div class="testi-name">👤 ${d.name}</div><div class="testi-text">"${d.text}"</div></div>`; }); }); }
-        function listenToLiveCodes() { db.ref('live_codes').on('value', snap => { const u=document.getElementById('codesContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="navigator.clipboard.writeText('${d.code}')">نسخ</button></div>`; if(document.getElementById('adminCodesList')) document.getElementById('adminCodesList').innerHTML+=`<tr><td>${d.code}</td><td><button class="action-btn" onclick="db.ref('live_codes/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
-        function listenToLinks() { db.ref('external_links').on('value', snap => { const u=document.getElementById('dynamicButtonsContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<a href="${d.url}" target="_blank" class="dyn-btn">🔗 ${d.title}</a>`; if(document.getElementById('adminLinksList')) document.getElementById('adminLinksList').innerHTML+=`<tr><td>${d.title}</td><td><button class="action-btn" onclick="db.ref('external_links/${c.key}').remove()">حذف</button></td></tr>`; }); }); }
-        function listenToOrders() { db.ref('orders').on('value', snap => { const a=document.getElementById('adminOrdersList'); if(!a) return; a.innerHTML=''; let count=0; let pCounts={}; snap.forEach(c => { count++; const d=c.val(); pCounts[d.package]=(pCounts[d.package]||0)+1; a.innerHTML+=`<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td><button class="action-btn" onclick="db.ref('orders/${c.key}').remove()">حذف</button></td></tr>`; }); document.getElementById('adminOrdersCount').innerText=count; if(ordersChartInstance) ordersChartInstance.destroy(); ordersChartInstance=new Chart(document.getElementById('ordersChart').getContext('2d'), { type:'bar', data:{ labels:Object.keys(pCounts), datasets:[{ label:'الطلبات', data:Object.values(pCounts), backgroundColor:'#d4af37' }] } }); }); }
-        function listenToBlacklist() { db.ref('blacklist').on('value', snap => { const a=document.getElementById('adminBlacklist'); blacklistedUsers=[]; if(a) a.innerHTML=''; snap.forEach(c => { const u=c.val(); blacklistedUsers.push(u); if(a) a.innerHTML+=`<tr><td style="color:#ff4444;">${u}</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('blacklist/${c.key}').remove()">فك</button></td></tr>`; }); }); }
+        function listenToLiveCodes() { db.ref('live_codes').on('value', snap => { const u=document.getElementById('codesContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="navigator.clipboard.writeText('${d.code}')">نسخ</button></div>`; if(document.getElementById('adminCodesList')) document.getElementById('adminCodesList').innerHTML+=`<tr><td>${d.code}</td><td><button class="action-btn" onclick="db.ref('live_codes/${c.key}').remove(); logAdminAction('تم حذف كود');">حذف</button></td></tr>`; }); }); }
+        function listenToLinks() { db.ref('external_links').on('value', snap => { const u=document.getElementById('dynamicButtonsContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<a href="${d.url}" target="_blank" class="dyn-btn">🔗 ${d.title}</a>`; }); }); }
         
-        // --- Admin Review Management ---
-        window.approveReview = function(k, n, t) { db.ref('testimonials').push({name:n, text:t}).then(()=> db.ref('pending_testimonials/'+k).remove()); }
-        window.rejectReview = function(k) { db.ref('pending_testimonials/'+k).remove(); }
+        function listenToOrders() { 
+            db.ref('orders').on('value', snap => { 
+                const a=document.getElementById('adminOrdersList'); if(!a) return; 
+                a.innerHTML=''; ordersDataForExport=[]; let count=0; let pCounts={}; 
+                snap.forEach(c => { 
+                    count++; const d=c.val(); pCounts[d.package]=(pCounts[d.package]||0)+1; 
+                    ordersDataForExport.push({name: d.name, user: d.tgUser, package: d.package});
+                    a.innerHTML+=`<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td><button class="action-btn" onclick="db.ref('orders/${c.key}').remove(); logAdminAction('تم حذف طلب');">حذف</button></td></tr>`; 
+                }); 
+                document.getElementById('adminOrdersCount').innerText=count; 
+                if(ordersChartInstance) ordersChartInstance.destroy(); 
+                ordersChartInstance=new Chart(document.getElementById('ordersChart').getContext('2d'), { type:'bar', data:{ labels:Object.keys(pCounts), datasets:[{ label:'الطلبات', data:Object.values(pCounts), backgroundColor:'#d4af37' }] }, options: { maintainAspectRatio: false } }); 
+            }); 
+        }
+        
+        function listenToBlacklist() { db.ref('blacklist').on('value', snap => { const a=document.getElementById('adminBlacklist'); blacklistedUsers=[]; if(a) a.innerHTML=''; snap.forEach(c => { const u=c.val(); blacklistedUsers.push(u); if(a) a.innerHTML+=`<tr><td style="color:#ff4444;">${u}</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('blacklist/${c.key}').remove(); logAdminAction('تم فك حظر يوزر');">فك</button></td></tr>`; }); }); }
+        function listenToTickets() { db.ref('tickets').on('value', snap => { const a=document.getElementById('adminTicketsList'); if(!a) return; a.innerHTML=''; snap.forEach(c => { const d=c.val(); a.innerHTML+=`<tr><td>${d.user}</td><td>${d.msg}</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('tickets/${c.key}').remove(); logAdminAction('تم حل تذكرة');">تم الحل</button></td></tr>`; }); }); }
+        function listenToLoyalty() { db.ref('loyalty').on('value', snap => { const a=document.getElementById('adminLoyaltyList'); if(!a) return; a.innerHTML=''; snap.forEach(c => { a.innerHTML+=`<tr><td>${c.key}</td><td>${c.val().points}</td></tr>`; }); }); }
+        function listenToLogs() { db.ref('admin_logs').on('value', snap => { const a=document.getElementById('adminLogsList'); if(!a) return; a.innerHTML=''; snap.forEach(c => { const d=c.val(); a.innerHTML=`<tr><td>${d.time}</td><td>${d.actionText}</td></tr>` + a.innerHTML; }); }); }
+
+        window.approveReview = function(k, n, t) { db.ref('testimonials').push({name:n, text:t}).then(()=> { db.ref('pending_testimonials/'+k).remove(); logAdminAction('تم قبول رأي'); }); }
+        window.rejectReview = function(k) { db.ref('pending_testimonials/'+k).remove(); logAdminAction('تم رفض رأي'); }
         function listenToPendingReviews() { db.ref('pending_testimonials').on('value', snap => { const a=document.getElementById('adminPendingReviews'); if(!a) return; a.innerHTML=''; snap.forEach(c => { const d=c.val(); a.innerHTML+=`<tr><td>${d.name}</td><td>${d.text}</td><td><button class="action-btn" style="background:#00C851; margin-bottom:5px;" onclick="approveReview('${c.key}','${d.name}','${d.text}')">قبول</button><br><button class="action-btn" onclick="rejectReview('${c.key}')">رفض</button></td></tr>`; }); }); }
 
+        // --- أدوات الإدارة الإضافية ---
+        window.exportOrdersCSV = function() {
+            let csv = 'الاسم,اليوزر,الباقة\n';
+            ordersDataForExport.forEach(o => { csv += `${o.name},${o.user},${o.package}\n`; });
+            const blob = new Blob(["\uFEFF"+csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "orders_export.csv"; link.click();
+            logAdminAction("تم تصدير قاعدة بيانات الطلبات (CSV)");
+        };
+
+        window.clearAllOrders = function() {
+            if(confirm('هل أنت متأكد تماماً من مسح جميع الطلبات؟ لا يمكن التراجع!')) {
+                db.ref('orders').remove();
+                logAdminAction("تم مسح جميع الطلبات بالكامل!");
+            }
+        };
+
+        window.filterOrdersTable = function() {
+            const query = document.getElementById('searchOrderInput').value.toLowerCase();
+            const rows = document.getElementById('adminOrdersList').getElementsByTagName('tr');
+            Array.from(rows).forEach(row => { row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none'; });
+        };
+        
+        window.addBlacklist = function() { const u = document.getElementById('newBannedUser').value.trim(); if(u) { db.ref('blacklist').push(u.toLowerCase()); document.getElementById('newBannedUser').value=''; logAdminAction(`تم حظر اليوزر: ${u}`); } };
+        window.addPackage = function() { const t = document.getElementById('newPackTitle').value.trim(); const d = document.getElementById('newPackDesc').value.trim(); if(t && d) { db.ref('packages').push({title:t, desc:d}); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; logAdminAction(`إضافة باقة جديدة: ${t}`); } };
+        window.addNewCode = function() { const v = document.getElementById('newCodeVal').value.trim(); const t = document.getElementById('newCodeType').value.trim(); if(v && t) { db.ref('live_codes').push({code:v, type:t}); document.getElementById('newCodeVal').value=''; document.getElementById('newCodeType').value=''; logAdminAction(`إضافة كود جديد`); } };
+
         // --- Fake Notifications ---
-        function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مشترك VIP", "لاعب جديد", "عضو مميز"]; const types=["شراء باقة", "تفعيل كود"]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]} قام بـ ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 15000); }
+        function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مبرمج ومطور الموقع @l_2qu"]; const types=[""]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]} ـ ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 15000); }
         function stopFakeNotifications() { clearInterval(fakeNotifInterval); fakeNotifInterval=null; document.getElementById('fakeNotification').style.display='none'; }
 
-        // --- Form Submit with Spinner and Captcha ---
+        // --- إرسال الطلبات والتذاكر ---
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const statusMsg = document.getElementById('statusMessage');
@@ -517,25 +649,43 @@
             const name = document.getElementById('userName').value.trim(); const tgUser = document.getElementById('tgUsername').value.trim(); const pack = document.getElementById('packageType').value;
             if (blacklistedUsers.includes(tgUser.toLowerCase())) { statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText = '🚫 حسابك محظور من استخدام الموقع.'; return; }
 
-            // UI Loading state
-            const btn = document.getElementById('submitBtn');
-            const spinner = document.getElementById('btnSpinner');
-            const btnText = document.getElementById('btnText');
-            btn.disabled = true; spinner.style.display = 'block'; btnText.innerText = 'جاري الإرسال...';
-            statusMsg.style.display = 'none';
+            const btn = document.getElementById('submitBtn'); const spinner = document.getElementById('btnSpinner'); const btnText = document.getElementById('btnText');
+            btn.disabled = true; spinner.style.display = 'block'; btnText.innerText = 'جاري الإرسال...'; statusMsg.style.display = 'none';
+
+            // إضافة نقاط ولاء
+            const cleanUser = tgUser.replace('@','').toLowerCase();
+            db.ref(`loyalty/${cleanUser}`).once('value').then(snap => { let pts = snap.val() ? snap.val().points + 10 : 10; db.ref(`loyalty/${cleanUser}`).set({points: pts}); });
 
             db.ref('orders').push({ name: name, tgUser: tgUser, package: pack, device: getDeviceInfo(), time: firebase.database.ServerValue.TIMESTAMP });
             if(!disableCooldownGlobal) { localStorage.setItem('drivevip_last_order', new Date().getTime()); }
 
             const tgMessage = `🎁 طلب حجز جديد 🎁\n\n👤 الاسم: ${name}\n🔗 اليوزر: ${tgUser}\n📦 الباقة: ${pack}\n📱 الجهاز: ${getDeviceInfo()}`;
+            sendToDiscord(`🎁 **طلب حجز جديد**\n**الاسم:** ${name}\n**اليوزر:** ${tgUser}\n**الباقة:** ${pack}`);
+
             fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage, reply_markup: { inline_keyboard: [[{text:"✅ تم", callback_data:"done"}], [{text:"💬 تواصل", url:`https://t.me/${tgUser.replace('@','')}`}]] } })
+                body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage, reply_markup: { inline_keyboard: [[{text:"✅ تم", callback_data:"done"}], [{text:"💬 تواصل", url:`https://t.me/${cleanUser}`}]] } })
             }).then(r=>r.json()).then(d=>{
                 btn.disabled = false; spinner.style.display = 'none'; btnText.innerText = 'إرسال طلب الحجز';
                 if(d.ok) { statusMsg.style.display='block'; statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم رفع الطلب للإدارة بنجاح!'; document.getElementById('orderForm').reset(); playSound('success'); generateCaptcha(); checkCooldown(); }
                 else { statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText='❌ حدث خطأ داخلي.'; playSound('error'); generateCaptcha(); }
             }).catch(()=>{ btn.disabled = false; spinner.style.display = 'none'; btnText.innerText = 'إرسال طلب الحجز'; });
+        });
+
+        document.getElementById('ticketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const u = document.getElementById('ticketUser').value.trim(); const m = document.getElementById('ticketMsg').value.trim();
+            const statusMsg = document.getElementById('ticketStatusMsg');
+            const btn = document.getElementById('ticketBtn'); const btnText = document.getElementById('ticketBtnText');
+            
+            btn.disabled = true; btnText.innerText = 'جاري الإرسال...';
+            
+            db.ref('tickets').push({ user: u, msg: m }).then(() => {
+                sendToDiscord(`⚠️ **تذكرة دعم فني جديدة**\n**اليوزر:** ${u}\n**المشكلة:** ${m}`);
+                statusMsg.style.display='block'; statusMsg.style.color='#00C851'; statusMsg.innerText='✅ تم إرسال تذكرتك للإدارة بنجاح!';
+                document.getElementById('ticketForm').reset(); playSound('success');
+                btn.disabled = false; btnText.innerText = 'إرسال التذكرة للإدارة';
+            });
         });
     </script>
 </body>
