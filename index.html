@@ -3,138 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>فاحص تيك توك PRO MAX | احمد @l_2qu</title>
+<title>فاحص حسابات تيك توك</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{background:linear-gradient(135deg,#000,#1a001a);color:#fff;min-height:100vh;padding:20px;}
-.container{max-width:900px;margin:20px auto;background:#111;border:2px solid #ff0050;border-radius:25px;padding:30px;box-shadow:0 0 30px #ff005055;}
-h1{color:#ff0050;text-align:center;margin-bottom:10px;font-size:30px;}
-.subtitle{text-align:center;color:#aaa;margin-bottom:25px;}
-.input-box{display:flex;gap:10px;margin-bottom:20px;}
-input{flex:1;padding:16px;background:#000;border:2px solid #ff0050;color:#fff;border-radius:12px;font-size:16px;outline:none;}
-button{padding:16px 25px;background:#ff0050;color:#fff;font-weight:bold;font-size:16px;border:none;border-radius:12px;cursor:pointer;transition:0.3s;}
-button:hover{background:#ff3366;transform:scale(1.03);}
-.loading{display:none;text-align:center;color:#ff0050;margin:15px 0;font-weight:bold;}
-.result{display:none;margin-top:25px;}
-.profile{display:flex;align-items:center;gap:20px;margin-bottom:20px;background:#000;padding:20px;border-radius:15px;}
-.profile img{width:100px;height:100px;border-radius:50%;border:4px solid #ff0050;object-fit:cover;}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0;}
-.item{background:#000;padding:12px;border-radius:10px;display:flex;justify-content:space-between;}
-.videos{margin-top:25px;}
-.videos h3{color:#00f2ea;margin-bottom:15px;}
-.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:15px;}
-.video-card{background:#000;border-radius:12px;overflow:hidden;border:1px solid #333;}
-.video-card img{width:100%;height:200px;object-fit:cover;}
-.video-info{padding:10px;font-size:13px;}
-.video-info div{display:flex;justify-content:space-between;margin-top:5px;}
-.copy-btn{background:#00f2ea;color:#000;margin-top:15px;width:100%;}
-.footer{text-align:center;margin-top:25px;color:#555;font-size:14px;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo', sans-serif}
+    body{background:linear-gradient(135deg,#000 0%,#1a1a1a 100%);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .box{background:#111;border:2px solid #ff0050;border-radius:20px;padding:30px;width:100%;max-width:500px;box-shadow:0 0 30px rgba(255,0,80,0.3)}
+    h1{text-align:center;color:#ff0050;margin-bottom:20px;font-size:28px}
+    input{width:100%;padding:14px;border-radius:10px;border:2px solid #333;background:#222;color:#fff;font-size:16px;margin-bottom:15px;outline:none}
+    input:focus{border-color:#ff0050}
+    button{width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(90deg,#ff0050,#00f2ea);color:#fff;font-size:18px;font-weight:bold;cursor:pointer;transition:0.3s}
+    button:hover{transform:scale(1.02)}
+    button:disabled{opacity:0.5;cursor:not-allowed}
+    .result{margin-top:20px;padding:20px;background:#1a1a1a;border-radius:15px;display:none}
+    .result img{width:80px;height:80px;border-radius:50%;border:3px solid #ff0050;margin-bottom:15px}
+    .stat{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #333}
+    .stat:last-child{border:none}
+    .error{color:#ff0050;text-align:center;margin-top:15px}
+    .loading{text-align:center;color:#00f2ea}
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>🎵 فاحص تيك توك PRO MAX</h1>
-  <p class="subtitle">بواسطة احمد <a href="https://t.me/l_2qu" style="color:#ff0050">@l_2qu</a></p>
-  
-  <div class="input-box">
-    <input type="text" id="username" placeholder="اكتب يوزر تيك توك بدون @">
-    <button onclick="getTikTok()">فحص</button>
-  </div>
-  
-  <p class="loading" id="loading">⏳ جاري جلب البيانات...</p>
-  
-  <div class="result" id="result"></div>
-  
-  <p class="footer">© 2026 جميع الحقوق محفوظة</p>
+<div class="box">
+    <h1>🔍 فاحص تيك توك</h1>
+    <input type="text" id="username" placeholder="اكتب اليوزر بدون @ مثال: khaby.lame">
+    <button id="btn" onclick="checkUser()">فحص الحساب</button>
+    <div id="loading" class="loading" style="display:none">جاري جلب البيانات...</div>
+    <div id="error" class="error"></div>
+    
+    <div id="result" class="result">
+        <center><img id="avatar" src=""></center>
+        <h2 id="name" style="text-align:center;margin-bottom:15px"></h2>
+        <div class="stat"><span>اليوزر:</span><span id="user"></span></div>
+        <div class="stat"><span>المتابعين:</span><span id="followers"></span></div>
+        <div class="stat"><span>يتابع:</span><span id="following"></span></div>
+        <div class="stat"><span>اللايكات:</span><span id="likes"></span></div>
+        <div class="stat"><span>الفيديوهات:</span><span id="videos"></span></div>
+        <p id="bio" style="margin-top:15px;color:#aaa;font-size:14px"></p>
+    </div>
 </div>
 
 <script>
-// 👇👇 حط المفتاح الكامل مالك هنا 👇👇
-const RAPID_KEY = "حط_المفتاح_الكامل_هنا";
+const RAPID_KEY = "782943e507msh8a08f4a3058d0d8p13cf67jsn8298f95d4702";
+const RAPID_HOST = "tiktok-api23.p.rapidapi.com";
 
-async function getTikTok(){
-  const user = document.getElementById('username').value.trim().replace('@','');
-  if(!user) return alert('❌ دخل اليوزر');
-
-  document.getElementById('loading').style.display='block';
-  document.getElementById('result').style.display='none';
-
-  try{
-    // 1. جيب معلومات اليوزر
-    const userRes = await fetch(`https://tiktok-api23.p.rapidapi.com/api/user/info?uniqueId=${user}`,{
-      headers:{'X-RapidAPI-Key': RAPID_KEY,'X-RapidAPI-Host': 'tiktok-api23.p.rapidapi.com'}
-    });
-    const userJson = await userRes.json();
-    if(userJson.code !== 0) throw new Error(userJson.msg || 'الحساب غير موجود');
-    
-    const u = userJson.data.user;
-    const s = userJson.data.stats;
-
-    // 2. جيب اخر 6 فيديوات
-    const videoRes = await fetch(`https://tiktok-api23.p.rapidapi.com/api/user/posts?uniqueId=${user}&count=6`,{
-      headers:{'X-RapidAPI-Key': RAPID_KEY,'X-RapidAPI-Host': 'tiktok-api23.p.rapidapi.com'}
-    });
-    const videoJson = await videoRes.json();
-    const videos = videoJson.data?.videos || [];
-
-    document.getElementById('loading').style.display='none';
-    document.getElementById('result').style.display='block';
-    
-    // 3. عرض البيانات
-    let videosHTML = '';
-    videos.forEach(v=>{
-      videosHTML += `
-      <div class="video-card">
-        <img src="${v.cover}">
-        <div class="video-info">
-          <div><span>👁️</span><span>${(v.playCount||0).toLocaleString()}</span></div>
-          <div><span>❤️</span><span>${(v.diggCount||0).toLocaleString()}</span></div>
-        </div>
-      </div>`;
-    });
-
-    document.getElementById('result').innerHTML = `
-      <div class="profile">
-        <img src="${u.avatarLarger}">
-        <div>
-          <h2>${u.nickname} ${u.verified ? '✅' : ''}</h2>
-          <p style="color:#aaa">@${u.uniqueId}</p>
-          <p style="color:#ccc;margin-top:8px;">${u.signature || 'لا يوجد بايو'}</p>
-        </div>
-      </div>
-
-      <div class="stats">
-        <div class="item"><span>المتابعين</span><span>${s.followerCount.toLocaleString()}</span></div>
-        <div class="item"><span>يتابع</span><span>${s.followingCount.toLocaleString()}</span></div>
-        <div class="item"><span>مجموع اللايكات</span><span>${s.heartCount.toLocaleString()}</span></div>
-        <div class="item"><span>عدد الفيديوات</span><span>${s.videoCount.toLocaleString()}</span></div>
-      </div>
-
-      <button class="copy-btn" onclick="copyData('${u.nickname}','${s.followerCount}')">📋 نسخ البيانات</button>
-
-      <div class="videos">
-        <h3>📹 اخر 6 فيديوات</h3>
-        <div class="video-grid">${videosHTML}</div>
-      </div>
-    `;
-
-    // 4. حفظ بالسجل
-    let history = JSON.parse(localStorage.getItem('tt_checks') || '[]');
-    history.unshift({user:u.uniqueId, name:u.nickname, time:new Date().toLocaleString('ar-IQ')});
-    localStorage.setItem('tt_checks', JSON.stringify(history.slice(0,20)));
-
-  }catch(e){
-    document.getElementById('loading').style.display='none';
-    alert('❌ خطأ: ' + e.message);
-  }
+function formatNum(num){
+    if(num >= 1000000) return (num/1000000).toFixed(1) + 'M';
+    if(num >= 1000) return (num/1000).toFixed(1) + 'K';
+    return num.toLocaleString();
 }
 
-function copyData(name, followers){
-  const text = `الاسم: ${name}\nالمتابعين: ${followers}`;
-  navigator.clipboard.writeText(text);
-  alert('✅ تم نسخ البيانات');
+async function checkUser(){
+    const user = document.getElementById('username').value.trim().replace('@','');
+    const btn = document.getElementById('btn');
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const result = document.getElementById('result');
+
+    if(!user){ error.innerHTML = "اكتب يوزر اول"; return; }
+    
+    btn.disabled = true;
+    loading.style.display = "block";
+    error.innerHTML = "";
+    result.style.display = "none";
+
+    try{
+        const res = await fetch(`https://${RAPID_HOST}/api/user/info?uniqueId=${user}`,{
+            method:"GET",
+            headers:{
+                "X-RapidAPI-Key": RAPID_KEY,
+                "X-RapidAPI-Host": RAPID_HOST
+            }
+        });
+        
+        const data = await res.json();
+        
+        if(data.code === 0 && data.data){
+            const u = data.data.user;
+            const s = data.data.stats;
+            
+            document.getElementById('avatar').src = u.avatarLarger;
+            document.getElementById('name').innerHTML = u.nickname + (u.verified ? ' ✅' : '');
+            document.getElementById('user').innerHTML = '@' + u.uniqueId;
+            document.getElementById('followers').innerHTML = formatNum(s.followerCount);
+            document.getElementById('following').innerHTML = formatNum(s.followingCount);
+            document.getElementById('likes').innerHTML = formatNum(s.heartCount);
+            document.getElementById('videos').innerHTML = formatNum(s.videoCount);
+            document.getElementById('bio').innerHTML = u.signature || "لا يوجد بايو";
+            
+            result.style.display = "block";
+        }else{
+            error.innerHTML = "الحساب غير موجود او خاص: " + (data.msg || '');
+        }
+    }catch(e){
+        error.innerHTML = "صار خطأ بالاتصال. تاكد من المفتاح والانترنت";
+        console.log(e);
+    }
+    
+    btn.disabled = false;
+    loading.style.display = "none";
 }
+
+// تفعيل زر انتر
+document.getElementById('username').addEventListener('keypress', function(e){
+    if(e.key === 'Enter') checkUser();
+});
 </script>
+
 </body>
 </html>
