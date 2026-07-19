@@ -44,9 +44,6 @@
 </div>
 
 <script>
-const RAPID_KEY = "782943e507msh8a08f4a3058d0d8p13cf67jsn8298f95d4702";
-const RAPID_HOST = "tiktok-video-no-watermark-api.p.rapidapi.com"; // هذا الAPI الجديد
-
 function formatNum(num){
     if(num >= 1000000) return (num/1000000).toFixed(1) + 'M';
     if(num >= 1000) return (num/1000).toFixed(1) + 'K';
@@ -68,27 +65,21 @@ async function checkUser(){
     result.style.display = "none";
 
     try{
-        // نستخدم الAPI الجديد
-        const res = await fetch(`https://${RAPID_HOST}/api/user/info?username=${user}`,{
-            method:"GET",
-            headers:{
-                "X-RapidAPI-Key": RAPID_KEY,
-                "X-RapidAPI-Host": RAPID_HOST
-            }
-        });
+        // نستخدم API مجاني بدون مفتاح
+        const res = await fetch(`https://tiktok-api-proxy.vercel.app/api/user/${user}`);
         
         const data = await res.json();
         
-        if(data.success && data.user){
+        if(data.user){
             const u = data.user;
             
             document.getElementById('avatar').src = u.avatar;
             document.getElementById('name').innerHTML = u.name + (u.verified ? ' ✅' : '');
             document.getElementById('user').innerHTML = '@' + u.username;
-            document.getElementById('followers').innerHTML = formatNum(u.follower_count);
-            document.getElementById('following').innerHTML = formatNum(u.following_count);
-            document.getElementById('likes').innerHTML = formatNum(u.heart_count);
-            document.getElementById('videos').innerHTML = formatNum(u.video_count);
+            document.getElementById('followers').innerHTML = formatNum(u.followers);
+            document.getElementById('following').innerHTML = formatNum(u.following);
+            document.getElementById('likes').innerHTML = formatNum(u.likes);
+            document.getElementById('videos').innerHTML = formatNum(u.videos);
             document.getElementById('bio').innerHTML = u.bio || "لا يوجد بايو";
             
             result.style.display = "block";
@@ -96,7 +87,7 @@ async function checkUser(){
             error.innerHTML = "الحساب غير موجود او خاص";
         }
     }catch(e){
-        error.innerHTML = "صار خطأ بالاتصال. جرب يوزر ثاني";
+        error.innerHTML = "فشل الاتصال. جرب بعد شوية";
         console.log(e);
     }
     
