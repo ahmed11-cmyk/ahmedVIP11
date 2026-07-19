@@ -2,102 +2,53 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>لوحة تحكم تيك توك | Admin Panel</title>
+<title>لوحة تحكم تيك توك حقيقية</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo', sans-serif}
-    body{background:#0a0a0a;color:#fff;overflow-x:hidden}
-    
-    /* الهيدر */
-    header{background:linear-gradient(90deg,#ff0050,#00f2ea);padding:20px;text-align:center;box-shadow:0 5px 20px rgba(255,0,80,0.5)}
-    header h1{font-size:32px;font-weight:900;text-shadow:0 0 10px #000}
-    
-    /* الحاوية */
-    .container{display:flex;gap:20px;padding:20px;max-width:1400px;margin:auto}
-    
-    /* صندوق البحث */
-    .search-box{flex:1;background:#111;border:2px solid #ff0050;border-radius:20px;padding:25px;box-shadow:0 0 30px rgba(255,0,80,0.3)}
-    .search-box h2{color:#00f2ea;margin-bottom:15px}
+    body{background:#0a0a0a;color:#fff}
+    header{background:linear-gradient(90deg,#ff0050,#00f2ea);padding:20px;text-align:center}
+    header h1{font-size:32px;font-weight:900}
+    .container{padding:20px;max-width:600px;margin:20px auto}
+    .search-box{background:#111;border:2px solid #ff0050;border-radius:20px;padding:25px;box-shadow:0 0 30px rgba(255,0,80,0.3)}
     input{width:100%;padding:14px;border-radius:10px;border:2px solid #333;background:#222;color:#fff;font-size:16px;margin-bottom:15px}
-    input:focus{border-color:#ff0050;outline:none}
-    button{width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(90deg,#ff0050,#00f2ea);color:#fff;font-size:18px;font-weight:900;cursor:pointer;transition:0.3s}
-    button:hover{transform:scale(1.05);box-shadow:0 0 20px #ff0050}
-    
-    /* نتيجة البحث */
+    button{width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(90deg,#ff0050,#00f2ea);color:#fff;font-size:18px;font-weight:900;cursor:pointer}
     .result{margin-top:20px;background:#1a1a1a;border-radius:15px;padding:20px;display:none}
     .result img{width:120px;height:120px;border-radius:50%;border:4px solid #ff0050;display:block;margin:0 auto 15px;box-shadow:0 0 20px #ff0050}
-    .result h3{text-align:center;font-size:24px;margin-bottom:10px}
     .stat{display:flex;justify-content:space-between;background:#222;padding:12px;margin:8px 0;border-radius:10px;border-right:3px solid #00f2ea}
     .stat span:last-child{color:#00f2ea;font-weight:bold}
-    
-    /* لوحة الادمن */
-    .admin{background:#111;border:2px solid #00f2ea;border-radius:20px;padding:25px;width:350px;box-shadow:0 0 30px rgba(0,242,234,0.3)}
-    .admin h2{color:#ff0050;margin-bottom:15px;text-align:center}
-    .admin input{background:#222}
-    .toggle{display:flex;justify-content:space-between;align-items:center;background:#222;padding:12px;border-radius:10px;margin:10px 0}
-    .switch{width:50px;height:25px;background:#555;border-radius:20px;position:relative;cursor:pointer}
-    .switch.on{background:#00f2ea}
-    .switch::after{content:'';position:absolute;width:21px;height:21px;background:#fff;border-radius:50%;top:2px;left:2px;transition:0.3s}
-    .switch.on::after{left:27px}
-    .log{background:#000;padding:10px;border-radius:10px;height:150px;overflow-y:auto;font-size:13px;color:#0f0}
-    
     .loading{color:#00f2ea;text-align:center;display:none}
     .error{color:#ff0050;text-align:center}
 </style>
 </head>
 <body>
 
-<header>
-    <h1>🔥 لوحة تحكم تيك توك الاسطورية 🔥</h1>
-</header>
+<header><h1>🔥 فاحص تيك توك الحقيقي 🔥</h1></header>
 
 <div class="container">
-    <!-- صندوق البحث -->
     <div class="search-box">
-        <h2>🔍 فحص حساب</h2>
-        <input type="text" id="username" placeholder="اكتب اليوزر بدون @ مثال: 6l.t_">
+        <h2 style="color:#00f2ea;text-align:center;margin-bottom:15px">🔍 بحث عن حساب</h2>
+        <input type="text" id="username" placeholder="اكتب اليوزر: 6l.t_">
         <button onclick="searchUser()">بحث الان</button>
-        <p id="loading" class="loading">جاري جلب البيانات...</p>
+        <p id="loading" class="loading">جاري جلب البيانات الحقيقية...</p>
         <p id="error" class="error"></p>
         
         <div id="result" class="result">
             <img id="avatar" src="">
-            <h3 id="name"></h3>
+            <h3 id="name" style="text-align:center;font-size:24px"></h3>
             <div class="stat"><span>اليوزر:</span><span id="user"></span></div>
             <div class="stat"><span>المتابعين:</span><span id="followers"></span></div>
             <div class="stat"><span>يتابع:</span><span id="following"></span></div>
             <div class="stat"><span>اللايكات:</span><span id="likes"></span></div>
             <div class="stat"><span>الفيديوهات:</span><span id="videos"></span></div>
             <div class="stat"><span>الحالة:</span><span id="status"></span></div>
-            <p id="bio" style="margin-top:15px;color:#aaa;font-size:14px;text-align:center"></p>
-        </div>
-    </div>
-    
-    <!-- لوحة الادمن -->
-    <div class="admin">
-        <h2>⚙️ لوحة التحكم</h2>
-        <input type="password" id="adminPass" placeholder="كلمة سر الادمن: 1234">
-        <button onclick="loginAdmin()">دخول الادمن</button>
-        
-        <div id="adminPanel" style="display:none">
-            <h3 style="color:#00f2ea;margin:15px 0">التحكم</h3>
-            <div class="toggle"><span>تفعيل الوضع الوهمي</span><div class="switch" onclick="toggle(this)"></div></div>
-            <div class="toggle"><span>اخفاء اللايكات</span><div class="switch" onclick="toggle(this)"></div></div>
-            <div class="toggle"><span>ثيم داكن</span><div class="switch on" onclick="toggle(this)"></div></div>
-            
-            <h3 style="color:#00f2ea;margin:15px 0">سجل البحث</h3>
-            <div id="log" class="log">> تم تشغيل اللوحة...<br></div>
-            
-            <button onclick="clearLog()" style="background:#ff0050;margin-top:10px">مسح السجل</button>
+            <p id="bio" style="margin-top:15px;color:#aaa;text-align:center"></p>
         </div>
     </div>
 </div>
 
 <script>
-let adminLogged = false;
-let fakeMode = false;
-
-function fmt(n){return n>1000000?(n/1000000).toFixed(1)+'M':n>1000?(n/1000).toFixed(1)+'K':n.toLocaleString()}
+function fmt(n){return n>=1000000?(n/1000000).toFixed(1)+'M':n>=1000?(n/1000).toFixed(1)+'K':n.toLocaleString()}
 
 async function searchUser(){
     const user = document.getElementById('username').value.replace('@','').trim();
@@ -106,82 +57,36 @@ async function searchUser(){
     document.getElementById('loading').style.display='block';
     document.getElementById('error').innerHTML='';
     document.getElementById('result').style.display='none';
-    addLog(`> جاري البحث عن: ${user}`);
-    
-    if(fakeMode){
-        // بيانات وهمية
-        setTimeout(()=>{
-            document.getElementById('avatar').src='https://i.pravatar.cc/150?u='+user;
-            document.getElementById('name').innerHTML=user+' ✅';
-            document.getElementById('user').innerHTML='@'+user;
-            document.getElementById('followers').innerHTML=fmt(Math.floor(Math.random()*5000000));
-            document.getElementById('following').innerHTML=fmt(Math.floor(Math.random()*1000));
-            document.getElementById('likes').innerHTML=fmt(Math.floor(Math.random()*20000000));
-            document.getElementById('videos').innerHTML=fmt(Math.floor(Math.random()*500));
-            document.getElementById('status').innerHTML='عام';
-            document.getElementById('bio').innerHTML='هذا بايو وهمي للحساب 🔥';
-            document.getElementById('result').style.display='block';
-            document.getElementById('loading').style.display='none';
-            addLog(`> تم جلب بيانات وهمية لـ ${user}`);
-        },1000)
-        return;
-    }
     
     try{
-        // جلب بيانات حقيقية + الصورة
-        let res = await fetch(`https://api.tikwm.com/user/info?username=${user}`);
+        // بروكسي + API حقيقي
+        let res = await fetch(`https://api.codetabs.com/v1/proxy?quest=https://api.tikwm.com/user/info?username=${user}`);
         let json = await res.json();
+        
         if(json.data){
             let d = json.data;
-            document.getElementById('avatar').src = d.avatar; // هنا تجي صورة البروفايل
+            document.getElementById('avatar').src = d.avatar; // الصورة الحقيقية
             document.getElementById('name').innerHTML = d.nickname + (d.verified?' ✅':'');
             document.getElementById('user').innerHTML = '@'+d.unique_id;
             document.getElementById('followers').innerHTML = fmt(d.follower_count);
             document.getElementById('following').innerHTML = fmt(d.following_count);
             document.getElementById('likes').innerHTML = fmt(d.heart_count);
             document.getElementById('videos').innerHTML = fmt(d.video_count);
-            document.getElementById('status').innerHTML = d.private_account? 'خاص':'عام';
+            document.getElementById('status').innerHTML = d.private_account? '🔒 خاص':'🌍 عام';
             document.getElementById('bio').innerHTML = d.signature || "لا يوجد بايو";
             document.getElementById('result').style.display='block';
-            addLog(`> تم جلب بيانات حقيقية لـ ${user}`);
         }else{
-            document.getElementById('error').innerHTML="الحساب غير موجود";
-            addLog(`> خطأ: الحساب غير موجود`);
+            document.getElementById('error').innerHTML="الحساب غير موجود او خاص";
         }
     }catch(e){
-        document.getElementById('error').innerHTML="فشل الاتصال";
-        addLog(`> خطأ بالاتصال`);
+        document.getElementById('error').innerHTML="فشل الاتصال. جرب بعد دقيقة";
+        console.log(e);
     }
     document.getElementById('loading').style.display='none';
-}
-
-function loginAdmin(){
-    if(document.getElementById('adminPass').value == '1234'){
-        document.getElementById('adminPanel').style.display='block';
-        adminLogged=true;
-        addLog('> تم تسجيل دخول الادمن');
-    }else{
-        alert('كلمة السر غلط. الافتراضي: 1234')
-    }
-}
-
-function toggle(el){
-    el.classList.toggle('on');
-    if(el.parentElement.innerText.includes('الوهمي')) fakeMode = el.classList.contains('on');
-    addLog(`> تم تغيير الاعدادات`);
-}
-
-function addLog(txt){
-    document.getElementById('log').innerHTML += txt + '<br>';
-    document.getElementById('log').scrollTop = document.getElementById('log').scrollHeight;
-}
-
-function clearLog(){
-    document.getElementById('log').innerHTML = '> تم مسح السجل<br>';
 }
 
 document.getElementById('username').addEventListener('keypress', e=>{if(e.key=='Enter')searchUser()});
 </script>
 
 </body>
-   </html>
+</html>
