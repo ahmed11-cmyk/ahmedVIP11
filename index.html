@@ -2,159 +2,205 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>HACKER PANEL | @l_2qu</title>
+<title>منصة التواصل | Social Hub</title>
 <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Courier New', monospace}
-    body{background:#000;color:#00ff00;overflow:hidden}
-   .scanline{position:fixed;top:0;left:0;width:100%;height:2px;background:rgba(0,255,0,0.3);animation:scan 3s linear infinite}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Tahoma', sans-serif}
+    body{background:#0a0a0a;color:#fff}
+
+    /* واجهة الدخول العادية */
+  .login-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;z-index:999}
+  .login-box{background:#fff;color:#000;padding:40px;border-radius:20px;width:90%;max-width:400px;text-align:center}
+  .login-box h1{margin-bottom:20px;color:#667eea}
+  .login-box input{width:100%;padding:12px;margin:10px 0;border:2px solid #ddd;border-radius:10px}
+  .login-box button{width:100%;padding:12px;background:#667eea;color:#fff;border:none;border-radius:10px;font-weight:bold;cursor:pointer;font-size:16px}
+  .login-box button:hover{background:#5568d3}
+
+    /* واجهة الهكر */
+    body.hacker-mode{background:#000;font-family:'Courier New', monospace}
+    body.hacker-mode.login-screen{display:none}
+  .scanline{position:fixed;top:0;left:0;width:100%;height:2px;background:rgba(0,255,0,0.3);animation:scan 3s linear infinite;display:none}
     @keyframes scan{0%{top:0}100%{top:100%}}
-
-    header{background:#001100;border-bottom:2px solid #00ff00;padding:15px;text-align:center}
-    header h1{font-size:28px;text-shadow:0 0 10px #00ff00}
-   .target{color:#ff0000;font-weight:bold}
-
-   .container{display:flex;height:calc(100vh - 70px)}
-
-    /* شاشة الهكر */
-   .terminal{flex:1;background:#000;padding:20px;overflow-y:auto;border-right:2px solid #00ff00}
-   .line{margin:5px 0;font-size:14px}
-   .success{color:#00ff00}
-   .error{color:#ff0000}
-   .warning{color:#ffff00}
-
-    /* لوحة الادمن */
-   .admin{width:350px;background:#001100;padding:20px;border-left:2px solid #00ff00}
-   .admin h2{color:#00ff00;text-align:center;margin-bottom:20px}
-    input,select{width:100%;padding:10px;margin:10px 0;background:#000;border:1px solid #00ff00;color:#00ff00}
-    button{width:100%;padding:12px;background:#00ff00;color:#000;border:none;font-weight:bold;cursor:pointer;margin:5px 0}
-    button:hover{background:#00cc00}
-   .stats{background:#000;padding:10px;border:1px solid #00ff00;margin:10px 0}
+  .terminal{padding:20px;height:calc(100vh - 70px);overflow-y:auto;display:none;color:#00ff00}
+  .admin-panel{width:350px;background:#001100;padding:20px;position:fixed;right:0;top:0;height:100%;border-left:2px solid #00ff00;display:none}
+    header{background:#001100;border-bottom:2px solid #00ff00;padding:15px;text-align:center;display:none}
+  .line{margin:5px 0;font-size:14px}
+  .success{color:#00ff00}.error{color:#ff0000}.warning{color:#ffff00}
+    input.hacker,select,button.hacker{width:100%;padding:10px;margin:10px 0;background:#000;border:1px solid #00ff00;color:#00ff00}
+    button.hacker{background:#00ff00;color:#000;font-weight:bold;cursor:pointer}
+    button.hacker:hover{background:#00cc00}
+  .stats{background:#000;padding:10px;border:1px solid #00ff00;margin:10px 0}
+  .bsod{position:fixed;top:0;left:0;width:100%;height:100%;background:#0000aa;color:#fff;display:none;align-items:center;justify-content:center;flex-direction:column;font-size:24px;z-index:1000}
 </style>
 </head>
 <body>
-<div class="scanline"></div>
 
-<header>
-    <h1>⚡ HACKER TERMINAL v9.9 ⚡</h1>
-    <p>الهدف الحالي: <span class="target" id="targetUser">@l_2qu</span></p>
-</header>
-
-<div class="container">
-    <!-- شاشة الاكواد -->
-    <div class="terminal" id="terminal">
-        <div class="line">[SYSTEM] مرحبا @l_2qu - تم تشغيل النظام...</div>
-        <div class="line">[SYSTEM] انتظر اوامر الادمن</div>
-    </div>
-
-    <!-- لوحة الادمن -->
-    <div class="admin">
-        <h2>⚙️ لوحة التحكم</h2>
-
-        <label>اليوزر المستهدف:</label>
-        <input type="text" id="userInput" value="@l_2qu">
-        <button onclick="setTarget()">تغيير الهدف</button>
-
-        <label>سرعة الهجوم:</label>
-        <select id="speed">
-            <option value="200">بطيء</option>
-            <option value="100" selected>متوسط</option>
-            <option value="50">سريع</option>
-        </select>
-
-        <button onclick="startHack()">🚀 بدء الاختراق</button>
-        <button onclick="stopHack()" style="background:#ff0000;color:#fff">⏹️ ايقاف</button>
-        <button onclick="clearTerminal()">🧹 مسح الشاشة</button>
-
-        <div class="stats">
-            <p>الحالة: <span id="status">متوقف</span></p>
-            <p>التقدم: <span id="progress">0%</span></p>
-        </div>
+<!-- 1. واجهة عادية للدخول -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <h1>مرحبا بك في Social Hub</h1>
+        <p>سجل الدخول للمتابعة</p>
+        <input type="text" id="nameInput" placeholder="اكتب اسمك">
+        <input type="text" id="userInput" placeholder="اكتب اليوزر @l_2qu">
+        <button onclick="login()">دخول</button>
     </div>
 </div>
+
+<!-- 2. شاشة زرقاء وهمية -->
+<div class="bsod" id="bsod">
+    <h1>:(</h1>
+    <p>تم اكتشاف نشاط مشبوه</p>
+    <p>جاري اعادة التشغيل...</p>
+</div>
+
+<div class="scanline"></div>
+
+<header id="header">
+    <h1>⚡ HACKER TERMINAL v9.9 ⚡</h1>
+    <p>الهدف: <span id="targetUser" style="color:#ff0000">@l_2qu</span></p>
+</header>
+
+<div class="terminal" id="terminal"></div>
+
+<!-- لوحة الادمن 6 -->
+<div class="admin-panel" id="adminPanel">
+    <h2>⚙️ لوحة التحكم</h2>
+
+    <label>اليوزر المستهدف:</label>
+    <input type="text" class="hacker" id="targetInput" value="@l_2qu">
+    <button class="hacker" onclick="setTarget()">تغيير الهدف</button>
+
+    <label>الامر:</label>
+    <select class="hacker" id="command">
+        <option value="hack">بدء الاختراق</option>
+        <option value="ddos">هجوم DDOS</option>
+        <option value="trace">تتبع IP</option>
+        <option value="decrypt">فك تشفير</option>
+    </select>
+
+    <label>سرعة:</label>
+    <select class="hacker" id="speed">
+        <option value="200">بطيء</option>
+        <option value="100" selected>متوسط</option>
+        <option value="50">سريع</option>
+    </select>
+
+    <button class="hacker" onclick="startHack()">🚀 تنفيذ</button>
+    <button class="hacker" onclick="stopHack()" style="background:#ff0000;color:#fff">⏹️ ايقاف</button>
+    <button class="hacker" onclick="downloadData()">💾 تسريب البيانات 4</button>
+    <button class="hacker" onclick="triggerBSOD()" style="background:#0000aa;color:#fff">💻 شاشة زرقاء 5</button>
+
+    <div class="stats">
+        <p>الحالة: <span id="status">متوقف</span></p>
+        <p>التقدم: <span id="progress">0%</span></p>
+    </div>
+</div>
+
+<audio id="keyboardSound" loop>
+    <source src="https://www.soundjay.com/mechanical/keyboard-typing.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 let hacking = false;
 let hackInterval;
 let progress = 0;
+let currentUser = "";
 
-const messages = [
-    "[SCANNING] جاري مسح الشبكة...",
-    "[FOUND] تم العثور على IP: 192.168.1.***",
-    "[PORT] المنفذ 443 مفتوح",
-    "[BRUTE] محاولة كلمة سر: 123456",
-    "[BRUTE] محاولة كلمة سر: password",
-    "[SUCCESS] تم تجاوز الجدار الناري",
-    "[DATA] جاري سحب البيانات...",
-    "[PHOTO] تم استخراج صورة البروفايل",
-    "[INFO] المتابعين: 1.2M",
-    "[INFO] اللايكات: 45.6M",
-    "[DECRYPT] فك التشفير 12%...",
-    "[DECRYPT] فك التشفير 45%...",
-    "[DECRYPT] فك التشفير 78%...",
-    "[WARNING] تم اكتشاف مضاد فيروسات",
-    "[BYPASS] تجاوز الحماية بنجاح",
-    "[FINAL] الوصول الكامل تم",
-    "[DONE] الاختراق مكتمل 100%"
-];
+const hackMessages = {
+    hack:["[SCANNING] جاري مسح الشبكة...","[FOUND] IP: 192.168.1.***","[SUCCESS] تجاوز الجدار الناري","[DATA] سحب بيانات @user","[PHOTO] استخراج صورة البروفايل 2","[DECRYPT] 50%","[DONE] اكتمل 100%"],
+    ddos:["[DDOS] استهداف السيرفر...","[ATTACK] 1000 طلب/ثانية","[ATTACK] 5000 طلب/ثانية","[CRASH] السيرفر سقط"],
+    trace:["[TRACE] تتبع الموقع...","[LOC] بغداد, العراق","[LOC] دبي, الامارات","[LOC] واشنطن, امريكا"],
+    decrypt:["[DECRYPT] فك تشفير الباسورد...","[CRACK] 25%","[CRACK] 75%","[SUCCESS] الباسورد: ********"]
+};
 
-function addLine(text, className=''){
+// 1. صوت تيب تيب
+function playSound(play){
+    const audio = document.getElementById('keyboardSound');
+    if(play) audio.play(); else {audio.pause(); audio.currentTime=0;}
+}
+
+function login(){
+    const name = document.getElementById('nameInput').value;
+    const user = document.getElementById('userInput').value;
+
+    if(!name ||!user){alert("اكتب الاسم واليوزر"); return;}
+
+    currentUser = user;
+    document.getElementById('loginScreen').style.display='none';
+
+    // اذا اليوزر هو الادمن يدخل للوحة
+    if(user.toLowerCase() === '@l_2qu'){
+        document.body.classList.add('hacker-mode');
+        document.getElementById('header').style.display='block';
+        document.getElementById('terminal').style.display='block';
+        document.getElementById('adminPanel').style.display='block';
+        document.querySelector('.scanline').style.display='block';
+        addLine("[SYSTEM] مرحبا ادمن @l_2qu", 'success');
+    } else {
+        // واجهة عادية وهمية
+        document.body.innerHTML = `<div style="text-align:center;padding:100px"><h1>اهلا ${name}</h1><p>هذا موقع عادي 😄</p></div>`;
+    }
+}
+
+function addLine(text, cls=''){
     const term = document.getElementById('terminal');
     const div = document.createElement('div');
-    div.className = 'line ' + className;
-    div.innerHTML = text;
+    div.className = 'line ' + cls;
+    div.innerHTML = text.replace('@user', currentUser);
     term.appendChild(div);
     term.scrollTop = term.scrollHeight;
 }
 
 function setTarget(){
-    const user = document.getElementById('userInput').value;
-    document.getElementById('targetUser').innerHTML = user;
-    addLine(`[SYSTEM] تم تغيير الهدف الى: ${user}`, 'warning');
+    currentUser = document.getElementById('targetInput').value;
+    document.getElementById('targetUser').innerHTML = currentUser;
+    addLine(`[SYSTEM] الهدف الجديد: ${currentUser}`, 'warning');
 }
 
 function startHack(){
     if(hacking) return;
     hacking = true;
-    progress = 0;
-    document.getElementById('status').innerHTML = 'جاري...';
-    document.getElementById('status').style.color = '#ffff00';
-
-    let i = 0;
+    playSound(true); // 1. تشغيل الصوت
+    const cmd = document.getElementById('command').value;
     const speed = document.getElementById('speed').value;
+    const msgs = hackMessages[cmd];
+    let i=0; progress=0;
+    document.getElementById('status').innerHTML='جاري...';
 
     hackInterval = setInterval(()=>{
-        if(i < messages.length){
-            let msg = messages[i].replace('@user', document.getElementById('userInput').value);
-            let cls = msg.includes('SUCCESS')? 'success' : msg.includes('ERROR')? 'error' : msg.includes('WARNING')? 'warning' : '';
-            addLine(msg, cls);
-            progress += 100 / messages.length;
+        if(i < msgs.length){
+            let cls = msgs[i].includes('SUCCESS')? 'success' : '';
+            addLine(msgs[i], cls);
+
+            // 2. عرض صورة وهمية عند 50%
+            if(i === Math.floor(msgs.length/2)){
+                addLine(`[IMAGE] تم استخراج صورة @${currentUser.replace('@','')}`, 'success');
+            }
+
+            progress += 100 / msgs.length;
             document.getElementById('progress').innerHTML = Math.floor(progress) + '%';
             i++;
-        }else{
-            stopHack();
-            addLine('[SYSTEM] المهمة اكتملت بنجاح', 'success');
-        }
+        }else{stopHack();}
     }, speed);
 }
 
 function stopHack(){
-    hacking = false;
-    clearInterval(hackInterval);
-    document.getElementById('status').innerHTML = 'متوقف';
-    document.getElementById('status').style.color = '#ff0000';
+    hacking=false; clearInterval(hackInterval); playSound(false);
+    document.getElementById('status').innerHTML='متوقف';
 }
 
-function clearTerminal(){
-    document.getElementById('terminal').innerHTML = '<div class="line">[SYSTEM] تم مسح الشاشة</div>';
-    progress = 0;
-    document.getElementById('progress').innerHTML = '0%';
+function downloadData(){ // 4. تسريب بيانات وهمية
+    const data = `بيانات المستخدم: ${currentUser}\nالمتابعين: 1.2M\nالايميل: ${currentUser.replace('@','')}@gmail.com\nالباسورد: ********`;
+    const blob = new Blob([data], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `${currentUser}_data.txt`; a.click();
+    addLine('[DOWNLOAD] تم تسريب البيانات', 'success');
 }
 
-// تشغيل تلقائي عند الفتح
-window.onload = () => {
-    setTimeout(()=>addLine('[SYSTEM] النظام جاهز للعمل', 'success'), 1000);
+function triggerBSOD(){ // 5. شاشة زرقاء
+    document.getElementById('bsod').style.display='flex';
+    setTimeout(()=>{document.getElementById('bsod').style.display='none'}, 3000);
 }
 </script>
-
 </body>
 </html>
