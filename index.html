@@ -26,7 +26,7 @@
 
 <div class="box">
     <h1>🔍 فاحص تيك توك</h1>
-    <input type="text" id="username" placeholder="اكتب اليوزر بدون @ مثال: khaby.lame">
+    <input type="text" id="username" placeholder="اكتب اليوزر بدون @ مثال: 6l.t_">
     <button id="btn" onclick="checkUser()">فحص الحساب</button>
     <div id="loading" class="loading" style="display:none">جاري جلب البيانات...</div>
     <div id="error" class="error"></div>
@@ -65,30 +65,45 @@ async function checkUser(){
     result.style.display = "none";
 
     try{
-        // نستخدم API مجاني بدون مفتاح
-        const res = await fetch(`https://tiktok-api-proxy.vercel.app/api/user/${user}`);
+        // API جديد يشتغل للحسابات الصغيرة
+        const res = await fetch(`https://www.tiktok.com/api/user/detail/?uniqueId=${user}`);
+        
+        if(!res.ok) throw new Error("فشل");
         
         const data = await res.json();
+        const u = data.userInfo.user;
+        const s = data.userInfo.stats;
         
-        if(data.user){
-            const u = data.user;
+        document.getElementById('avatar').src = u.avatarLarger;
+        document.getElementById('name').innerHTML = u.nickname + (u.verified ? ' ✅' : '');
+        document.getElementById('user').innerHTML = '@' + u.uniqueId;
+        document.getElementById('followers').innerHTML = formatNum(s.followerCount);
+        document.getElementById('following').innerHTML = formatNum(s.followingCount);
+        document.getElementById('likes').innerHTML = formatNum(s.heartCount);
+        document.getElementById('videos').innerHTML = formatNum(s.videoCount);
+        document.getElementById('bio').innerHTML = u.signature || "لا يوجد بايو";
+        
+        result.style.display = "block";
+        
+    }catch(e){
+        // لو فشل نجرب بروكسي
+        try{
+            const res2 = await fetch(`https://api.danzan.fun/tiktok/user?username=${user}`);
+            const data2 = await res2.json();
             
-            document.getElementById('avatar').src = u.avatar;
-            document.getElementById('name').innerHTML = u.name + (u.verified ? ' ✅' : '');
-            document.getElementById('user').innerHTML = '@' + u.username;
-            document.getElementById('followers').innerHTML = formatNum(u.followers);
-            document.getElementById('following').innerHTML = formatNum(u.following);
-            document.getElementById('likes').innerHTML = formatNum(u.likes);
-            document.getElementById('videos').innerHTML = formatNum(u.videos);
-            document.getElementById('bio').innerHTML = u.bio || "لا يوجد بايو";
+            document.getElementById('avatar').src = data2.avatar;
+            document.getElementById('name').innerHTML = data2.name;
+            document.getElementById('user').innerHTML = '@' + data2.username;
+            document.getElementById('followers').innerHTML = formatNum(data2.followers);
+            document.getElementById('following').innerHTML = formatNum(data2.following);
+            document.getElementById('likes').innerHTML = formatNum(data2.likes);
+            document.getElementById('videos').innerHTML = formatNum(data2.videos);
+            document.getElementById('bio').innerHTML = data2.bio || "لا يوجد بايو";
             
             result.style.display = "block";
-        }else{
-            error.innerHTML = "الحساب غير موجود او خاص";
+        }catch{
+            error.innerHTML = "الحساب غير موجود او تيك توك حاظر الجلب";
         }
-    }catch(e){
-        error.innerHTML = "فشل الاتصال. جرب بعد شوية";
-        console.log(e);
     }
     
     btn.disabled = false;
