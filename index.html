@@ -2,175 +2,90 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>فاحص الحسابات PRO v2 | احمد @l_2qu</title>
+<title>فاحص الحسابات بالصورة | احمد @l_2qu</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
-:root{--bg:#050505;--card:#111;--green:#00ff88;--text:#fff}
-body.light{--bg:#f5f5f5;--card:#fff;--green:#00aa55;--text:#000}
-body{background:var(--bg);color:var(--text);text-align:center;padding:20px;transition:0.3s}
-.header{margin-bottom:30px;}
-.header h1{color:var(--green);font-size:28px;}
-.header p{color:#aaa;font-size:14px;}
-.box{max-width:800px;margin:20px auto;background:var(--card);padding:30px;border:2px solid var(--green);border-radius:20px;box-shadow:0 0 20px #00ff8855;}
-input,select{width:100%;padding:15px;margin:10px 0;background:var(--bg);border:1px solid var(--green);color:var(--text);border-radius:10px;}
-button{padding:12px 20px;background:var(--green);color:#000;font-weight:bold;border:none;border-radius:10px;cursor:pointer;margin:5px;transition:0.3s;}
-button:hover{opacity:0.8;}
-.result{text-align:right;margin-top:20px;background:var(--bg);padding:20px;border-radius:10px;display:none;}
-.item{display:flex;justify-content:space-between;margin:10px 0;border-bottom:1px dashed #333;padding:8px 0;}
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
-.service{background:var(--bg);padding:15px;margin:10px 0;border-radius:10px;border:1px solid var(--green);}
-.points{color:#ffcc00;font-weight:bold;}
-.footer{margin-top:40px;color:#555;font-size:12px;}
-.footer a{color:var(--green);text-decoration:none;}
-.theme-btn{position:fixed;top:20px;left:20px;z-index:999}
-#pdfBtn{display:none;}
-.history-item{background:var(--bg);padding:10px;margin:5px 0;border-radius:8px;text-align:right;}
+body{background:#050505;color:#fff;padding:20px;text-align:center;}
+.box{max-width:700px;margin:20px auto;background:#111;padding:25px;border:2px solid #00ff88;border-radius:20px;}
+input,select{width:100%;padding:15px;margin:10px 0;background:#000;border:1px solid #00ff88;color:#fff;border-radius:10px;}
+button{padding:12px 20px;background:#00ff88;color:#000;font-weight:bold;border:none;border-radius:10px;cursor:pointer;}
+.result{text-align:right;margin-top:20px;background:#000;padding:20px;border-radius:15px;display:none;}
+.profile{display:flex;align-items:center;gap:15px;margin-bottom:20px;border-bottom:1px solid #222;padding-bottom:15px;}
+.profile img{width:80px;height:80px;border-radius:50%;border:2px solid #00ff88;}
+.item{display:flex;justify-content:space-between;margin:10px 0;border-bottom:1px dashed #222;padding:8px 0;}
+.loading{color:#00ff88;display:none;}
 </style>
 </head>
 <body>
 
-<button class="theme-btn" onclick="toggleTheme()">🌓</button>
-
-<div class="header">
-  <h1>🔍 فاحص الحسابات PRO v2</h1>
-  <p>بواسطة: <b>احمد</b> | <a href="https://t.me/l_2qu">@l_2qu</a></p>
-</div>
-
-<!-- 1. فحص واحد -->
 <div class="box">
-  <h2>فحص حساب واحد</h2>
-  <select id="platform"><option>instagram</option><option>tiktok</option><option>youtube</option></select>
-  <input type="text" id="username" placeholder="دخل اليوزر بدون @">
-  <button onclick="checkAccount()">فحص +10 نقاط</button>
-  <button id="shareBtn" style="display:none" onclick="shareResult()">📸 مشاركة</button>
-  <button id="pdfBtn" onclick="downloadPDF()">📄 تحميل PDF</button>
+  <h1 style="color:#00ff88">🔍 فاحص الحسابات بالصورة</h1>
+  <p>بواسطة: احمد <a href="https://t.me/l_2qu" style="color:#00ff88">@l_2qu</a></p>
+  
+  <select id="platform">
+    <option value="instagram">انستجرام</option>
+    <option value="tiktok">تيك توك</option>
+  </select>
+  <input type="text" id="username" placeholder="دخل اليوزر بدون @ مثال: cristiano">
+  <button onclick="checkReal()">فحص الحساب</button>
+  <p class="loading" id="loading">جاري جلب البيانات والصورة...</p>
+  
   <div class="result" id="result"></div>
 </div>
 
-<!-- 2. مقارنة -->
-<div class="box">
-  <h2>⚔️ مقارنة حسابين</h2>
-  <div class="compare"><input id="user1"><input id="user2"></div>
-  <button onclick="compareAccounts()">قارن</button>
-  <div class="result" id="compareResult"></div>
-</div>
-
-<!-- 3. مولد بايو -->
-<div class="box">
-  <h2>✍️ مولد بايو + اسم</h2>
-  <select id="niche"><option>تجارة</option><option>جيم</option><option>محتوى</option></select>
-  <button onclick="generateBio()">ولدلي 5 بايو</button>
-  <div class="result" id="bioResult"></div>
-</div>
-
-<!-- 4. متجر النقاط -->
-<div class="box">
-  <h2>🏆 نقاطك: <span id="points">0</span></h2>
-  <button onclick="redeem(100)">100 نقطة = تقرير مجاني</button>
-  <button onclick="redeem(200)">200 نقطة = فحص 5 حسابات</button>
-</div>
-
-<!-- 5. سجل الفحوصات -->
-<div class="box">
-  <h2>📜 سجل الفحوصات</h2>
-  <button onclick="showHistory()">عرض السجل</button>
-  <div id="history"></div>
-</div>
-
-<!-- 6. خدمات -->
-<div class="box">
-  <h2>💎 الخدمات المدفوعة</h2>
-  <div class="service"><h3>تقرير امان كامل</h3><p>5$</p><button onclick="sendTelegram('تقرير امان')">اطلب</button></div>
-  <div class="service"><h3>حماية من الحظر</h3><p>10$</p><button onclick="sendTelegram('حماية')">اطلب</button></div>
-</div>
-
-<div class="footer">
-  <p>© 2026 جميع الحقوق محفوظة لـ <b>احمد @l_2qu</b></p>
-</div>
-
 <script>
-let points = localStorage.getItem('points')||0;
-let checks = JSON.parse(localStorage.getItem('checks')||'[]');
-let lastData = {};
-document.getElementById('points').innerText = points;
-if(localStorage.getItem('theme')) document.body.className = localStorage.getItem('theme');
-
-function toggleTheme(){
-  document.body.classList.toggle('light');
-  localStorage.setItem('theme', document.body.className);
-}
-
-async function checkAccount(){
+async function checkReal(){
   const user = document.getElementById('username').value;
+  const plat = document.getElementById('platform').value;
   if(!user) return alert('دخل اليوزر');
-  
-  points = parseInt(points)+10; localStorage.setItem('points',points);
-  document.getElementById('points').innerText = points;
 
-  let data = {
-    user, plat:platform.value, 
-    followers:Math.floor(Math.random()*100000),
-    following:Math.floor(Math.random()*2000),
-    posts:Math.floor(Math.random()*600),
-    engagement:(Math.random()*10).toFixed(1),
-    time:new Date().toLocaleString('ar-IQ')
-  };
-  data.safety = 50+(data.followers>1000?20:0);
-  data.fake = fakeCheck(data.followers,data.engagement);
-  data.hashtags = checkHashtags();
+  document.getElementById('loading').style.display='block';
+  document.getElementById('result').style.display='none';
 
-  checks.push(data); localStorage.setItem('checks',JSON.stringify(checks));
-  lastData = data;
+  try{
+    // نستخدم API ينطي صورة + بيانات
+    let url = `https://api.socialcounts.org/${plat}/live/${user}`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-  document.getElementById('result').style.display='block';
-  document.getElementById('shareBtn').style.display='inline';
-  document.getElementById('pdfBtn').style.display='inline';
-  document.getElementById('result').innerHTML = `
-  <h3>نتائج @${data.user}</h3>
-  <div class="item"><span>المتابعين:</span><span>${data.followers.toLocaleString()}</span></div>
-  <div class="item"><span>التفاعل:</span><span>${data.engagement}%</span></div>
-  <div class="item"><span>الامان:</span><span style="color:var(--green)">${data.safety}%</span></div>
-  <div class="item"><span>الحسابات الوهمية:</span><span style="color:red">${data.fake}</span></div>
-  <div class="item"><span>هاشتاكات محظورة:</span><span>${data.hashtags}</span></div>
-  `;
-  sendTelegram(`فحص جديد: ${data.user}`);
-}
+    let name = data.name || user;
+    let followers = data.followers || 0;
+    let following = data.following || 0;
+    let posts = data.posts || data.videos || 0;
+    let bio = data.bio || "لا يوجد بايو";
+    let avatar = data.avatar || `https://ui-avatars.com/api/?name=${user}&background=00ff88&color=000`;
 
-function fakeCheck(f,e){ return (100-e*10)>70 ? "عالي 80%" : "طبيعي 10%"; }
-function checkHashtags(){ return "لا يوجد"; }
+    // لو API ما انطى صورة نجرب نسحبها
+    if(plat === 'instagram' && !data.avatar){
+      avatar = `https://www.instagram.com/${user}/?__a=1`;
+    }
 
-function compareAccounts(){
-  let u1=user1.value, u2=user2.value;
-  compareResult.style.display='block';
-  compareResult.innerHTML=`<h3>${u1} vs ${u2}</h3><div class="item"><span>الفائز:</span><span>${Math.random()>0.5?u1:u2}</span></div>`;
-}
-
-function generateBio(){
-  let bios = ["تاجر ناجح | تواصل @l_2qu","محتوى يومي 🔥","هدفنا المليون"];
-  bioResult.style.display='block';
-  bioResult.innerHTML = bios.map(b=>`<div class="history-item">${b}</div>`).join('');
-}
-
-function showHistory(){
-  history.innerHTML = checks.slice(-10).map(c=>`<div class="history-item">${c.user} - ${c.time}</div>`).join('');
-}
-
-function redeem(p){
-  if(points>=p){points-=p; localStorage.setItem('points',points); alert('تم الاستبدال!');}
-  else alert('نقاطك غير كافية');
-}
-
-function downloadPDF(){
-  alert('جاري انشاء PDF باسم احمد @l_2qu');
-}
-
-function shareResult(){
-  alert('تم حفظ الصورة');
-}
-
-function sendTelegram(msg){
-  fetch(`https://api.telegram.org/bot/sendMessage?chat_id=YOUR_ID&text=${msg} - @l_2qu`);
+    document.getElementById('loading').style.display='none';
+    document.getElementById('result').style.display='block';
+    document.getElementById('result').innerHTML = `
+      <div class="profile">
+        <img src="${avatar}" onerror="this.src='https://ui-avatars.com/api/?name=${user}'">
+        <div>
+          <h3>${name}</h3>
+          <p style="color:#aaa">@${user}</p>
+        </div>
+      </div>
+      <p style="margin-bottom:15px;color:#ccc">${bio}</p>
+      <div class="item"><span>المتابعين:</span><span>${followers.toLocaleString()}</span></div>
+      <div class="item"><span>يتابع:</span><span>${following.toLocaleString()}</span></div>
+      <div class="item"><span>المنشورات:</span><span>${posts.toLocaleString()}</span></div>
+      <div class="item"><span>نسبة الامان:</span><span style="color:#00ff88">${followers>5000?90:60}%</span></div>
+    `;
+    
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    alert('الحساب خاص او غير موجود. جرب يوزر عام');
+  }
 }
 </script>
+
+<div style="text-align:center;margin-top:30px;color:#555">
+  © 2026 جميع الحقوق محفوظة لـ <b>احمد @l_2qu</b>
+</div>
 </body>
 </html>
