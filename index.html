@@ -98,6 +98,10 @@
         .faq-answer { padding: 0 15px 15px; color: #aaa; display: none; line-height: 1.6; }
         .testi-card { background: rgba(26, 26, 36, 0.8); border: 1px dashed #444; border-radius: 10px; padding: 15px; margin-bottom: 10px; border-right: 3px solid var(--primary-color); backdrop-filter: blur(10px); }
         .testi-name { color: var(--primary-color); font-weight: bold; margin-bottom: 5px; }
+        .testi-status { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; font-weight: bold; margin-left: 10px; }
+        .status-approved { background: #00C851; color: white; }
+        .status-pending { background: #ffaa00; color: black; }
+        .status-rejected { background: #ff4444; color: white; }
 
         /* Form Inputs */
         .order-section, .support-section-box { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); max-width: 600px; margin: 20px auto 40px; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); border: 1px solid #333; }
@@ -145,6 +149,7 @@
         .admin-btn.red { background: #ff4444; color: white; }
         .admin-btn.green { background: #00C851; color: white; }
         .admin-btn.blue { background: #2196F3; color: white; }
+        .admin-btn.orange { background: #ffaa00; color: black; font-weight: bold; }
         
         .admin-tabs { display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; border-bottom: 1px solid #333; flex-wrap: wrap; }
         .admin-tab { padding: 10px 15px; background: #222; color: white; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap; transition: 0.2s; font-size: 0.9rem; }
@@ -159,6 +164,10 @@
         .data-table th { background: #222; color: var(--primary-color); }
         .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; transition: 0.2s; font-weight: bold; }
         .action-btn:hover { background: #cc0000; }
+        .action-btn.approve { background: #00C851; }
+        .action-btn.approve:hover { background: #009c3d; }
+        .action-btn.reject { background: #ff4444; }
+        .action-btn.reject:hover { background: #cc0000; }
         .table-wrapper { max-height: 350px; overflow-y: auto; margin-bottom: 15px; border: 1px solid #444; border-radius: 5px; }
         .flex-row { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
         .flex-row input { flex: 1; min-width: 200px; }
@@ -175,6 +184,12 @@
         .toggle-switch input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
         .warning-box { background: rgba(255, 68, 68, 0.2); border: 1px solid #ff4444; padding: 12px; border-radius: 5px; margin-bottom: 15px; color: #ff9999; font-size: 0.9rem; }
         .success-box { background: rgba(0, 200, 81, 0.2); border: 1px solid #00C851; padding: 12px; border-radius: 5px; margin-bottom: 15px; color: #66ff99; font-size: 0.9rem; }
+        .review-card { background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .review-name { color: var(--primary-color); font-weight: bold; font-size: 1.1rem; }
+        .review-text { color: #ddd; line-height: 1.6; margin-bottom: 10px; }
+        .review-actions { display: flex; gap: 5px; }
+        .review-actions button { padding: 6px 12px; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.2s; }
     </style>
 </head>
 <body>
@@ -307,7 +322,6 @@
             <button class="admin-btn" style="background:#444; color:white;" onclick="closeAdmin()">إلغاء</button>
             <p id="adminError" style="color:red; display:none; text-align:center; margin-top:10px;">البيانات خاطئة، يرجى التأكد!</p>
         </div>
-        <!-- لوحة التحكم الفعلية سيتم حقنها هنا -->
         <div class="admin-content" id="dashboardStep" style="display: none;"></div>
     </div>
 
@@ -325,7 +339,7 @@
         function drawMatrix() { ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = 'var(--primary-color)'; ctx.font = fontSize + 'px monospace'; for (let i = 0; i < drops.length; i++) { const text = characters.charAt(Math.floor(Math.random() * characters.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
         window.addEventListener('resize', initMatrix); initMatrix(); setInterval(drawMatrix, 75);
 
-        // --- إعدادات الفايربيس (ضع بياناتك الحقيقية هنا) ---
+        // --- إعدادات الفايربيس ---
         const firebaseConfig = {
             apiKey: "AIzaSyDhp-hVKq-Sb6i4dLtthcvDg8Fsvya9Vv8",
             authDomain: "ahmed-vip-portal.firebaseapp.com",
@@ -341,7 +355,7 @@
         let botTokenGlobal = ""; let chatIdGlobal = ""; let discordWebhookUrl = ""; let blacklistedUsers = []; let ordersDataForExport = []; let ordersChartInstance = null; let fakeNotifInterval = null; let disableCooldownGlobal = false;
         let emailFilterList = []; let autoReplyEnabled = false; let autoReplyMsg = ""; let dailyLimitPerUser = 5; let ipBlockList = [];
         
-        // --- نظام الكابتشا (Anti-Bot) ---
+        // --- نظام الكابتشا ---
         let cap1, cap2, capAns;
         function generateCaptcha() {
             cap1 = Math.floor(Math.random() * 10) + 1; cap2 = Math.floor(Math.random() * 10) + 1; capAns = cap1 + cap2;
@@ -349,7 +363,7 @@
             document.getElementById('captchaA').value = '';
         }
 
-        // --- تأثير التحميل (Loader) ---
+        // --- تأثير التحميل ---
         let loadPerc = 0;
         let loaderInt = setInterval(() => {
             loadPerc += Math.floor(Math.random() * 15) + 5;
@@ -402,7 +416,7 @@
             const name = document.getElementById('userReviewName').value.trim(); const text = document.getElementById('userReviewText').value.trim();
             const msg = document.getElementById('reviewStatus');
             if(!name || !text) { msg.style.display='block'; msg.style.color='#ff4444'; msg.innerText='❌ يرجى كتابة الاسم والرأي!'; return; }
-            db.ref('pending_testimonials').push({name, text}).then(() => {
+            db.ref('pending_testimonials').push({name, text, timestamp: firebase.database.ServerValue.TIMESTAMP, status: 'pending'}).then(() => {
                 msg.style.display='block'; msg.style.color='#00C851'; msg.innerText='✅ تم إرسال رأيك للإدارة للموافقة عليه، شكراً لك!';
                 document.getElementById('userReviewName').value=''; document.getElementById('userReviewText').value='';
                 playSound('success');
@@ -415,7 +429,7 @@
             db.ref('admin_logs').push({ time, actionText });
         }
 
-        // --- حقن لوحة الإدارة الشاملة مع 10 ميزات قوية ---
+        // ============ 🚀 لوحة الإدارة مع 10 ميزات جديدة + إدارة الآراء ===========
         function getAdminHTML() {
             return `
             <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px;">⚡ لوحة الإدارة الشاملة | حمدمد ⚡</h2>
@@ -425,6 +439,7 @@
                 <button class="admin-tab" onclick="switchTab('tabGeneral')">⚙️ عام</button>
                 <button class="admin-tab" onclick="switchTab('tabUI')">🎨 واجهة</button>
                 <button class="admin-tab" onclick="switchTab('tabFilters')">🛡️ فلاتر</button>
+                <button class="admin-tab" onclick="switchTab('tabReviews')">⭐ آراء</button>
                 <button class="admin-tab" onclick="switchTab('tabOrders')">📋 طلبات</button>
                 <button class="admin-tab" onclick="switchTab('tabTickets')">🎫 تذاكر</button>
                 <button class="admin-tab" onclick="switchTab('tabCodes')">🔑 أكواد</button>
@@ -432,6 +447,7 @@
                 <button class="admin-tab" onclick="switchTab('tabBlacklist')">🚫 باند</button>
                 <button class="admin-tab" onclick="switchTab('tabAnalytics')">📈 إحصائيات</button>
                 <button class="admin-tab" onclick="switchTab('tabBackup')">💾 نسخ احتياطية</button>
+                <button class="admin-tab" onclick="switchTab('tabNotifications')">🔔 إشعارات</button>
             </div>
 
             <!-- 1️⃣ لوحة التحكم الرئيسية (Dashboard) -->
@@ -493,7 +509,7 @@
                 <button class="admin-btn" onclick="saveSettings()">💾 حفظ التعديلات</button>
             </div>
 
-            <!-- 4️⃣ الفلاتر والحماية (ميزة قوية جداً) -->
+            <!-- 4️⃣ الفلاتر والحماية -->
             <div id="tabFilters" class="admin-panel">
                 <div class="warning-box">⚠️ الفلاتر تساعد على منع الرسائل غير المرغوبة والحسابات الوهمية</div>
                 
@@ -524,6 +540,21 @@
                     <textarea id="autoReplyText" placeholder="نص الرد التلقائي للتذاكر..." rows="3" style="width:100%;"></textarea>
                 </div>
                 <button class="admin-btn green" onclick="saveFilters()">💾 حفظ الفلاتر</button>
+            </div>
+
+            <!-- ⭐ 5️⃣ إدارة الآراء (ميزة جديدة رائعة!) -->
+            <div id="tabReviews" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px;">⭐ إدارة آراء وتقييمات المستخدمين</h3>
+                <div class="success-box">✅ من هنا تستطيع قبول أو رفض أو حذف الآراء قبل نشرها</div>
+                
+                <div style="margin-bottom:20px;">
+                    <button class="admin-btn green" onclick="filterReviewsBy('all')">📋 الكل</button>
+                    <button class="admin-btn orange" onclick="filterReviewsBy('pending')" style="background:#ffaa00;">⏳ قيد الانتظار</button>
+                    <button class="admin-btn green" onclick="filterReviewsBy('approved')">✅ موافق عليها</button>
+                    <button class="admin-btn red" onclick="filterReviewsBy('rejected')">❌ مرفوضة</button>
+                </div>
+
+                <div id="pendingReviewsList" style="max-height:600px; overflow-y:auto;"></div>
             </div>
 
             <div id="tabOrders" class="admin-panel">
@@ -564,7 +595,7 @@
                 <div class="table-wrapper"><table class="data-table"><thead><tr><th>اليوزر</th><th>السبب</th><th>فك الحظر</th></tr></thead><tbody id="adminBlacklist"></tbody></table></div>
             </div>
 
-            <!-- 5️⃣ الإحصائيات والتحليلات (ميزة متقدمة) -->
+            <!-- 6️⃣ الإحصائيات والتحليلات -->
             <div id="tabAnalytics" class="admin-panel">
                 <h3 style="color:var(--primary-color); margin-bottom:15px;">📈 تحليلات الموقع</h3>
                 <div style="background:#222; padding:15px; border-radius:8px; margin-bottom:15px; border:1px solid #333;">
@@ -588,7 +619,7 @@
                 <button class="admin-btn blue" onclick="refreshAnalytics()">🔄 تحديث</button>
             </div>
 
-            <!-- 6️⃣ النسخ الاحتياطية (ميزة حماية مهمة) -->
+            <!-- 7️⃣ النسخ الاحتياطية -->
             <div id="tabBackup" class="admin-panel">
                 <div class="success-box">✅ النسخ الاحتياطية توفر حماية ضد فقدان البيانات</div>
                 <h4 style="color:var(--primary-color); margin-bottom:15px;">💾 إدارة النسخ الاحتياطية</h4>
@@ -600,6 +631,28 @@
                 <h4 style="color:var(--primary-color); margin-top:20px; margin-bottom:10px;">📋 آخر النسخ الاحتياطية</h4>
                 <div class="table-wrapper"><table class="data-table"><thead><tr><th>التاريخ</th><th>الحجم</th><th>الحالة</th></tr></thead><tbody id="backupsList"></tbody></table></div>
             </div>
+
+            <!-- 8️⃣ الإشعارات المتقدمة (ميزة جديدة) -->
+            <div id="tabNotifications" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px;">🔔 نظام الإشعارات المتقدم</h3>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifOnOrder"> 📦 إشعار عند كل طلب جديد</label>
+                </div>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifOnReview"> ⭐ إشعار عند كل رأي جديد</label>
+                </div>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifOnTicket"> 🎫 إشعار عند كل تذكرة جديدة</label>
+                </div>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifSound"> 🔊 تفعيل صوت الإشعارات</label>
+                </div>
+                <div class="admin-group">
+                    <label>رسالة الترحيب المخصصة:</label>
+                    <textarea id="welcomeMessage" placeholder="رسالة الترحيب التي تظهر للزوار الجدد..." rows="3"></textarea>
+                </div>
+                <button class="admin-btn green" onclick="saveNotifSettings()">💾 حفظ إعدادات الإشعارات</button>
+            </div>
             `;
         }
 
@@ -609,11 +662,9 @@
             dash.innerHTML = getAdminHTML();
             dash.style.display = 'block';
             
-            // Re-bind listeners for Admin UI
             db.ref('stats/visits').on('value', snap => { if(document.getElementById('adminVisits')) document.getElementById('adminVisits').innerText = snap.val() || 0; });
             listenToOrders(); listenToBlacklist(); listenToPendingReviews(); listenToTickets(); 
             
-            // جلب الإعدادات الحالية
             db.ref('site_settings').once('value').then(snap => {
                 const d = snap.val() || {};
                 if(document.getElementById('setBanWave')) document.getElementById('setBanWave').checked = d.banWaveMode || false;
@@ -633,9 +684,12 @@
                 if(document.getElementById('setDailyLimit')) document.getElementById('setDailyLimit').value = d.dailyLimit || 5;
                 if(document.getElementById('autoReplyToggle')) document.getElementById('autoReplyToggle').checked = d.autoReplyEnabled || false;
                 if(document.getElementById('autoReplyText')) document.getElementById('autoReplyText').value = d.autoReplyMsg || "";
+                if(document.getElementById('notifOnOrder')) document.getElementById('notifOnOrder').checked = d.notifOnOrder !== false;
+                if(document.getElementById('notifOnReview')) document.getElementById('notifOnReview').checked = d.notifOnReview !== false;
+                if(document.getElementById('notifOnTicket')) document.getElementById('notifOnTicket').checked = d.notifOnTicket !== false;
+                if(document.getElementById('welcomeMessage')) document.getElementById('welcomeMessage').value = d.welcomeMessage || "";
             });
 
-            // جلب الفلاتر
             db.ref('filters').once('value').then(snap => {
                 const d = snap.val() || {};
                 emailFilterList = d.emailFilters || [];
@@ -645,6 +699,72 @@
 
             logAdminAction("تسجيل دخول للوحة الإدارة");
         }
+
+        // ===== دوال إدارة الآراء الجديدة =====
+        window.filterReviewsBy = function(status) {
+            db.ref('pending_testimonials').once('value').then(snap => {
+                const container = document.getElementById('pendingReviewsList');
+                container.innerHTML = '';
+                let count = 0;
+                snap.forEach(c => {
+                    const d = c.val();
+                    if(status === 'all' || (d.status === status || (status === 'pending' && !d.status))) {
+                        count++;
+                        const reviewStatus = d.status || 'pending';
+                        let statusBadge = '<span class="testi-status status-pending">⏳ قيد الانتظار</span>';
+                        if(reviewStatus === 'approved') statusBadge = '<span class="testi-status status-approved">✅ موافق عليه</span>';
+                        else if(reviewStatus === 'rejected') statusBadge = '<span class="testi-status status-rejected">❌ مرفوض</span>';
+                        
+                        container.innerHTML += `
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div style="flex:1;">
+                                    <div class="review-name">${d.name} ${statusBadge}</div>
+                                    <div style="color:#999; font-size:0.85rem;">${new Date(d.timestamp).toLocaleString('ar-EG')}</div>
+                                </div>
+                            </div>
+                            <div class="review-text">"${d.text}"</div>
+                            <div class="review-actions">
+                                <button class="action-btn approve" onclick="approveReview('${c.key}')">✅ الموافقة</button>
+                                <button class="action-btn reject" onclick="rejectReview('${c.key}')">❌ الرفض</button>
+                                <button class="action-btn" style="background:#666;" onclick="deleteReview('${c.key}')">🗑️ حذف</button>
+                            </div>
+                        </div>`;
+                    }
+                });
+                if(count === 0) container.innerHTML = '<p style="text-align:center; color:#aaa; padding:20px;">لا توجد آراء في هذه الفئة</p>';
+            });
+        };
+
+        window.approveReview = function(key) {
+            db.ref('pending_testimonials/' + key).update({status: 'approved'}).then(() => {
+                db.ref('pending_testimonials/' + key).once('value').then(snap => {
+                    const d = snap.val();
+                    db.ref('testimonials').push({name: d.name, text: d.text}).then(() => {
+                        filterReviewsBy('all');
+                        logAdminAction(`✅ تم الموافقة على رأي من ${d.name}`);
+                        alert('✅ تم الموافقة على الرأي!');
+                    });
+                });
+            });
+        };
+
+        window.rejectReview = function(key) {
+            db.ref('pending_testimonials/' + key).update({status: 'rejected'}).then(() => {
+                filterReviewsBy('all');
+                logAdminAction(`❌ تم رفض رأي`);
+                alert('❌ تم رفض الرأي!');
+            });
+        };
+
+        window.deleteReview = function(key) {
+            if(confirm('هل تريد حذف هذا الرأي؟')) {
+                db.ref('pending_testimonials/' + key).remove().then(() => {
+                    filterReviewsBy('all');
+                    logAdminAction(`🗑️ تم حذف رأي`);
+                });
+            }
+        };
 
         window.saveSettings = function() {
             const data = {
@@ -667,6 +787,17 @@
                 autoReplyMsg: document.getElementById('autoReplyText').value
             };
             db.ref('site_settings').set(data).then(() => { alert('✅ تم الحفظ بنجاح!'); logAdminAction("تعديل إعدادات الموقع"); });
+        };
+
+        window.saveNotifSettings = function() {
+            const data = {
+                notifOnOrder: document.getElementById('notifOnOrder').checked,
+                notifOnReview: document.getElementById('notifOnReview').checked,
+                notifOnTicket: document.getElementById('notifOnTicket').checked,
+                notifSound: document.getElementById('notifSound').checked,
+                welcomeMessage: document.getElementById('welcomeMessage').value
+            };
+            db.ref('site_settings').update(data).then(() => { alert('✅ تم حفظ إعدادات الإشعارات!'); logAdminAction("تحديث إعدادات الإشعارات"); });
         };
 
         window.saveFilters = function() {
@@ -765,9 +896,10 @@
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
             event.target.classList.add('active'); document.getElementById(tabId).classList.add('active');
+            if(tabId === 'tabReviews') filterReviewsBy('all');
         };
 
-        // --- الاستماع للبيانات من Firebase ---
+        // --- الاستماع للبيانات ---
         function listenToSettings() {
             db.ref('site_settings').on('value', (snapshot) => {
                 const data = snapshot.val() || {};
@@ -812,7 +944,6 @@
         function listenToTickets() { db.ref('tickets').on('value', snap => { const a=document.getElementById('adminTicketsList'); if(!a) return; a.innerHTML=''; let count=0; snap.forEach(c => { count++; const d=c.val(); a.innerHTML+=`<tr><td>${d.user}</td><td>${d.msg}</td><td>${d.time || 'الآن'}</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('tickets/${c.key}').remove(); logAdminAction('تم حل تذكرة');">تم</button></td></tr>`; }); document.getElementById('adminTicketCount').innerText=count; }); }
         function listenToPendingReviews() { db.ref('pending_testimonials').on('value', snap => { let count=0; snap.forEach(c => { count++; }); document.getElementById('adminReviewCount').innerText=count; }); }
 
-        // --- أدوات الإدارة الإضافية ---
         window.exportOrdersCSV = function() {
             let csv = 'الاسم,اليوزر,الباقة\n';
             ordersDataForExport.forEach(o => { csv += `${o.name},${o.user},${o.package}\n`; });
