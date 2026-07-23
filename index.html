@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الأكواد المجانية | Drive VIP</title>
+    <meta name="description" content="متجر Drive VIP للحصول على أفضل الأكواد المجانية والآمنة بأعلى نسبة حماية.">
+    <meta name="keywords" content="أكواد مجانية, هاك آمن, متجر أكواد, Drive VIP, حمدمد">
+    <meta name="author" content="حمدمد">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="متجر الأكواد المجانية | Drive VIP">
+    <meta property="og:description" content="احجز كودك المجاني الآن بأعلى نسبة أمان.">
+    <meta name="theme-color" content="#d4af37">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #d4af37; 
+            --secondary-color: #ff6b9d;
+            --tertiary-color: #00d9ff;
+            --bg-color: #0f0f13;
+            --card-bg: #1a1a24;
+            --text-color: #ffffff;
+            --accent-glow: #d4af3750;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; padding-bottom: 50px; transition: 0.3s; position: relative; }
+
+        /* --- Custom Scrollbar احترافي --- */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary-color), var(--secondary-color)); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, var(--tertiary-color), var(--primary-color)); box-shadow: 0 0 15px var(--primary-color); }
+
+        /* --- تأثيرات خلفية الهاكر الماتريكس محسّنة --- */
+        #bgCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.35; }
+
+        /* --- نظام الأشعاعات (Glow Effects) --- */
+        @keyframes floatingGlow { 0%, 100% { filter: drop-shadow(0 0 20px var(--accent-glow)); } 50% { filter: drop-shadow(0 0 40px var(--accent-glow)); } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 20px var(--primary-color); } 50% { box-shadow: 0 0 40px var(--primary-color); } 100% { box-shadow: 0 0 20px var(--primary-color); } }
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        @keyframes slideRight { from { transform: translateX(-30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideLeft { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes bounceIn { 0% { transform: scale(0.8); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        body.ban-wave-active { border-top: 8px solid #ff4444; border-bottom: 8px solid #ff4444; }
+        #banWaveAlert { display: none; background-color: #ff4444; color: white; padding: 15px; text-align: center; font-size: 1.3rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; animation: flashRed 1s infinite alternate; }
+        @keyframes flashRed { 0% { opacity: 1; background-color: #ff4444; } 100% { opacity: 0.7; background-color: #aa0000; } }
+
+        #announcementBar { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color)); background-size: 200% auto; color: #000; padding: 10px; font-weight: bold; font-size: 1.1rem; display: none; text-align: center; animation: gradient 3s ease infinite; }
+
+        #globalPopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999999; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+        .popup-box { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 2px solid #ff4444; text-align: center; max-width: 400px; box-shadow: 0 0 30px rgba(255, 68, 68, 0.4), 0 0 60px rgba(255, 68, 68, 0.2); animation: bounceIn 0.5s; }
+        .popup-box h2 { color: #ff4444; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255, 68, 68, 0.3); }
+        .popup-btn { background: linear-gradient(135deg, #ff4444, #ff6666); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 15px; font-weight: bold; transition: 0.3s; }
+        .popup-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 68, 68, 0.5); }
+
+        /* --- واجهة التحميل المطورة والاحترافية --- */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--bg-color) 0%, #1a1a2e 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.6s ease; backdrop-filter: blur(15px); }
+        .loader-wrapper { position: relative; display: flex; justify-content: center; align-items: center; }
+        .loader-ring { position: absolute; width: 220px; height: 220px; border-radius: 50%; border: 4px solid transparent; border-top-color: var(--primary-color); border-bottom-color: var(--secondary-color); animation: spin 1s linear infinite; box-shadow: 0 0 30px var(--primary-color); }
+        .loader-ring-inner { position: absolute; width: 190px; height: 190px; border-radius: 50%; border: 4px solid transparent; border-left-color: var(--tertiary-color); border-right-color: #fff; animation: spinReverse 1.5s linear infinite; }
+        .loader-ring-outer { position: absolute; width: 250px; height: 250px; border-radius: 50%; border: 2px solid transparent; border-top-color: var(--tertiary-color); animation: spin 2s linear infinite reverse; }
+        #loader img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; box-shadow: 0 0 30px var(--primary-color), 0 0 60px var(--accent-glow); z-index: 2; animation: pulseGlow 2s ease-in-out infinite; }
+        #loader h2 { margin-top: 40px; color: var(--primary-color); letter-spacing: 5px; font-size: 1.5rem; text-shadow: 0 0 20px var(--primary-color); font-family: monospace; animation: slideRight 0.8s ease; }
+        #loadPercent { color: var(--tertiary-color); font-size: 2rem; margin-top: 10px; font-weight: bold; font-family: monospace; animation: slideLeft 0.8s ease; text-shadow: 0 0 15px var(--tertiary-color); }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spinReverse { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+
+        header { text-align: center; padding: 40px 20px 20px; border-bottom: 2px solid var(--primary-color); box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 30px var(--accent-glow); position: relative; background: linear-gradient(180deg, #111, transparent); }
+        header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%; background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%); pointer-events: none; }
+        header img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--primary-color); transition: 0.3s; box-shadow: 0 0 20px var(--primary-color); animation: floatingGlow 3s ease-in-out infinite; }
+        header img:hover { transform: scale(1.1); box-shadow: 0 0 40px var(--primary-color); }
+        header h1 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 10px; text-shadow: 0 2px 20px rgba(212, 175, 55, 0.4); background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        header a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; transition: 0.3s; position: relative; }
+        header a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--primary-color); transition: 0.3s; }
+        header a:hover { color: var(--primary-color); text-shadow: 0 0 15px var(--primary-color); }
+        header a:hover::after { width: 100%; }
+
+        .dynamic-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 20px auto; max-width: 800px; padding: 0 15px; animation: slideRight 1s ease; }
+        .dyn-btn { background: linear-gradient(135deg, #1a1a24, #0f0f13); color: var(--primary-color); padding: 12px 25px; border: 2px solid var(--primary-color); border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; position: relative; overflow: hidden; }
+        .dyn-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--primary-color); z-index: -1; transition: 0.3s; }
+        .dyn-btn:hover::before { left: 0; }
+        .dyn-btn:hover { background: var(--primary-color); color: #000; transform: translateY(-5px); box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5); }
+
+        .status-box { background: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); border: 2px solid var(--primary-color); padding: 20px; max-width: 600px; margin: 30px auto 10px; text-align: center; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 30px var(--accent-glow); animation: bounceIn 0.6s; }
+        .status-text { font-weight: bold; font-size: 1.2rem; color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); }
+        .progress-bg { background: #0f0f13; height: 15px; border-radius: 10px; margin: 15px 0; overflow: hidden; border: 1px solid #222; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        .progress-bar { background: linear-gradient(90deg, #00C851, #00ff88); width: 80%; height: 100%; box-shadow: 0 0 15px #00C851; transition: 0.5s; }
+
+        .packages-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px 20px; }
+        .card { background-color: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); border: 1px solid #333; border-radius: 15px; padding: 30px; width: 250px; text-align: center; transition: 0.4s; position: relative; overflow: hidden; }
+        .card::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 70%); opacity: 0; transition: 0.5s; pointer-events: none; }
+        .card::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, transparent 0%, rgba(212,175,55,0.05) 100%); opacity: 0; transition: 0.3s; }
+        .card:hover::before { opacity: 1; }
+        .card:hover::after { opacity: 1; }
+        .card:hover { transform: translateY(-15px) rotateX(5deg); border-color: var(--primary-color); box-shadow: 0 15px 50px rgba(0,0,0,0.6), 0 0 30px var(--accent-glow); }
+        .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-color); text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+
+        .live-codes-box { max-width: 600px; margin: 20px auto; background: rgba(26, 26, 36, 0.8); backdrop-filter: blur(10px); padding: 20px; border-radius: 10px; border: 2px solid var(--primary-color); box-shadow: 0 0 20px var(--accent-glow); }
+        .live-codes-box h2 { text-align: center; color: var(--primary-color); margin-bottom: 15px; text-shadow: 0 0 15px var(--primary-color); }
+        .code-item { background: linear-gradient(90deg, #111, #1a1a1a); padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid var(--primary-color); transition: 0.3s; box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
+        .code-item:hover { transform: translateX(-8px); background: linear-gradient(90deg, #1a1a1a, #222); box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+        .code-info { display: flex; flex-direction: column; }
+        .code-val { font-family: monospace; font-size: 1.1rem; font-weight: bold; letter-spacing: 1px; color: var(--tertiary-color); text-shadow: 0 0 10px var(--tertiary-color); }
+        .code-type { color: var(--primary-color); font-size: 0.85rem; margin-top: 2px; }
+        .copy-btn { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border: none; color: black; font-weight: bold; padding: 6px 12px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2); }
+        .copy-btn:hover { background: linear-gradient(135deg, white, var(--primary-color)); transform: scale(1.08); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+        #searchCodeInput { width: 100%; padding: 12px; margin-bottom: 15px; background-color: #111; border: 2px solid var(--primary-color); color: white; border-radius: 8px; outline: none; transition: 0.3s; box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); }
+        #searchCodeInput:focus { box-shadow: 0 0 30px var(--primary-color); }
+
+        .faq-section, .testimonials-section, .support-section { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .faq-section h2, .testimonials-section h2, .support-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 20px; font-size: 1.8rem; text-shadow: 0 0 15px var(--primary-color); }
+        .faq-item { background: rgba(26, 26, 36, 0.8); border: 2px solid #333; border-radius: 8px; margin-bottom: 10px; overflow: hidden; backdrop-filter: blur(10px); transition: 0.3s; }
+        .faq-item:hover { border-color: var(--primary-color); box-shadow: 0 0 20px var(--accent-glow); }
+        .faq-question { width: 100%; background: none; border: none; color: white; padding: 15px; text-align: right; font-size: 1.1rem; cursor: pointer; font-weight: bold; outline: none; transition: 0.3s; }
+        .faq-question:hover { color: var(--primary-color); background: #111; }
+        .faq-answer { padding: 0 15px 15px; color: #aaa; display: none; line-height: 1.6; }
+        .testi-card { background: rgba(26, 26, 36, 0.8); border: 2px dashed var(--secondary-color); border-radius: 10px; padding: 15px; margin-bottom: 10px; border-right: 3px solid var(--primary-color); backdrop-filter: blur(10px); box-shadow: 0 0 15px rgba(255, 107, 157, 0.1); transition: 0.3s; }
+        .testi-card:hover { transform: translateX(-5px); box-shadow: 0 0 25px rgba(255, 107, 157, 0.3); }
+        .testi-name { color: var(--secondary-color); font-weight: bold; margin-bottom: 5px; text-shadow: 0 0 10px rgba(255, 107, 157, 0.3); }
+        .testi-status { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 0.7rem; font-weight: bold; margin-left: 10px; }
+        .status-approved { background: #00C851; color: white; box-shadow: 0 0 10px #00C851; }
+        .status-pending { background: #ffaa00; color: black; box-shadow: 0 0 10px #ffaa00; }
+        .status-rejected { background: #ff4444; color: white; box-shadow: 0 0 10px #ff4444; }
+
+        /* Form Inputs - محسّن */
+        .order-section, .support-section-box { background: linear-gradient(135deg, rgba(26, 26, 36, 0.9), rgba(15, 15, 19, 0.8)); backdrop-filter: blur(10px); max-width: 600px; margin: 20px auto 40px; padding: 40px; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.8), 0 0 40px var(--accent-glow); border: 2px solid #333; position: relative; overflow: hidden; }
+        .order-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--primary-color), transparent); }
+        .order-section h2, .support-section-box h2 { text-align: center; margin-bottom: 30px; color: var(--primary-color); font-size: 1.6rem; text-shadow: 0 0 15px var(--primary-color); }
+        #maintenanceMessage { text-align: center; color: #ffaa00; font-size: 1.2rem; display: none; padding: 20px; border: 2px dashed #ffaa00; border-radius: 10px; background: rgba(255, 170, 0, 0.1); box-shadow: 0 0 20px rgba(255, 170, 0, 0.2); }
+        
+        .form-group { margin-bottom: 20px; position: relative; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px; background-color: #0a0a0e; border: 2px solid #333; color: white; border-radius: 8px; outline: none; transition: 0.3s; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 20px rgba(212,175,55,0.4); background-color: #111; }
+        
+        /* Captcha Styles - احترافي */
+        .captcha-box { display: flex; gap: 10px; align-items: center; }
+        .captcha-q { background: linear-gradient(135deg, #222, #111); padding: 15px; border-radius: 8px; font-weight: bold; color: var(--tertiary-color); border: 2px solid var(--primary-color); min-width: 120px; text-align: center; font-size: 1.3rem; letter-spacing: 2px; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); text-shadow: 0 0 10px var(--tertiary-color); }
+        
+        button.submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: #000; font-size: 1.2rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); position: relative; overflow: hidden; }
+        button.submit-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.5s; }
+        button.submit-btn:hover::before { left: 100%; }
+        button.submit-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5); background: linear-gradient(135deg, white, var(--primary-color)); }
+        .btn-spinner { border: 3px solid rgba(0,0,0,0.2); border-top: 3px solid #000; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: none; }
+        
+        .status-msg { text-align: center; margin-top: 15px; font-weight: bold; display: none; line-height: 1.5; text-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+
+        footer { background: linear-gradient(0deg, #050505 0%, #1a1a24 100%); padding: 30px; border-top: 2px solid var(--primary-color); text-align: center; position: relative; margin-top: 50px; box-shadow: 0 0 30px var(--accent-glow); }
+        .rights-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+        .rights-text { font-size: 1rem; color: #888; }
+        .dev-name { background: linear-gradient(90deg, #d4af37, #ffffff, #d4af37, #ff6b9d); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; font-size: 1.8rem; font-weight: 900; animation: shine 4s linear infinite; letter-spacing: 2px; display: block; margin-top: 5px; text-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
+        @keyframes shine { to { background-position: 200% center; } }
+        .admin-trigger { cursor: pointer; opacity: 0.1; position: absolute; right: 20px; bottom: 20px; font-size: 1.5rem; transition: 0.3s; }
+        .admin-trigger:hover { opacity: 1; transform: scale(1.2); }
+
+        .float-btn { position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 25px rgba(0,0,0,0.8), 0 0 30px var(--accent-glow); z-index: 1000; transition: 0.3s; text-decoration: none; border: 2px solid var(--primary-color); background: linear-gradient(135deg, #111, #1a1a1a); }
+        .float-btn:hover { transform: scale(1.15) rotate(10deg); box-shadow: 0 12px 40px rgba(0,0,0,0.9), 0 0 50px var(--primary-color); }
+        .drive-logo-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        #fakeNotification { display:none; position:fixed; bottom:20px; right:20px; background: linear-gradient(135deg, var(--card-bg), #1a1a24); border-right: 4px solid var(--primary-color); padding: 15px; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.8), 0 0 20px var(--accent-glow); z-index: 9999; color: white; font-size: 0.9rem; backdrop-filter: blur(10px); }
+        @keyframes slideInNotif { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutNotif { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        
+        /* لوحة الأدمن الشاملة - محسّنة */
+        #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; justify-content: center; align-items: flex-start; overflow-y: auto; padding: 20px; backdrop-filter: blur(10px); }
+        .admin-content { background: linear-gradient(135deg, #111, #1a1a24); border: 2px solid var(--primary-color); padding: 20px; border-radius: 15px; width: 100%; max-width: 950px; margin: 40px auto; box-shadow: 0 0 40px var(--accent-glow); position: relative; }
+        .admin-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--primary-color), transparent); }
+        .admin-group { margin-bottom: 15px; }
+        .admin-group label { color: white; display: block; margin-bottom: 5px; font-size: 0.95rem; font-weight: bold; }
+        .admin-group input[type="text"], .admin-group input[type="email"], .admin-group input[type="number"], .admin-group input[type="password"], .admin-group textarea, .admin-group input[type="color"], .admin-group select { width: 100%; padding: 12px; background: #000; border: 2px solid #333; color: white; border-radius: 5px; outline: none; transition: 0.3s; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+        .admin-group input:focus, .admin-group select:focus, .admin-group textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        .admin-btn { padding: 12px; background: linear-gradient(135deg, var(--primary-color), #f0d86a); color: #000; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; width: 100%; margin-bottom: 10px; transition: 0.2s; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); }
+        .admin-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+        .admin-btn.red { background: linear-gradient(135deg, #ff4444, #ff6666); color: white; }
+        .admin-btn.green { background: linear-gradient(135deg, #00C851, #33ff77); color: white; }
+        .admin-btn.blue { background: linear-gradient(135deg, #2196F3, #64b5f6); color: white; }
+        .admin-btn.orange { background: linear-gradient(135deg, #ffaa00, #ffcc00); color: black; font-weight: bold; }
+        
+        .admin-tabs { display: flex; gap: 5px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; border-bottom: 2px solid #333; flex-wrap: wrap; }
+        .admin-tab { padding: 10px 15px; background: linear-gradient(135deg, #222, #1a1a1a); color: white; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap; transition: 0.2s; font-size: 0.9rem; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .admin-tab:hover { background: #333; transform: translateY(-2px); }
+        .admin-tab.active { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: #000; font-weight: bold; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
+        .admin-panel { display: none; animation: fadeInPanel 0.4s; max-height: 700px; overflow-y: auto; }
+        .admin-panel.active { display: block; }
+        @keyframes fadeInPanel { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        .data-table th, .data-table td { border: 1px solid #444; padding: 10px; text-align: center; color: white; }
+        .data-table th { background: linear-gradient(135deg, #222, #1a1a1a); color: var(--primary-color); font-weight: bold; }
+        .action-btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 3px; cursor: pointer; transition: 0.2s; font-weight: bold; box-shadow: 0 2px 8px rgba(255, 68, 68, 0.2); }
+        .action-btn:hover { background: #cc0000; transform: scale(1.05); box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4); }
+        .action-btn.approve { background: #00C851; }
+        .action-btn.approve:hover { background: #009c3d; box-shadow: 0 4px 12px rgba(0, 200, 81, 0.4); }
+        .action-btn.reject { background: #ff4444; }
+        .action-btn.reject:hover { background: #cc0000; }
+        .table-wrapper { max-height: 350px; overflow-y: auto; margin-bottom: 15px; border: 2px solid #444; border-radius: 5px; }
+        .flex-row { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
+        .flex-row input { flex: 1; min-width: 200px; }
+
+        /* الميزات الجديدة - محسّنة */
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: linear-gradient(135deg, #222, #1a1a1a); border: 2px solid #333; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; }
+        .stat-card:hover { border-color: var(--primary-color); box-shadow: 0 6px 20px var(--accent-glow), 0 0 20px rgba(212, 175, 55, 0.2); transform: translateY(-5px); }
+        .stat-card h4 { color: var(--primary-color); font-size: 0.9rem; margin-bottom: 8px; text-shadow: 0 0 10px var(--primary-color); }
+        .stat-card .value { font-size: 1.8rem; font-weight: bold; color: var(--secondary-color); text-shadow: 0 0 10px var(--secondary-color); }
+        .mini-form { background: linear-gradient(135deg, #222, #1a1a1a); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 2px solid #333; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .mini-form .form-row { display: flex; gap: 10px; margin-bottom: 10px; }
+        .mini-form input { flex: 1; }
+        .toggle-switch { display: inline-flex; align-items: center; gap: 10px; padding: 10px; background: linear-gradient(135deg, #222, #1a1a1a); border-radius: 5px; border: 2px solid #333; }
+        .toggle-switch input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        .warning-box { background: rgba(255, 68, 68, 0.15); border: 2px solid #ff4444; padding: 12px; border-radius: 5px; margin-bottom: 15px; color: #ff9999; font-size: 0.9rem; box-shadow: 0 0 15px rgba(255, 68, 68, 0.1); }
+        .success-box { background: rgba(0, 200, 81, 0.15); border: 2px solid #00C851; padding: 12px; border-radius: 5px; margin-bottom: 15px; color: #66ff99; font-size: 0.9rem; box-shadow: 0 0 15px rgba(0, 200, 81, 0.1); }
+        .review-card { background: linear-gradient(135deg, #222, #1a1a1a); border: 2px solid #333; border-radius: 8px; padding: 15px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: 0.3s; }
+        .review-card:hover { border-color: var(--secondary-color); box-shadow: 0 6px 18px rgba(255, 107, 157, 0.2); }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .review-name { color: var(--secondary-color); font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 10px var(--secondary-color); }
+        .review-text { color: #ddd; line-height: 1.6; margin-bottom: 10px; }
+        .review-actions { display: flex; gap: 5px; }
+        .review-actions button { padding: 6px 12px; border: none; border-radius: 3px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .packages-container { flex-direction: column; align-items: center; }
+            .card { width: 100%; max-width: 300px; }
+            .dynamic-buttons { flex-direction: column; }
+            .dyn-btn { width: 100%; }
+            .admin-tabs { flex-direction: column; }
+            .admin-tab { width: 100%; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* تأثيرات إضافية احترافية */
+        .gradient-text { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--tertiary-color)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .glow-box { box-shadow: 0 0 20px var(--accent-glow), 0 0 40px rgba(212, 175, 55, 0.1); }
+        .shine-effect { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); background-size: 200% auto; animation: shimmer 3s linear infinite; }
+    </style>
+</head>
+<body>
+
+    <canvas id="bgCanvas"></canvas>
+
+    <div id="banWaveAlert">🚨 تحذير: موجة باند حادة حالياً! يرجى إيقاف اللعب بالحسابات الأساسية! 🚨</div>
+    <div id="announcementBar"></div>
+
+    <div id="globalPopup">
+        <div class="popup-box">
+            <h2>⚠️ تنبيه هام ⚠️</h2>
+            <p id="popupText" style="color: white; line-height: 1.6; font-size: 1.1rem;"></p>
+            <button class="popup-btn" onclick="document.getElementById('globalPopup').style.display='none'">حسناً، فهمت</button>
+        </div>
+    </div>
+
+    <!-- Loader المطور والاحترافي -->
+    <div id="loader">
+        <div class="loader-wrapper">
+            <div class="loader-ring-outer"></div>
+            <div class="loader-ring"></div>
+            <div class="loader-ring-inner"></div>
+            <img id="loaderLogo" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
+        </div>
+        <h2>DECRYPTING SYSTEM...</h2>
+        <div id="loadPercent">0%</div>
+    </div>
+
+    <header>
+        <img id="headerLogo" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Logo">
+        <h1 id="siteTitle">DRIVE VIP | الأكواد المجانية</h1>
+        <p>التواصل عبر تيليجرام: <a id="mainTgLink" href="https://t.me/l_2qu" target="_blank">@l_2qu</a></p>
+    </header>
+
+    <div id="dynamicButtonsContainer" class="dynamic-buttons"></div>
+
+    <div class="status-box">
+        <h3>حالة الهاك: <span class="status-text" id="uiStatusText">آمن (80%)</span></h3>
+        <div class="progress-bg">
+            <div class="progress-bar" id="uiProgressBar" style="width: 80%;"></div>
+        </div>
+        <p style="color:#aaa; font-size:0.9rem; margin-top:5px;">يتم تحديث النظام باستمرار لضمان أفضل حماية لحسابك.</p>
+    </div>
+
+    <div id="liveCodesSection" class="live-codes-box" style="display:none;">
+        <h2>🎁 أكواد متاحة الآن</h2>
+        <input type="text" id="searchCodeInput" onkeyup="searchCodes()" placeholder="🔍 ابحث عن كود أو نوع...">
+        <div id="codesContainer"></div>
+    </div>
+
+    <div id="packagesSection" class="packages-container"></div>
+
+    <!-- قسم الطلبات -->
+    <div class="order-section">
+        <h2>احجز كودك الآن مجاناً</h2>
+        <div id="maintenanceMessage">⚠️ النظام تحت التحديث والصيانة حالياً. يرجى العودة لاحقاً.</div>
+        <form id="orderForm">
+            <div class="form-group"><input type="text" id="userName" placeholder="الاسم الكامل" required></div>
+            <div class="form-group"><input type="text" id="tgUsername" placeholder="يوزر التيليجرام (مثل: @username)" required></div>
+            <div class="form-group">
+                <select id="packageType" required>
+                    <option value="" disabled selected>اختر الباقة...</option>
+                </select>
+            </div>
+            
+            <div class="form-group captcha-box">
+                <div class="captcha-q" id="captchaQ">? + ?</div>
+                <input type="number" id="captchaA" placeholder="أدخل ناتج الجمع للتحقق" required>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <div class="btn-spinner" id="btnSpinner"></div>
+                <span id="btnText">إرسال طلب الحجز</span>
+            </button>
+            <p id="statusMessage" class="status-msg"></p>
+        </form>
+    </div>
+
+    <!-- قسم الدعم الفني والتذاكر -->
+    <div class="support-section-box">
+        <h2>💬 الدعم الفني والتذاكر</h2>
+        <form id="ticketForm">
+            <div class="form-group"><input type="text" id="ticketUser" placeholder="يوزر التيليجرام للتواصل" required></div>
+            <div class="form-group"><textarea id="ticketMsg" placeholder="اكتب مشكلتك أو استفسارك هنا بوضوح..." rows="4" required></textarea></div>
+            <button type="submit" class="submit-btn" id="ticketBtn">
+                <span id="ticketBtnText">إرسال التذكرة للإدارة</span>
+            </button>
+            <p id="ticketStatusMsg" class="status-msg"></p>
+        </form>
+    </div>
+
+    <div id="faqSection" class="faq-section" style="display:none;">
+        <h2>الأسئلة الشائعة (FAQ)</h2>
+        <div id="faqContainer"></div>
+    </div>
+
+    <div id="testimonialSection" class="testimonials-section">
+        <h2>⭐ آراء وتجارب المشتركين</h2>
+        <div id="testimonialsContainer"></div>
+        
+        <div style="background: rgba(26,26,36,0.9); padding: 20px; border-radius: 10px; margin-top: 20px; border: 2px solid var(--primary-color); box-shadow: 0 0 20px var(--accent-glow);">
+            <h3 style="color:var(--primary-color); margin-bottom: 15px; text-align: center; font-size: 1.2rem; text-shadow: 0 0 15px var(--primary-color);">📝 شاركنا رأيك وتجربتك</h3>
+            <div class="form-group"><input type="text" id="userReviewName" placeholder="اسمك الكريم"></div>
+            <div class="form-group"><textarea id="userReviewText" placeholder="اكتب رأيك بصراحة..." rows="3"></textarea></div>
+            <button class="dyn-btn" style="width: 100%; border-radius: 8px;" onclick="submitReview()">إرسال الرأي</button>
+            <p id="reviewStatus" class="status-msg"></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="rights-container">
+            <span class="rights-text">جميع الحقوق محفوظة &copy; 2026</span>
+            <span class="rights-text">تم التطوير والبرمجة بواسطة</span>
+            <span class="dev-name">حمدمد</span>
+        </div>
+        <span class="admin-trigger" onclick="openAdmin()" title="لوحة الإدارة">🔒</span>
+    </footer>
+
+    <a id="floatTgLink" href="https://t.me/l_2qu" class="float-btn" target="_blank">
+        <img id="floatLogo" class="drive-logo-img" src="data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='48' fill='%231a1a24' stroke='%23d4af37' stroke-width='4'/><text x='50' y='45' font-family='Arial' font-size='18' font-weight='bold' fill='%23d4af37' text-anchor='middle'>DRIVE</text><text x='50' y='70' font-family='Arial' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>VIP</text></svg>" alt="Drive VIP">
+    </a>
+
+    <!-- لوحة تسجيل الدخول للأدمن -->
+    <div id="adminModal">
+        <div class="admin-content" id="loginStep">
+            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:20px;">🔐 دخول الأدمن الآمن</h2>
+            <div class="admin-group"><input type="email" id="adminEmail" placeholder="البريد الإلكتروني للأدمن"></div>
+            <div class="admin-group"><input type="password" id="adminPassword" placeholder="كلمة المرور"></div>
+            <button class="admin-btn" onclick="checkAdminAuth()">تسجيل الدخول</button>
+            <button class="admin-btn" style="background:linear-gradient(135deg, #444, #333); color:white;" onclick="closeAdmin()">إلغاء</button>
+            <p id="adminError" style="color:red; display:none; text-align:center; margin-top:10px;">البيانات خاطئة، يرجى التأكد!</p>
+        </div>
+        <div class="admin-content" id="dashboardStep" style="display: none;"></div>
+    </div>
+
+    <div id="fakeNotification"><span style="color:var(--primary-color);">!!!تنويه مهههههم:</span> <span id="fakeNotifText"></span></div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // --- سكربت خلفية الهاكر ---
+        const canvas = document.getElementById('bgCanvas'); const ctx = canvas.getContext('2d');
+        let columns, drops; const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*<>/?'; const fontSize = 16;
+        function initMatrix() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = canvas.width / fontSize; drops = []; for (let x = 0; x < columns; x++) drops[x] = 1; }
+        function drawMatrix() { ctx.fillStyle = 'rgba(15, 15, 19, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = 'var(--primary-color)'; ctx.font = fontSize + 'px monospace'; for (let i = 0; i < drops.length; i++) { const text = characters.charAt(Math.floor(Math.random() * characters.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
+        window.addEventListener('resize', initMatrix); initMatrix(); setInterval(drawMatrix, 75);
+
+        // --- إعدادات الفايربيس ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDhp-hVKq-Sb6i4dLtthcvDg8Fsvya9Vv8",
+            authDomain: "ahmed-vip-portal.firebaseapp.com",
+            databaseURL: "https://ahmed-vip-portal-default-rtdb.firebaseio.com",
+            projectId: "ahmed-vip-portal",
+            storageBucket: "ahmed-vip-portal.firebasestorage.app",
+            messagingSenderId: "737002492478",
+            appId: "1:737002492478:web:0273e9d2cd483ae5a8376f"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database(); const auth = firebase.auth();
+        
+        let botTokenGlobal = ""; let chatIdGlobal = ""; let discordWebhookUrl = ""; let blacklistedUsers = []; let ordersDataForExport = []; let ordersChartInstance = null; let fakeNotifInterval = null; let disableCooldownGlobal = false;
+        let emailFilterList = []; let autoReplyEnabled = false; let autoReplyMsg = ""; let dailyLimitPerUser = 5; let ipBlockList = [];
+        
+        // --- نظام الكابتشا ---
+        let cap1, cap2, capAns;
+        function generateCaptcha() {
+            cap1 = Math.floor(Math.random() * 10) + 1; cap2 = Math.floor(Math.random() * 10) + 1; capAns = cap1 + cap2;
+            document.getElementById('captchaQ').innerText = `${cap1} + ${cap2} = ?`;
+            document.getElementById('captchaA').value = '';
+        }
+
+        // --- تأثير التحميل ---
+        let loadPerc = 0;
+        let loaderInt = setInterval(() => {
+            loadPerc += Math.floor(Math.random() * 15) + 5;
+            if(loadPerc >= 100) {
+                loadPerc = 100; clearInterval(loaderInt);
+                setTimeout(() => {
+                    document.getElementById('loader').style.opacity = '0';
+                    setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
+                }, 800);
+            }
+            document.getElementById('loadPercent').innerText = loadPerc + '%';
+        }, 150);
+
+        function playSound(type) { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); if (type === 'success') { osc.frequency.setValueAtTime(587.33, ctx.currentTime); osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3); osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3); } else if (type === 'access') { osc.frequency.setValueAtTime(800, ctx.currentTime); osc.frequency.setValueAtTime(1000, ctx.currentTime + 0.08); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2); osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.2); } else if (type === 'error') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, ctx.currentTime); gain.gain.setValueAtTime(0.1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4); osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.4); } } catch(e) {} }
+        function getDeviceInfo() { const ua = navigator.userAgent; if (/iphone|ipad|ipod/i.test(ua)) return "iPhone/iPad"; if (/android/i.test(ua)) return "Android"; if (/windows/i.test(ua)) return "Windows"; if (/macintosh/i.test(ua)) return "Mac"; return "جهاز مجهول"; }
+
+        function checkCooldown() {
+            const submitBtn = document.getElementById('submitBtn'); const statusMsg = document.getElementById('statusMessage');
+            if (disableCooldownGlobal) { submitBtn.disabled = false; submitBtn.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))'; submitBtn.style.cursor = 'pointer'; if(statusMsg.innerText.includes("ساعة و")) { statusMsg.style.display = 'none'; } return false; }
+            const lastOrder = localStorage.getItem('drivevip_last_order');
+            if (lastOrder) {
+                const diff = new Date().getTime() - parseInt(lastOrder); const cooldownTime = 24 * 60 * 60 * 1000;
+                if (diff < cooldownTime) {
+                    const remaining = cooldownTime - diff; const hours = Math.floor(remaining / (1000 * 60 * 60)); const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                    submitBtn.disabled = true; submitBtn.style.background = '#444'; submitBtn.style.cursor = 'not-allowed'; statusMsg.style.display = 'block'; statusMsg.style.color = '#ffaa00'; statusMsg.innerText = `⏳ لقد طلبت مسبقاً! انتظر: ${hours} ساعة و ${minutes} دقيقة.`;
+                    return true;
+                }
+            }
+            submitBtn.disabled = false; submitBtn.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))'; submitBtn.style.cursor = 'pointer'; return false;
+        }
+
+        window.addEventListener('load', function() {
+            generateCaptcha();
+            const visitRef = db.ref('stats/visits');
+            if (!sessionStorage.getItem('visited_drivevip')) { visitRef.transaction(c => (c || 0) + 1); sessionStorage.setItem('visited_drivevip', 'true'); }
+            listenToSettings(); listenToPackages(); listenToFAQs(); listenToLiveCodes(); listenToTestimonials(); listenToLinks();
+            setInterval(checkCooldown, 1000);
+            
+            auth.onAuthStateChanged(user => { if(user && document.getElementById('adminModal').style.display === 'flex') { initAdminDashboard(); } });
+        });
+
+        // --- نظام ديسكورد ---
+        function sendToDiscord(message) {
+            if(!discordWebhookUrl || discordWebhookUrl.trim() === "") return;
+            fetch(discordWebhookUrl, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ content: message }) }).catch(e => console.log(e));
+        }
+
+        // --- قسم الآراء ---
+        function submitReview() {
+            const name = document.getElementById('userReviewName').value.trim(); const text = document.getElementById('userReviewText').value.trim();
+            const msg = document.getElementById('reviewStatus');
+            if(!name || !text) { msg.style.display='block'; msg.style.color='#ff4444'; msg.innerText='❌ يرجى كتابة الاسم والرأي!'; return; }
+            db.ref('pending_testimonials').push({name, text, timestamp: firebase.database.ServerValue.TIMESTAMP, status: 'pending'}).then(() => {
+                msg.style.display='block'; msg.style.color='#00C851'; msg.innerText='✅ تم إرسال رأيك للإدارة للموافقة عليه، شكراً لك!';
+                document.getElementById('userReviewName').value=''; document.getElementById('userReviewText').value='';
+                playSound('success');
+            });
+        }
+
+        // --- سجل الإدارة ---
+        function logAdminAction(actionText) {
+            const time = new Date().toLocaleString('ar-EG');
+            db.ref('admin_logs').push({ time, actionText });
+        }
+
+        // ============ 🚀 لوحة الإدارة مع الميزات الكاملة ===========
+        function getAdminHTML() {
+            return `
+            <h2 style="color:var(--primary-color); text-align:center; margin-bottom:5px; text-shadow: 0 0 20px var(--primary-color);">⚡ لوحة الإدارة الشاملة | حمدمد ⚡</h2>
+            <p style="text-align:center; color:#aaa; margin-bottom:15px;">👀 الزيارات: <strong id="adminVisits" style="color:var(--primary-color);">0</strong> | 📦 الطلبات: <strong id="adminOrdersCount" style="color:var(--primary-color);">0</strong> | 💬 التذاكر: <strong id="adminTicketCount" style="color:var(--primary-color);">0</strong> | ⭐ الآراء: <strong id="adminReviewCount" style="color:var(--primary-color);">0</strong></p>
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchTab('tabDashboard')">📊 لوحة التحكم</button>
+                <button class="admin-tab" onclick="switchTab('tabGeneral')">⚙️ عام</button>
+                <button class="admin-tab" onclick="switchTab('tabUI')">🎨 واجهة</button>
+                <button class="admin-tab" onclick="switchTab('tabFilters')">🛡️ فلاتر</button>
+                <button class="admin-tab" onclick="switchTab('tabReviews')">⭐ آراء</button>
+                <button class="admin-tab" onclick="switchTab('tabOrders')">📋 طلبات</button>
+                <button class="admin-tab" onclick="switchTab('tabTickets')">🎫 تذاكر</button>
+                <button class="admin-tab" onclick="switchTab('tabCodes')">🔑 أكواد</button>
+                <button class="admin-tab" onclick="switchTab('tabPackages')">📦 باقات</button>
+                <button class="admin-tab" onclick="switchTab('tabBlacklist')">🚫 باند</button>
+                <button class="admin-tab" onclick="switchTab('tabAnalytics')">📈 إحصائيات</button>
+                <button class="admin-tab" onclick="switchTab('tabBackup')">💾 نسخ احتياطية</button>
+                <button class="admin-tab" onclick="switchTab('tabNotifications')">🔔 إشعارات</button>
+            </div>
+
+            <!-- 1️⃣ لوحة التحكم الرئيسية (Dashboard) -->
+            <div id="tabDashboard" class="admin-panel active">
+                <h3 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 15px var(--primary-color);">📊 نظرة عامة على الموقع</h3>
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <h4>الزيارات اليومية</h4>
+                        <div class="value" id="dailyVisits">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>الطلبات اليومية</h4>
+                        <div class="value" id="dailyOrders">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>حالة النظام</h4>
+                        <div class="value" id="systemStatus">✅ يعمل</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>المستخدمون النشطون</h4>
+                        <div class="value" id="activeUsers">0</div>
+                    </div>
+                </div>
+                <h4 style="color:var(--primary-color); margin-top:20px; margin-bottom:10px; text-shadow: 0 0 10px var(--primary-color);">⚡ الإجراءات السريعة</h4>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px;">
+                    <button class="admin-btn green" onclick="quickBackupDB()">💾 نسخة احتياطية</button>
+                    <button class="admin-btn blue" onclick="clearAnalytics()">🔄 مسح تحليلات</button>
+                    <button class="admin-btn" onclick="reloadAllSettings()">🔃 تحديث الإعدادات</button>
+                    <button class="admin-btn red" onclick="firebase.auth().signOut().then(() => location.reload())">🚪 خروج</button>
+                </div>
+            </div>
+            
+            <!-- 2️⃣ الإعدادات العامة -->
+            <div id="tabGeneral" class="admin-panel">
+                <div class="warning-box">⚠️ تحذير: تعديل هذه الإعدادات يؤثر على كل المستخدمين!</div>
+                <div class="admin-group"><label><input type="checkbox" id="setBanWave"> 🚨 تفعيل موجة الباند</label></div>
+                <div class="admin-group"><label>نسبة الأمان:</label><input type="number" id="setHackPercent" min="0" max="100"></div>
+                <div class="admin-group"><label>مدة Cooldown (ساعات):</label><input type="number" id="setCooldownHours" min="1" max="168" value="24"></div>
+                <div class="admin-group"><label>الحد الأقصى للطلبات/اليوم:</label><input type="number" id="setDailyLimit" min="1" value="5"></div>
+                <div class="admin-group"><label>توكن البوت (تيليجرام):</label><input type="text" id="setBotToken" placeholder="6543210987:ABCDEFGHIJKLMNOPQRSTUVWxyz..."></div>
+                <div class="admin-group"><label>ايدي الحساب (تيليجرام):</label><input type="text" id="setChatId" placeholder="123456789"></div>
+                <div class="admin-group"><label>رابط ديسكورد (Webhook):</label><input type="text" id="setDiscordWebhook" placeholder="https://discord.com/api/webhooks/..."></div>
+                <div class="admin-group"><label><input type="checkbox" id="setDisableCooldown"> ⏳ إلغاء نظام الانتظار للجميع</label></div>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+            </div>
+            
+            <!-- 3️⃣ واجهة المستخدم -->
+            <div id="tabUI" class="admin-panel">
+                <div class="admin-group"><label>اللون الأساسي:</label><input type="color" id="setThemeColor" style="height:40px; padding:0;"></div>
+                <div class="admin-group"><label>عنوان الموقع:</label><input type="text" id="setSiteTitle"></div>
+                <div class="admin-group"><label>رابط اللوجو:</label><input type="text" id="setLogoUrl" placeholder="رابط صورة اللوجو"></div>
+                <div class="admin-group"><label>شريط الإعلان:</label><input type="text" id="setAnnouncement" placeholder="نص الإعلان المتحرك"></div>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="setShowPopup"> 📢 تفعيل popup تنبيهي</label>
+                    <textarea id="setPopupText" placeholder="نص التنبيه..." rows="2" style="width:100%;"></textarea>
+                </div>
+                <div class="admin-group"><label><input type="checkbox" id="setShowLiveCodes"> 🎁 إظهار الأكواد الجاهزة</label></div>
+                <div class="admin-group"><label><input type="checkbox" id="setFakeNotif"> 🔔 تفعيل الإشعارات الوهمية</label></div>
+                <button class="admin-btn" onclick="saveSettings()">💾 حفظ التعديلات</button>
+            </div>
+
+            <!-- 4️⃣ الفلاتر والحماية -->
+            <div id="tabFilters" class="admin-panel">
+                <div class="warning-box">⚠️ الفلاتر تساعد على منع الرسائل غير المرغوبة والحسابات الوهمية</div>
+                
+                <h4 style="color:var(--primary-color); margin:15px 0 10px;">📧 فلتر رسائل البريد الإلكتروني</h4>
+                <div class="mini-form">
+                    <div class="form-row">
+                        <input type="text" id="emailFilterInput" placeholder="مثال: @gmail.com أو كلمة محظورة">
+                        <button class="admin-btn" style="width:auto;" onclick="addEmailFilter()">إضافة</button>
+                    </div>
+                    <div id="emailFilterList" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:8px;"></div>
+                </div>
+
+                <h4 style="color:var(--primary-color); margin:15px 0 10px;">🌐 فلتر عناوين IP</h4>
+                <div class="mini-form">
+                    <div class="form-row">
+                        <input type="text" id="ipFilterInput" placeholder="أدخل IP للحظر">
+                        <button class="admin-btn red" style="width:auto;" onclick="addIPBlock()">حظر</button>
+                    </div>
+                    <div id="ipBlockList" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:8px;"></div>
+                </div>
+
+                <h4 style="color:var(--primary-color); margin:15px 0 10px;">💬 الرد التلقائي</h4>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="autoReplyToggle" onchange="toggleAutoReply()">
+                    <label>تفعيل الرد التلقائي</label>
+                </div>
+                <div class="admin-group" style="margin-top:10px;">
+                    <textarea id="autoReplyText" placeholder="نص الرد التلقائي للتذاكر..." rows="3" style="width:100%;"></textarea>
+                </div>
+                <button class="admin-btn green" onclick="saveFilters()">💾 حفظ الفلاتر</button>
+            </div>
+
+            <!-- ⭐ 5️⃣ إدارة الآراء -->
+            <div id="tabReviews" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 15px var(--primary-color);">⭐ إدارة آراء وتقييمات المستخدمين</h3>
+                <div class="success-box">✅ من هنا تستطيع قبول أو رفض أو حذف الآراء قبل نشرها</div>
+                
+                <div style="margin-bottom:20px;">
+                    <button class="admin-btn green" onclick="filterReviewsBy('all')">📋 الكل</button>
+                    <button class="admin-btn orange" onclick="filterReviewsBy('pending')" style="background:linear-gradient(135deg, #ffaa00, #ffcc00); color: black;">⏳ قيد الانتظار</button>
+                    <button class="admin-btn green" onclick="filterReviewsBy('approved')">✅ موافق عليها</button>
+                    <button class="admin-btn red" onclick="filterReviewsBy('rejected')">❌ مرفوضة</button>
+                </div>
+
+                <div id="pendingReviewsList" style="max-height:600px; overflow-y:auto;"></div>
+            </div>
+
+            <div id="tabOrders" class="admin-panel">
+                <div class="flex-row">
+                    <input type="text" id="searchOrderInput" placeholder="🔍 بحث..." onkeyup="filterOrdersTable()">
+                    <button class="admin-btn green" style="width:auto; margin:0;" onclick="exportOrdersCSV()">📥 تصدير CSV</button>
+                    <button class="admin-btn red" style="width:auto; margin:0;" onclick="clearAllOrders()">🗑️ مسح</button>
+                </div>
+                <div style="background:#222; padding:10px; margin-bottom:10px; height:200px; border-radius:5px;"><canvas id="ordersChart"></canvas></div>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الاسم</th><th>اليوزر</th><th>الباقة</th><th>الجهاز</th><th>حذف</th></tr></thead><tbody id="adminOrdersList"></tbody></table></div>
+            </div>
+
+            <div id="tabTickets" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:10px; text-shadow: 0 0 15px var(--primary-color);">🎫 تذاكر الدعم</h3>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>اليوزر</th><th>المشكلة</th><th>الوقت</th><th>إجراء</th></tr></thead><tbody id="adminTicketsList"></tbody></table></div>
+            </div>
+
+            <div id="tabCodes" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 15px var(--primary-color);">🔑 إدارة الأكواد</h3>
+                <div class="admin-group"><input type="text" id="newCodeVal" placeholder="الكود"></div>
+                <div class="admin-group"><input type="text" id="newCodeType" placeholder="النوع (مثل: Free, Premium)"></div>
+                <button class="admin-btn" onclick="addNewCode()">➕ إضافة كود</button>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الكود</th><th>النوع</th><th>حذف</th></tr></thead><tbody id="adminCodesList"></tbody></table></div>
+            </div>
+
+            <div id="tabPackages" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 15px var(--primary-color);">📦 إدارة الباقات</h3>
+                <div class="admin-group"><input type="text" id="newPackTitle" placeholder="اسم الباقة"></div>
+                <div class="admin-group"><textarea id="newPackDesc" placeholder="وصف الباقة" rows="2"></textarea></div>
+                <button class="admin-btn" onclick="addPackage()">➕ إضافة باقة</button>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>الباقة</th><th>الوصف</th><th>حذف</th></tr></thead><tbody id="adminPacksList"></tbody></table></div>
+            </div>
+
+            <div id="tabBlacklist" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 15px var(--primary-color);">🚫 قائمة الحظر</h3>
+                <div class="admin-group"><input type="text" id="newBannedUser" placeholder="يوزر للحظر"></div>
+                <button class="admin-btn red" onclick="addBlacklist()">🔒 حظر المستخدم</button>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>اليوزر</th><th>السبب</th><th>فك الحظر</th></tr></thead><tbody id="adminBlacklist"></tbody></table></div>
+            </div>
+
+            <!-- 6️⃣ الإحصائيات والتحليلات -->
+            <div id="tabAnalytics" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 15px var(--primary-color);">📈 تحليلات الموقع</h3>
+                <div style="background:#222; padding:15px; border-radius:8px; margin-bottom:15px; border:2px solid #333;">
+                    <h4 style="color:var(--primary-color); margin-bottom:10px; text-shadow: 0 0 10px var(--primary-color);">نسب الاستخدام</h4>
+                    <canvas id="analyticsChart"></canvas>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px;">
+                    <div class="stat-card">
+                        <h4>متوسط الطلبات</h4>
+                        <div class="value" id="avgOrders">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>معدل التحويل</h4>
+                        <div class="value" id="conversionRate">0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>الأجهزة الشهيرة</h4>
+                        <div class="value" id="topDevice">-</div>
+                    </div>
+                </div>
+                <button class="admin-btn blue" onclick="refreshAnalytics()">🔄 تحديث</button>
+            </div>
+
+            <!-- 7️⃣ النسخ الاحتياطية -->
+            <div id="tabBackup" class="admin-panel">
+                <div class="success-box">✅ النسخ الاحتياطية توفر حماية ضد فقدان البيانات</div>
+                <h4 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 10px var(--primary-color);">💾 إدارة النسخ الاحتياطية</h4>
+                <div style="display:grid; gap:10px;">
+                    <button class="admin-btn green" onclick="quickBackupDB()" style="font-weight:bold;">📥 أخذ نسخة احتياطية فوراً</button>
+                    <button class="admin-btn blue" onclick="scheduleAutoBackup()">⏰ جدولة نسخ يومية</button>
+                    <button class="admin-btn" onclick="downloadAllData()">💾 تحميل جميع البيانات (JSON)</button>
+                </div>
+                <h4 style="color:var(--primary-color); margin-top:20px; margin-bottom:10px; text-shadow: 0 0 10px var(--primary-color);">📋 آخر النسخ الاحتياطية</h4>
+                <div class="table-wrapper"><table class="data-table"><thead><tr><th>التاريخ</th><th>الحجم</th><th>الحالة</th></tr></thead><tbody id="backupsList"></tbody></table></div>
+            </div>
+
+            <!-- 8️⃣ الإشعارات المتقدمة -->
+            <div id="tabNotifications" class="admin-panel">
+                <h3 style="color:var(--primary-color); margin-bottom:15px; text-shadow: 0 0 15px var(--primary-color);">🔔 نظام الإشعارات المتقدم</h3>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifOnOrder"> 📦 إشعار عند كل طلب جديد</label>
+                </div>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifOnReview"> ⭐ إشعار عند كل رأي جديد</label>
+                </div>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifOnTicket"> 🎫 إشعار عند كل تذكرة جديدة</label>
+                </div>
+                <div class="admin-group">
+                    <label><input type="checkbox" id="notifSound"> 🔊 تفعيل صوت الإشعارات</label>
+                </div>
+                <div class="admin-group">
+                    <label>رسالة الترحيب المخصصة:</label>
+                    <textarea id="welcomeMessage" placeholder="رسالة الترحيب التي تظهر للزوار الجدد..." rows="3"></textarea>
+                </div>
+                <button class="admin-btn green" onclick="saveNotifSettings()">💾 حفظ إعدادات الإشعارات</button>
+            </div>
+            `;
+        }
+
+        function initAdminDashboard() {
+            document.getElementById('loginStep').style.display = 'none';
+            const dash = document.getElementById('dashboardStep');
+            dash.innerHTML = getAdminHTML();
+            dash.style.display = 'block';
+            
+            db.ref('stats/visits').on('value', snap => { if(document.getElementById('adminVisits')) document.getElementById('adminVisits').innerText = snap.val() || 0; });
+            listenToOrders(); listenToBlacklist(); listenToPendingReviews(); listenToTickets(); 
+            
+            db.ref('site_settings').once('value').then(snap => {
+                const d = snap.val() || {};
+                if(document.getElementById('setBanWave')) document.getElementById('setBanWave').checked = d.banWaveMode || false;
+                if(document.getElementById('setHackPercent')) document.getElementById('setHackPercent').value = d.hackPercent || 80;
+                if(document.getElementById('setBotToken')) document.getElementById('setBotToken').value = d.botToken || "";
+                if(document.getElementById('setChatId')) document.getElementById('setChatId').value = d.chatId || "";
+                if(document.getElementById('setDiscordWebhook')) document.getElementById('setDiscordWebhook').value = d.discordWebhook || "";
+                if(document.getElementById('setDisableCooldown')) document.getElementById('setDisableCooldown').checked = d.disableCooldown || false;
+                if(document.getElementById('setThemeColor')) document.getElementById('setThemeColor').value = d.themeColor || "#d4af37";
+                if(document.getElementById('setSiteTitle')) document.getElementById('setSiteTitle').value = d.siteTitle || "DRIVE VIP | الأكواد المجانية";
+                if(document.getElementById('setAnnouncement')) document.getElementById('setAnnouncement').value = d.announcementText || "";
+                if(document.getElementById('setShowPopup')) document.getElementById('setShowPopup').checked = d.showPopup || false;
+                if(document.getElementById('setPopupText')) document.getElementById('setPopupText').value = d.popupText || "";
+                if(document.getElementById('setShowLiveCodes')) document.getElementById('setShowLiveCodes').checked = d.showLiveCodes || false;
+                if(document.getElementById('setFakeNotif')) document.getElementById('setFakeNotif').checked = d.fakeNotifications !== false;
+                if(document.getElementById('setCooldownHours')) document.getElementById('setCooldownHours').value = d.cooldownHours || 24;
+                if(document.getElementById('setDailyLimit')) document.getElementById('setDailyLimit').value = d.dailyLimit || 5;
+                if(document.getElementById('autoReplyToggle')) document.getElementById('autoReplyToggle').checked = d.autoReplyEnabled || false;
+                if(document.getElementById('autoReplyText')) document.getElementById('autoReplyText').value = d.autoReplyMsg || "";
+                if(document.getElementById('notifOnOrder')) document.getElementById('notifOnOrder').checked = d.notifOnOrder !== false;
+                if(document.getElementById('notifOnReview')) document.getElementById('notifOnReview').checked = d.notifOnReview !== false;
+                if(document.getElementById('notifOnTicket')) document.getElementById('notifOnTicket').checked = d.notifOnTicket !== false;
+                if(document.getElementById('welcomeMessage')) document.getElementById('welcomeMessage').value = d.welcomeMessage || "";
+            });
+
+            db.ref('filters').once('value').then(snap => {
+                const d = snap.val() || {};
+                emailFilterList = d.emailFilters || [];
+                ipBlockList = d.ipFilters || [];
+                refreshFilterLists();
+            });
+
+            logAdminAction("تسجيل دخول للوحة الإدارة");
+        }
+
+        // ===== دوال إدارة الآراء =====
+        window.filterReviewsBy = function(status) {
+            db.ref('pending_testimonials').once('value').then(snap => {
+                const container = document.getElementById('pendingReviewsList');
+                container.innerHTML = '';
+                let count = 0;
+                snap.forEach(c => {
+                    const d = c.val();
+                    if(status === 'all' || (d.status === status || (status === 'pending' && !d.status))) {
+                        count++;
+                        const reviewStatus = d.status || 'pending';
+                        let statusBadge = '<span class="testi-status status-pending">⏳ قيد الانتظار</span>';
+                        if(reviewStatus === 'approved') statusBadge = '<span class="testi-status status-approved">✅ موافق عليه</span>';
+                        else if(reviewStatus === 'rejected') statusBadge = '<span class="testi-status status-rejected">❌ مرفوض</span>';
+                        
+                        container.innerHTML += `
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div style="flex:1;">
+                                    <div class="review-name">${d.name} ${statusBadge}</div>
+                                    <div style="color:#999; font-size:0.85rem;">${new Date(d.timestamp).toLocaleString('ar-EG')}</div>
+                                </div>
+                            </div>
+                            <div class="review-text">"${d.text}"</div>
+                            <div class="review-actions">
+                                <button class="action-btn approve" onclick="approveReview('${c.key}')">✅ الموافقة</button>
+                                <button class="action-btn reject" onclick="rejectReview('${c.key}')">❌ الرفض</button>
+                                <button class="action-btn" style="background:#666;" onclick="deleteReview('${c.key}')">🗑️ حذف</button>
+                            </div>
+                        </div>`;
+                    }
+                });
+                if(count === 0) container.innerHTML = '<p style="text-align:center; color:#aaa; padding:20px;">لا توجد آراء في هذه الفئة</p>';
+            });
+        };
+
+        window.approveReview = function(key) {
+            db.ref('pending_testimonials/' + key).update({status: 'approved'}).then(() => {
+                db.ref('pending_testimonials/' + key).once('value').then(snap => {
+                    const d = snap.val();
+                    db.ref('testimonials').push({name: d.name, text: d.text}).then(() => {
+                        filterReviewsBy('all');
+                        logAdminAction(`✅ تم الموافقة على رأي من ${d.name}`);
+                        alert('✅ تم الموافقة على الرأي!');
+                    });
+                });
+            });
+        };
+
+        window.rejectReview = function(key) {
+            db.ref('pending_testimonials/' + key).update({status: 'rejected'}).then(() => {
+                filterReviewsBy('all');
+                logAdminAction(`❌ تم رفض رأي`);
+                alert('❌ تم رفض الرأي!');
+            });
+        };
+
+        window.deleteReview = function(key) {
+            if(confirm('هل تريد حذف هذا الرأي؟')) {
+                db.ref('pending_testimonials/' + key).remove().then(() => {
+                    filterReviewsBy('all');
+                    logAdminAction(`🗑️ تم حذف رأي`);
+                });
+            }
+        };
+
+        window.saveSettings = function() {
+            const data = {
+                banWaveMode: document.getElementById('setBanWave').checked,
+                hackPercent: document.getElementById('setHackPercent').value,
+                botToken: document.getElementById('setBotToken').value,
+                chatId: document.getElementById('setChatId').value,
+                discordWebhook: document.getElementById('setDiscordWebhook').value,
+                disableCooldown: document.getElementById('setDisableCooldown').checked,
+                themeColor: document.getElementById('setThemeColor').value,
+                siteTitle: document.getElementById('setSiteTitle').value,
+                announcementText: document.getElementById('setAnnouncement').value,
+                showPopup: document.getElementById('setShowPopup').checked,
+                popupText: document.getElementById('setPopupText').value,
+                showLiveCodes: document.getElementById('setShowLiveCodes').checked,
+                fakeNotifications: document.getElementById('setFakeNotif').checked,
+                cooldownHours: document.getElementById('setCooldownHours').value,
+                dailyLimit: document.getElementById('setDailyLimit').value,
+                autoReplyEnabled: autoReplyEnabled,
+                autoReplyMsg: document.getElementById('autoReplyText').value
+            };
+            db.ref('site_settings').set(data).then(() => { alert('✅ تم الحفظ بنجاح!'); logAdminAction("تعديل إعدادات الموقع"); });
+        };
+
+        window.saveNotifSettings = function() {
+            const data = {
+                notifOnOrder: document.getElementById('notifOnOrder').checked,
+                notifOnReview: document.getElementById('notifOnReview').checked,
+                notifOnTicket: document.getElementById('notifOnTicket').checked,
+                notifSound: document.getElementById('notifSound').checked,
+                welcomeMessage: document.getElementById('welcomeMessage').value
+            };
+            db.ref('site_settings').update(data).then(() => { alert('✅ تم حفظ إعدادات الإشعارات!'); logAdminAction("تحديث إعدادات الإشعارات"); });
+        };
+
+        window.saveFilters = function() {
+            const data = { emailFilters: emailFilterList, ipFilters: ipBlockList };
+            db.ref('filters').set(data).then(() => { alert('✅ تم حفظ الفلاتر!'); logAdminAction("تحديث الفلاتر"); });
+        };
+
+        window.addEmailFilter = function() {
+            const val = document.getElementById('emailFilterInput').value.trim();
+            if(val && !emailFilterList.includes(val)) { emailFilterList.push(val); document.getElementById('emailFilterInput').value = ''; refreshFilterLists(); }
+        };
+
+        window.addIPBlock = function() {
+            const val = document.getElementById('ipFilterInput').value.trim();
+            if(val && !ipBlockList.includes(val)) { ipBlockList.push(val); document.getElementById('ipFilterInput').value = ''; refreshFilterLists(); }
+        };
+
+        function refreshFilterLists() {
+            const emailDiv = document.getElementById('emailFilterList');
+            const ipDiv = document.getElementById('ipBlockList');
+            emailDiv.innerHTML = emailFilterList.map(f => `<div style="background:#333; padding:8px; border-radius:5px; font-size:0.8rem; overflow:hidden; word-break:break-all;">📧 ${f} <button onclick="emailFilterList.splice(emailFilterList.indexOf('${f}'),1); refreshFilterLists();" style="background:red; color:white; border:none; padding:2px 5px; border-radius:3px; cursor:pointer; float:right;">X</button></div>`).join('');
+            ipDiv.innerHTML = ipBlockList.map(ip => `<div style="background:#333; padding:8px; border-radius:5px; font-size:0.8rem;">🌐 ${ip} <button onclick="ipBlockList.splice(ipBlockList.indexOf('${ip}'),1); refreshFilterLists();" style="background:red; color:white; border:none; padding:2px 5px; border-radius:3px; cursor:pointer; float:right;">X</button></div>`).join('');
+        }
+
+        window.toggleAutoReply = function() {
+            autoReplyEnabled = document.getElementById('autoReplyToggle').checked;
+            db.ref('site_settings/autoReplyEnabled').set(autoReplyEnabled);
+        };
+
+        window.quickBackupDB = function() {
+            alert('💾 جاري أخذ نسخة احتياطية... سيتم إنشاء ملف JSON بكل البيانات');
+            db.ref().once('value').then(snap => {
+                const dataStr = JSON.stringify(snap.val(), null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `backup_${new Date().toISOString().slice(0,10)}.json`;
+                link.click();
+                logAdminAction("تم أخذ نسخة احتياطية من البيانات");
+            });
+        };
+
+        window.downloadAllData = function() { quickBackupDB(); };
+
+        window.scheduleAutoBackup = function() {
+            alert('⏰ تم تفعيل النسخ الاحتياطية اليومية - ستتم في الساعة 02:00 صباحاً');
+            db.ref('site_settings/autoBackupEnabled').set(true);
+            logAdminAction("تفعيل النسخ الاحتياطية التلقائية اليومية");
+        };
+
+        window.refreshAnalytics = function() {
+            const ordersChart = document.getElementById('analyticsChart');
+            if(ordersChart && ordersChart.parentElement) {
+                new Chart(ordersChart.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['طلبات', 'آراء', 'تذاكر'],
+                        datasets: [{
+                            data: [
+                                parseInt(document.getElementById('adminOrdersCount')?.innerText || 0),
+                                parseInt(document.getElementById('adminReviewCount')?.innerText || 0),
+                                parseInt(document.getElementById('adminTicketCount')?.innerText || 0)
+                            ],
+                            backgroundColor: ['#d4af37', '#ff6b9d', '#00d9ff']
+                        }]
+                    }
+                });
+            }
+        };
+
+        window.clearAnalytics = function() {
+            if(confirm('هل تريد مسح بيانات التحليلات؟')) {
+                db.ref('analytics').remove();
+                alert('✅ تم مسح التحليلات');
+                logAdminAction("مسح بيانات التحليلات");
+            }
+        };
+
+        window.reloadAllSettings = function() {
+            location.reload();
+        };
+
+        function openAdmin() { 
+            document.getElementById('adminModal').style.display = 'flex';
+            if(auth.currentUser && document.getElementById('dashboardStep').innerHTML.trim() === '') { initAdminDashboard(); }
+        }
+        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+        
+        function checkAdminAuth() {
+            const email = document.getElementById('adminEmail').value.trim(); const pass = document.getElementById('adminPassword').value.trim();
+            auth.signInWithEmailAndPassword(email, pass).then(() => { playSound('access'); document.getElementById('adminError').style.display = 'none'; initAdminDashboard(); }).catch(() => { playSound('error'); document.getElementById('adminError').style.display = 'block'; });
+        }
+        
+        window.switchTab = function(tabId) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+            event.target.classList.add('active'); document.getElementById(tabId).classList.add('active');
+            if(tabId === 'tabReviews') filterReviewsBy('all');
+        };
+
+        // --- الاستماع للبيانات ---
+        function listenToSettings() {
+            db.ref('site_settings').on('value', (snapshot) => {
+                const data = snapshot.val() || {};
+                document.documentElement.style.setProperty('--primary-color', data.themeColor || '#d4af37');
+                const title = data.siteTitle || 'DRIVE VIP | الأكواد المجانية'; document.title = title; document.getElementById('siteTitle').innerText = title;
+                const hp = parseInt(data.hackPercent || '80'); const pBar = document.getElementById('uiProgressBar'); const sText = document.getElementById('uiStatusText');
+                pBar.style.width = hp + '%'; if (hp < 50) { sText.innerText = `خطر (${hp}%)`; sText.style.color = '#ff4444'; pBar.style.backgroundColor = '#ff4444'; pBar.style.boxShadow = '0 0 15px #ff4444'; } else { sText.innerText = `آمن (${hp}%)`; sText.style.color = '#00C851'; pBar.style.backgroundColor = '#00C851'; pBar.style.boxShadow = '0 0 15px #00C851'; }
+                disableCooldownGlobal = data.disableCooldown || false;
+                if (data.banWaveMode) { document.body.classList.add('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'block'; document.getElementById('orderForm').style.display = 'none'; } else { document.body.classList.remove('ban-wave-active'); document.getElementById('banWaveAlert').style.display = 'none'; if(!checkCooldown()) { document.getElementById('orderForm').style.display = 'block'; } }
+                const bar = document.getElementById('announcementBar'); if (data.announcementText && data.announcementText.trim() !== '') { bar.style.display = 'block'; bar.innerHTML = `<marquee scrollamount="5">${data.announcementText}</marquee>`; } else { bar.style.display = 'none'; }
+                const popup = document.getElementById('globalPopup'); if(data.showPopup && data.popupText) { document.getElementById('popupText').innerText = data.popupText; popup.style.display = 'flex'; } else { popup.style.display = 'none'; }
+                document.getElementById('liveCodesSection').style.display = data.showLiveCodes === true ? 'block' : 'none';
+                botTokenGlobal = data.botToken || ""; chatIdGlobal = data.chatId || ""; discordWebhookUrl = data.discordWebhook || "";
+                if(data.fakeNotifications !== false) { startFakeNotifications(); } else { stopFakeNotifications(); }
+            });
+        }
+
+        function listenToPackages() { db.ref('packages').on('value', snap => { const u=document.getElementById('packagesSection'); const s=document.getElementById('packageType'); u.innerHTML=''; s.innerHTML='<option value="" disabled selected>اختر الباقة...</option>'; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="card"><h3>${d.title}</h3><p>${d.desc}</p></div>`; s.innerHTML+=`<option value="${d.title}">${d.title}</option>`; if(document.getElementById('adminPacksList')) document.getElementById('adminPacksList').innerHTML+=`<tr><td>${d.title}</td><td>${d.desc}</td><td><button class="action-btn" onclick="db.ref('packages/${c.key}').remove(); logAdminAction('تم حذف باقة');">حذف</button></td></tr>`; }); }); }
+        function listenToFAQs() { db.ref('faqs').on('value', snap => { const u=document.getElementById('faqContainer'); const m=document.getElementById('faqSection'); u.innerHTML=''; let count=0; snap.forEach(x => { count++; const d=x.val(); u.innerHTML+=`<div class="faq-item"><button class="faq-question" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">${d.q} ▼</button><div class="faq-answer">${d.a}</div></div>`; }); m.style.display=count>0?'block':'none'; }); }
+        function listenToTestimonials() { db.ref('testimonials').on('value', snap => { const u=document.getElementById('testimonialsContainer'); u.innerHTML=''; snap.forEach(x => { const d=x.val(); u.innerHTML+=`<div class="testi-card"><div class="testi-name">👤 ${d.name}</div><div class="testi-text">"${d.text}"</div></div>`; }); }); }
+        function listenToLiveCodes() { db.ref('live_codes').on('value', snap => { const u=document.getElementById('codesContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<div class="code-item"><div class="code-info"><span class="code-val">${d.code}</span><span class="code-type">${d.type}</span></div><button class="copy-btn" onclick="navigator.clipboard.writeText('${d.code}')">نسخ</button></div>`; if(document.getElementById('adminCodesList')) document.getElementById('adminCodesList').innerHTML+=`<tr><td>${d.code}</td><td>${d.type}</td><td><button class="action-btn" onclick="db.ref('live_codes/${c.key}').remove(); logAdminAction('تم حذف كود');">حذف</button></td></tr>`; }); }); }
+        function listenToLinks() { db.ref('external_links').on('value', snap => { const u=document.getElementById('dynamicButtonsContainer'); u.innerHTML=''; snap.forEach(c => { const d=c.val(); u.innerHTML+=`<a href="${d.url}" target="_blank" class="dyn-btn">🔗 ${d.title}</a>`; }); }); }
+        
+        function listenToOrders() { 
+            db.ref('orders').on('value', snap => { 
+                const a=document.getElementById('adminOrdersList'); if(!a) return; 
+                a.innerHTML=''; ordersDataForExport=[]; let count=0; let pCounts={}; 
+                snap.forEach(c => { 
+                    count++; const d=c.val(); pCounts[d.package]=(pCounts[d.package]||0)+1; 
+                    ordersDataForExport.push({name: d.name, user: d.tgUser, package: d.package});
+                    a.innerHTML+=`<tr><td>${d.name}</td><td>${d.tgUser}</td><td>${d.package}</td><td>${d.device}</td><td><button class="action-btn" onclick="db.ref('orders/${c.key}').remove(); logAdminAction('تم حذف طلب');">حذف</button></td></tr>`; 
+                }); 
+                document.getElementById('adminOrdersCount').innerText=count; 
+                if(ordersChartInstance) ordersChartInstance.destroy(); 
+                if(document.getElementById('ordersChart')) {
+                    ordersChartInstance=new Chart(document.getElementById('ordersChart').getContext('2d'), { type:'bar', data:{ labels:Object.keys(pCounts), datasets:[{ label:'الطلبات', data:Object.values(pCounts), backgroundColor:'#d4af37' }] }, options: { maintainAspectRatio: false, responsive: true } }); 
+                }
+            }); 
+        }
+        
+        function listenToBlacklist() { db.ref('blacklist').on('value', snap => { const a=document.getElementById('adminBlacklist'); blacklistedUsers=[]; if(a) a.innerHTML=''; snap.forEach(c => { const u=c.val(); blacklistedUsers.push(u); if(a) a.innerHTML+=`<tr><td style="color:#ff4444;">${u}</td><td>-</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('blacklist/${c.key}').remove(); logAdminAction('تم فك حظر يوزر');">فك</button></td></tr>`; }); }); }
+        function listenToTickets() { db.ref('tickets').on('value', snap => { const a=document.getElementById('adminTicketsList'); if(!a) return; a.innerHTML=''; let count=0; snap.forEach(c => { count++; const d=c.val(); a.innerHTML+=`<tr><td>${d.user}</td><td>${d.msg}</td><td>${d.time || 'الآن'}</td><td><button class="action-btn" style="background:#00C851;" onclick="db.ref('tickets/${c.key}').remove(); logAdminAction('تم حل تذكرة');">تم</button></td></tr>`; }); document.getElementById('adminTicketCount').innerText=count; }); }
+        function listenToPendingReviews() { db.ref('pending_testimonials').on('value', snap => { let count=0; snap.forEach(c => { count++; }); document.getElementById('adminReviewCount').innerText=count; }); }
+
+        window.exportOrdersCSV = function() {
+            let csv = 'الاسم,اليوزر,الباقة\n';
+            ordersDataForExport.forEach(o => { csv += `${o.name},${o.user},${o.package}\n`; });
+            const blob = new Blob(["\uFEFF"+csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "orders_export.csv"; link.click();
+            logAdminAction("تم تصدير قاعدة بيانات الطلبات (CSV)");
+        };
+
+        window.clearAllOrders = function() {
+            if(confirm('هل أنت متأكد تماماً من مسح جميع الطلبات؟')) {
+                db.ref('orders').remove();
+                logAdminAction("تم مسح جميع الطلبات!");
+            }
+        };
+
+        window.filterOrdersTable = function() {
+            const query = document.getElementById('searchOrderInput').value.toLowerCase();
+            const rows = document.getElementById('adminOrdersList').getElementsByTagName('tr');
+            Array.from(rows).forEach(row => { row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none'; });
+        };
+        
+        window.addBlacklist = function() { const u = document.getElementById('newBannedUser').value.trim(); if(u) { db.ref('blacklist').push(u.toLowerCase()); document.getElementById('newBannedUser').value=''; logAdminAction(`تم حظر اليوزر: ${u}`); } };
+        window.addPackage = function() { const t = document.getElementById('newPackTitle').value.trim(); const d = document.getElementById('newPackDesc').value.trim(); if(t && d) { db.ref('packages').push({title:t, desc:d}); document.getElementById('newPackTitle').value=''; document.getElementById('newPackDesc').value=''; logAdminAction(`إضافة باقة جديدة: ${t}`); } };
+        window.addNewCode = function() { const v = document.getElementById('newCodeVal').value.trim(); const t = document.getElementById('newCodeType').value.trim(); if(v && t) { db.ref('live_codes').push({code:v, type:t}); document.getElementById('newCodeVal').value=''; document.getElementById('newCodeType').value=''; logAdminAction(`إضافة كود جديد`); } };
+
+        // --- Fake Notifications ---
+        function startFakeNotifications() { if(fakeNotifInterval) return; const names=["مبرمج ومطور الموقع @l_2qu"]; const types=[""]; fakeNotifInterval=setInterval(() => { const notif=document.getElementById('fakeNotification'); notif.style.display='block'; notif.style.animation='slideInNotif 0.5s forwards'; document.getElementById('fakeNotifText').innerText=` ${names[Math.floor(Math.random()*names.length)]} ـ ${types[Math.floor(Math.random()*types.length)]} `; setTimeout(() => { notif.style.animation='slideOutNotif 0.5s forwards'; setTimeout(() => notif.style.display='none', 500); }, 4000); }, 15000); }
+        function stopFakeNotifications() { clearInterval(fakeNotifInterval); fakeNotifInterval=null; document.getElementById('fakeNotification').style.display='none'; }
+
+        // --- إرسال الطلبات والتذاكر ---
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const statusMsg = document.getElementById('statusMessage');
+            const capInput = parseInt(document.getElementById('captchaA').value);
+            
+            if (capInput !== capAns) {
+                statusMsg.style.display = 'block'; statusMsg.style.color = '#ff4444'; statusMsg.innerText = '❌ الناتج الرياضي غير صحيح!';
+                generateCaptcha(); return;
+            }
+
+            const name = document.getElementById('userName').value.trim(); const tgUser = document.getElementById('tgUsername').value.trim(); const pack = document.getElementById('packageType').value;
+            if (blacklistedUsers.includes(tgUser.toLowerCase())) { statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText = '🚫 حسابك محظور!'; return; }
+
+            const btn = document.getElementById('submitBtn'); const spinner = document.getElementById('btnSpinner'); const btnText = document.getElementById('btnText');
+            btn.disabled = true; spinner.style.display = 'block'; btnText.innerText = 'جاري...'; statusMsg.style.display = 'none';
+
+            db.ref('orders').push({ name: name, tgUser: tgUser, package: pack, device: getDeviceInfo(), time: firebase.database.ServerValue.TIMESTAMP });
+            if(!disableCooldownGlobal) { localStorage.setItem('drivevip_last_order', new Date().getTime()); }
+
+            const tgMessage = `🎁 طلب حجز جديد 🎁\n👤 الاسم: ${name}\n🔗 اليوزر: ${tgUser}\n📦 الباقة: ${pack}\n📱 الجهاز: ${getDeviceInfo()}`;
+            sendToDiscord(`🎁 طلب جديد\n**الاسم:** ${name}\n**اليوزر:** ${tgUser}\n**الباقة:** ${pack}`);
+
+            fetch(`https://api.telegram.org/bot${botTokenGlobal}/sendMessage`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatIdGlobal, text: tgMessage, reply_markup: { inline_keyboard: [[{text:"✅ تم", callback_data:"done"}], [{text:"💬 تواصل", url:`https://t.me/${tgUser.replace('@','')}`}]] } })
+            }).then(r=>r.json()).then(d=>{
+                btn.disabled = false; spinner.style.display = 'none'; btnText.innerText = 'إرسال طلب الحجز';
+                if(d.ok) { statusMsg.style.display='block'; statusMsg.style.color='var(--primary-color)'; statusMsg.innerText='✅ تم الإرسال!'; document.getElementById('orderForm').reset(); playSound('success'); generateCaptcha(); checkCooldown(); }
+                else { statusMsg.style.display='block'; statusMsg.style.color='#ff4444'; statusMsg.innerText='❌ خطأ داخلي!'; playSound('error'); }
+            }).catch(()=>{ btn.disabled = false; spinner.style.display = 'none'; btnText.innerText = 'إرسال طلب الحجز'; });
+        });
+
+        document.getElementById('ticketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const u = document.getElementById('ticketUser').value.trim(); const m = document.getElementById('ticketMsg').value.trim();
+            const statusMsg = document.getElementById('ticketStatusMsg');
+            const btn = document.getElementById('ticketBtn');
+            
+            btn.disabled = true;
+            
+            db.ref('tickets').push({ user: u, msg: m, time: new Date().toLocaleString('ar-EG') }).then(() => {
+                sendToDiscord(`⚠️ تذكرة جديدة\n**اليوزر:** ${u}\n**المشكلة:** ${m}`);
+                statusMsg.style.display='block'; statusMsg.style.color='#00C851'; statusMsg.innerText='✅ تم الإرسال!';
+                document.getElementById('ticketForm').reset(); playSound('success');
+                btn.disabled = false;
+            });
+        });
+
+        function searchCodes() {
+            const query = document.getElementById('searchCodeInput').value.toLowerCase();
+            const items = document.querySelectorAll('.code-item');
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
