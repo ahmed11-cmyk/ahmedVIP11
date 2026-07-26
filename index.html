@@ -1,0 +1,2405 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="منصة Drive VIP الآمنة للحصول على أكواد موثوقة">
+    <meta name="theme-color" content="#2563eb">
+    <title>Drive VIP | منصة أكواد آمنة</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e40af;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --border: #334155;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2847 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .bg-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bg-glow-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            right: -50px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-glow-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            bottom: -50px;
+            left: 10%;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(30px); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.05) 0%, transparent 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        header a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+
+        header a:hover {
+            color: var(--accent);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 30px auto;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .nav-btn:hover, .nav-btn:focus {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--dark-light) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+        }
+
+        .status-box {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 16px;
+        }
+
+        .status-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 4px;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .packages-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .package-card {
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .package-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .package-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .package-card:hover, .package-card:focus-within {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.15);
+        }
+
+        .package-card:hover::before {
+            opacity: 1;
+        }
+
+        .package-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .package-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .package-description {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .package-features {
+            text-align: right;
+            margin: 20px 0;
+            padding: 16px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .feature:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-check {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .form-section {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .form-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background: linear-gradient(135deg, var(--dark) 0%, rgba(37, 99, 235, 0.02) 100%);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .captcha-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .captcha-display {
+            flex: 0 0 auto;
+            padding: 12px 16px;
+            background: var(--dark);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            letter-spacing: 2px;
+            min-width: 100px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .captcha-input {
+            flex: 1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 32px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            outline: none;
+            position: relative;
+        }
+
+        .btn:hover, .btn:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover, .btn-secondary:focus {
+            border-color: var(--primary);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, var(--warning) 100%);
+        }
+
+        .btn:disabled, .btn-loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .message-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        .message-error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border-left-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .message-warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+            border-left-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .faq-section {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .faq-item {
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 16px;
+            background: none;
+            border: none;
+            color: var(--text);
+            text-align: right;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .faq-question:hover, .faq-question:focus {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, transparent 100%);
+            color: var(--primary-light);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 16px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, transparent 100%);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 12px 16px;
+        }
+
+        .faq-answer {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .testimonials-section {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .testimonial-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .testimonial-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .testimonial-card::before {
+            content: '❝';
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            font-size: 3rem;
+            opacity: 0.1;
+            color: var(--primary);
+        }
+
+        .testimonial-text {
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .author-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+            color: white;
+            white-space: nowrap;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(37, 99, 235, 0.05) 100%);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .dev-credit {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 12px;
+        }
+
+        .float-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 999;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .float-btn:hover, .float-btn:focus {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 16px 40px rgba(37, 99, 235, 0.5);
+        }
+
+        /* ========== ADMIN PANEL STYLES (40 FEATURES) ========== */
+
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-modal.active {
+            display: flex;
+        }
+
+        .admin-panel {
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            max-width: 1100px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .admin-header h2 {
+            color: var(--primary-light);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .close-admin-btn {
+            background: var(--border);
+            border: none;
+            color: var(--text);
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .close-admin-btn:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            padding-bottom: 12px;
+        }
+
+        .admin-tab {
+            padding: 10px 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            outline: none;
+            white-space: nowrap;
+        }
+
+        .admin-tab.active {
+            color: var(--primary-light);
+            border-bottom-color: var(--primary);
+        }
+
+        .admin-tab-content {
+            display: none;
+        }
+
+        .admin-tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Admin Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .admin-stat {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-stat.success {
+            border-left-color: var(--success);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+        }
+
+        .admin-stat.warning {
+            border-left-color: var(--warning);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+        }
+
+        .admin-stat.danger {
+            border-left-color: var(--danger);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+        }
+
+        .admin-stat-title {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .admin-stat-value {
+            color: var(--text);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .admin-stat-change {
+            font-size: 0.8rem;
+            color: var(--success);
+        }
+
+        .admin-stat-change.negative {
+            color: var(--danger);
+        }
+
+        /* Table Styles */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        .admin-table thead {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .admin-table th {
+            padding: 12px;
+            text-align: right;
+            color: var(--primary-light);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .admin-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .admin-table tbody tr:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .admin-table .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .status-badge.completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .status-badge.failed {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        /* Search Bar */
+        .admin-search {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .admin-search input {
+            flex: 1;
+            padding: 10px 16px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .admin-search input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Chart Placeholder */
+        .chart-container {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            color: var(--text-muted);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .chart-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        /* Modal Actions */
+        .admin-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .admin-actions .btn {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        /* Security Badge */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%);
+            border: 1px solid var(--success);
+            border-radius: 6px;
+            color: var(--success);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 16px 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Settings Controls */
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .setting-label {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .setting-title {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .setting-description {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border);
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .float-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                bottom: 20px;
+                left: 20px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+
+            .admin-actions {
+                flex-direction: column;
+            }
+
+            .admin-actions .btn {
+                width: 100%;
+            }
+
+            .admin-panel {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-table {
+                font-size: 0.8rem;
+            }
+
+            .admin-table th,
+            .admin-table td {
+                padding: 8px;
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .admin-actions,
+            .nav-buttons,
+            .float-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <header class="fade-in">
+        <h1>🔐 DRIVE VIP</h1>
+        <p>منصة أكواد آمنة وموثوقة</p>
+        <p>تواصل معنا: <a href="https://t.me/l_2qu" target="_blank" rel="noopener noreferrer">@l_2qu</a></p>
+    </header>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="scrollToSection('packages')">📦 الباقات</button>
+        <button class="nav-btn" onclick="scrollToSection('order')">🎁 احجز الآن</button>
+        <button class="nav-btn" onclick="scrollToSection('faq')">❓ الأسئلة</button>
+        <button class="nav-btn" onclick="scrollToSection('testimonials')">⭐ الآراء</button>
+        <button class="nav-btn" onclick="scrollToSection('support')">💬 الدعم</button>
+        <button class="nav-btn" onclick="openAdminPanel()" title="Admin Panel">⚙️ الإدارة</button>
+    </div>
+
+    <div class="status-box">
+        <div class="status-header">
+            <span class="status-title">حالة النظام</span>
+            <span class="status-indicator">
+                <span>●</span> آمن وجاهز
+            </span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" style="width: 95%;"></div>
+        </div>
+        <p class="status-text">✓ الخادم يعمل بكفاءة عالية | ✓ معدل أمان 99.9% | ✓ دعم فني 24/7</p>
+    </div>
+
+    <section id="packages" class="packages-section">
+        <h2 class="section-title">الباقات المتاحة</h2>
+        <div class="packages-grid">
+            <div class="package-card">
+                <div class="package-icon">🎮</div>
+                <div class="package-name">باقة المبتدئ</div>
+                <p class="package-description">كود واحد + دعم فني أساسي</p>
+                <div class="package-features">
+                    <div class="feature"><span class="feature-check">✓</span> كود واحد مجاني</div>
+                    <div class="feature"><span class="feature-check">✓</span> دعم بريدي</div>
+                    <div class="feature"><span class="feature-check">✓</span> ضمان الأمان</div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-icon">⭐</div>
+                <div class="package-name">باقة الذهبية</div>
+                <p class="package-description">3 أكواد + أولوية الدعم</p>
+                <div class="package-features">
+                    <div class="feature"><span class="feature-check">✓</span> 3 أكواد مجانية</div>
+                    <div class="feature"><span class="feature-check">✓</span> أولوية الدعم</div>
+                    <div class="feature"><span class="feature-check">✓</span> تحديثات دورية</div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-icon">👑</div>
+                <div class="package-name">باقة بلاتين</div>
+                <p class="package-description">أكواد غير محدودة + VIP</p>
+                <div class="package-features">
+                    <div class="feature"><span class="feature-check">✓</span> أكواد غير محدودة</div>
+                    <div class="feature"><span class="feature-check">✓</span> دعم VIP مباشر</div>
+                    <div class="feature"><span class="feature-check">✓</span> نسخة احتياطية يومية</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="order" class="form-section fade-in">
+        <h2>احجز كودك الآن</h2>
+        <form id="orderForm" novalidate>
+            <div class="form-group">
+                <label class="form-label" for="userName">الاسم الكامل</label>
+                <input type="text" class="form-input" id="userName" placeholder="محمد أحمد" required minlength="3" maxlength="50">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="tgUsername">معرّف التيليجرام</label>
+                <input type="text" class="form-input" id="tgUsername" placeholder="@username" required pattern="^@[a-zA-Z0-9_]{5,}$">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="packageType">الباقة المطلوبة</label>
+                <select class="form-select" id="packageType" required>
+                    <option value="" disabled selected>اختر الباقة</option>
+                    <option value="المبتدئ">باقة المبتدئ</option>
+                    <option value="الذهبية">باقة الذهبية</option>
+                    <option value="بلاتين">باقة بلاتين</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="captchaA">التحقق الأمني</label>
+                <div class="captcha-box">
+                    <div class="captcha-display" id="captchaQ">? + ?</div>
+                    <input type="number" class="form-input captcha-input" id="captchaA" placeholder="الناتج" required min="0" max="20">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-block">🎁 إرسال الطلب</button>
+            <div id="orderMessage" class="hidden message"></div>
+        </form>
+    </section>
+
+    <section id="support" class="form-section fade-in">
+        <h2>الدعم الفني</h2>
+        <form id="supportForm" novalidate>
+            <div class="form-group">
+                <label class="form-label" for="supportUser">معرّفك</label>
+                <input type="text" class="form-input" id="supportUser" placeholder="@username" required minlength="3">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="supportMsg">الرسالة</label>
+                <textarea class="form-textarea" id="supportMsg" placeholder="شرح المشكلة أو الاستفسار..." required minlength="10" maxlength="1000"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-block">📧 إرسال الرسالة</button>
+            <div id="supportMessage" class="hidden message"></div>
+        </form>
+    </section>
+
+    <section id="faq" class="faq-section fade-in">
+        <h2 class="section-title">الأسئلة الشائعة</h2>
+        <div class="faq-item">
+            <button class="faq-question" type="button">
+                <span>▼</span>
+                <span>هل الأكواد آمنة وموثوقة؟</span>
+            </button>
+            <div class="faq-answer">
+                نعم، جميع الأكواد تمر بفحوصات أمان صارمة وتُختبر بشكل دوري. نحن نضمن سلامة البيانات بنسبة 100%.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" type="button">
+                <span>▼</span>
+                <span>كم المدة المتوقعة للحصول على الكود؟</span>
+            </button>
+            <div class="faq-answer">
+                بعد الموافقة على الطلب، ستتلقى الكود في خلال 24 ساعة عبر التيليجرام أو البريد الإلكتروني.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" type="button">
+                <span>▼</span>
+                <span>هل يمكن استرجاع الأموال؟</span>
+            </button>
+            <div class="faq-answer">
+                نعم، إذا لم تكن راضياً عن الخدمة، يمكنك طلب استرجاع كامل المبلغ خلال 7 أيام من الشراء.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" type="button">
+                <span>▼</span>
+                <span>هل هناك ضمانات على الأكواد؟</span>
+            </button>
+            <div class="faq-answer">
+                نعم، جميع الأكواد مضمونة مدى الحياة. إذا توقف أي كود عن العمل، سنستبدله مجاناً.
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials-section fade-in">
+        <h2 class="section-title">⭐ تجارب المستخدمين</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">خدمة رائعة وأكواد فعالة! الدعم الفني سريع جداً والموظفون محترفون. أنصح الجميع.</p>
+                <div class="testimonial-author">
+                    <span class="author-name">أحمد محمد</span>
+                    <span class="author-status">✓ موثق</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">استخدمت الخدمة لأكثر من سنة ولم أواجه أي مشاكل. الأمان والموثوقية على أعلى مستوى!</p>
+                <div class="testimonial-author">
+                    <span class="author-name">فاطمة علي</span>
+                    <span class="author-status">✓ موثق</span>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p class="testimonial-text">أفضل منصة أكواد استخدمتها. الأسعار معقولة والخدمة ممتازة وسريعة جداً في الاستجابة.</p>
+                <div class="testimonial-author">
+                    <span class="author-name">محمود سالم</span>
+                    <span class="author-status">✓ موثق</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2026 Drive VIP. جميع الحقوق محفوظة</p>
+            <p class="footer-text">منصة آمنة وموثوقة لتوفير الأكواد عالية الجودة</p>
+            <div class="dev-credit">محمد</div>
+        </div>
+    </footer>
+
+    <button class="float-btn" onclick="window.open('https://t.me/l_2qu', '_blank')" title="تواصل عبر التيليجرام">💬</button>
+
+    <!-- ADMIN MODAL WITH 40 FEATURES -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h2>⚙️ لوحة الإدارة الاحترافية</h2>
+                <div class="admin-user-info">
+                    <span>👤 مسؤول</span>
+                    <span id="adminTime">00:00</span>
+                </div>
+                <button class="close-admin-btn" onclick="closeAdminModal()" title="إغلاق">×</button>
+            </div>
+
+            <div class="security-badge">
+                🔒 هذه اللوحة محمية برموز تشفير عالية - لا تشارك بيانات دخولك مع أحد
+            </div>
+
+            <!-- ADMIN TABS (40 FEATURES DIVIDED INTO 8 SECTIONS) -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchTab('dashboard')">📊 لوحة القيادة</button>
+                <button class="admin-tab" onclick="switchTab('orders')">📋 إدارة الطلبات</button>
+                <button class="admin-tab" onclick="switchTab('users')">👥 إدارة المستخدمين</button>
+                <button class="admin-tab" onclick="switchTab('analytics')">📈 التحليلات</button>
+                <button class="admin-tab" onclick="switchTab('revenue')">💰 الإيرادات</button>
+                <button class="admin-tab" onclick="switchTab('support')">🎧 الدعم الفني</button>
+                <button class="admin-tab" onclick="switchTab('security')">🔐 الأمان</button>
+                <button class="admin-tab" onclick="switchTab('settings')">⚙️ الإعدادات</button>
+            </div>
+
+            <!-- TAB 1: DASHBOARD (5 FEATURES) -->
+            <div id="dashboard" class="admin-tab-content active">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">📊 ملخص النظام</h3>
+                
+                <!-- Feature 1: Real-time Stats -->
+                <div class="stats-grid">
+                    <div class="admin-stat success">
+                        <div class="admin-stat-title">✅ الطلبات المكتملة</div>
+                        <div class="admin-stat-value">1,248</div>
+                        <div class="admin-stat-change">↑ 15% من الأمس</div>
+                    </div>
+
+                    <!-- Feature 2: Active Users -->
+                    <div class="admin-stat">
+                        <div class="admin-stat-title">👥 المستخدمون النشطون</div>
+                        <div class="admin-stat-value">542</div>
+                        <div class="admin-stat-change">↑ 28 مستخدم جديد</div>
+                    </div>
+
+                    <!-- Feature 3: System Health -->
+                    <div class="admin-stat success">
+                        <div class="admin-stat-title">💚 صحة النظام</div>
+                        <div class="admin-stat-value">99.8%</div>
+                        <div class="admin-stat-change">✓ ممتاز</div>
+                    </div>
+
+                    <!-- Feature 4: Response Time -->
+                    <div class="admin-stat">
+                        <div class="admin-stat-title">⚡ سرعة الاستجابة</div>
+                        <div class="admin-stat-value">124ms</div>
+                        <div class="admin-stat-change">↓ أسرع من الأمس</div>
+                    </div>
+                </div>
+
+                <!-- Feature 5: Quick Actions -->
+                <div style="background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px; margin-top: 16px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">🚀 إجراءات سريعة</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn btn-sm btn-success" onclick="quickAction('backup')">💾 نسخة احتياطية</button>
+                        <button class="btn btn-sm btn-secondary" onclick="quickAction('clearCache')">🗑️ مسح الـ Cache</button>
+                        <button class="btn btn-sm btn-secondary" onclick="quickAction('sendNotification')">📢 إرسال إشعار</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ORDERS MANAGEMENT (5 FEATURES) -->
+            <div id="orders" class="admin-tab-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">📋 إدارة الطلبات</h3>
+
+                <!-- Feature 6: Search Orders -->
+                <div class="admin-search">
+                    <input type="text" id="orderSearch" placeholder="🔍 ابحث برقم الطلب أو اسم العميل...">
+                    <button class="btn btn-secondary btn-sm" onclick="searchOrders()">بحث</button>
+                </div>
+
+                <!-- Feature 7: Orders Table -->
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>رقم الطلب</th>
+                                <th>العميل</th>
+                                <th>الباقة</th>
+                                <th>التاريخ</th>
+                                <th>الحالة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#2548</td>
+                                <td>محمد أحمد</td>
+                                <td>بلاتين</td>
+                                <td>2026-01-15</td>
+                                <td><span class="status-badge completed">✓ مكتمل</span></td>
+                                <td><button class="btn btn-sm btn-secondary" onclick="viewOrder('#2548')">عرض</button></td>
+                            </tr>
+                            <tr>
+                                <td>#2547</td>
+                                <td>فاطمة علي</td>
+                                <td>ذهبية</td>
+                                <td>2026-01-14</td>
+                                <td><span class="status-badge pending">⏳ معلق</span></td>
+                                <td><button class="btn btn-sm btn-success" onclick="approveOrder('#2547')">موافقة</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Feature 8: Filters -->
+                <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-secondary active" onclick="filterOrders('all')">الكل</button>
+                    <button class="btn btn-sm btn-secondary" onclick="filterOrders('pending')">معلق</button>
+                    <button class="btn btn-sm btn-secondary" onclick="filterOrders('completed')">مكتمل</button>
+                    <button class="btn btn-sm btn-secondary" onclick="filterOrders('failed')">فشل</button>
+                </div>
+
+                <!-- Feature 9: Bulk Actions -->
+                <div style="margin-top: 16px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">📦 الإجراءات الجماعية</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn btn-sm btn-success" onclick="bulkAction('approve')">موافقة الكل</button>
+                        <button class="btn btn-sm btn-danger" onclick="bulkAction('reject')">رفض المعلقة</button>
+                        <button class="btn btn-sm btn-secondary" onclick="bulkAction('export')">تنزيل CSV</button>
+                    </div>
+                </div>
+
+                <!-- Feature 10: Order Statistics -->
+                <div class="stats-grid" style="margin-top: 16px;">
+                    <div class="admin-stat success">
+                        <div class="admin-stat-title">✅ المكتملة اليوم</div>
+                        <div class="admin-stat-value">84</div>
+                    </div>
+                    <div class="admin-stat warning">
+                        <div class="admin-stat-title">⏳ المعلقة</div>
+                        <div class="admin-stat-value">12</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: USERS MANAGEMENT (5 FEATURES) -->
+            <div id="users" class="admin-tab-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">👥 إدارة المستخدمين</h3>
+
+                <!-- Feature 11: User Search -->
+                <div class="admin-search">
+                    <input type="text" id="userSearch" placeholder="🔍 ابحث عن مستخدم...">
+                    <button class="btn btn-secondary btn-sm" onclick="searchUsers()">بحث</button>
+                </div>
+
+                <!-- Feature 12: Users Table -->
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>المستخدم</th>
+                                <th>البريد</th>
+                                <th>الباقة</th>
+                                <th>تاريخ الانضمام</th>
+                                <th>الحالة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>محمد</td>
+                                <td>مايد@example.com</td>
+                                <td>بلاتين</td>
+                                <td>2025-12-01</td>
+                                <td><span class="status-badge completed">✓ نشط</span></td>
+                                <td><button class="btn btn-sm btn-secondary" onclick="viewUser('محمد')">عرض</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Feature 13: User Roles -->
+                <div style="margin-top: 16px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">👔 الأدوار والصلاحيات</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn btn-sm btn-secondary" onclick="manageRoles()">تعديل الأدوار</button>
+                        <button class="btn btn-sm btn-secondary" onclick="setPermissions()">تعيين الصلاحيات</button>
+                    </div>
+                </div>
+
+                <!-- Feature 14: User Activity -->
+                <div class="admin-stat" style="margin-top: 16px;">
+                    <div class="admin-stat-title">📊 نشاط المستخدمين</div>
+                    <div style="margin-top: 12px; color: var(--text-muted); font-size: 0.85rem;">
+                        <p>👁️ عدد الزيارات هذا الشهر: 12,450</p>
+                        <p>⏰ متوسط الجلسة: 15 دقيقة</p>
+                        <p>📍 أكثر البلدان: السعودية (35%)</p>
+                    </div>
+                </div>
+
+                <!-- Feature 15: Ban/Suspend Users -->
+                <div style="margin-top: 16px; background: rgba(239, 68, 68, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--danger);">
+                    <div style="color: var(--danger); margin-bottom: 12px; font-weight: 600;">⛔ حظر/تعليق</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn btn-sm btn-danger" onclick="suspendUser()">تعليق مؤقت</button>
+                        <button class="btn btn-sm btn-danger" onclick="banUser()">حظر نهائي</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: ANALYTICS (5 FEATURES) -->
+            <div id="analytics" class="admin-tab-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">📈 التحليلات والإحصائيات</h3>
+
+                <!-- Feature 16: Chart Placeholder -->
+                <div class="chart-container">
+                    <div class="chart-icon">📊</div>
+                    <div style="color: var(--text); font-weight: 600;">رسم بياني للطلبات الأسبوعية</div>
+                    <div style="font-size: 0.85rem; margin-top: 8px;">سيتم عرض البيانات البيانية هنا</div>
+                </div>
+
+                <!-- Feature 17: Time Period Selector -->
+                <div style="display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-secondary active" onclick="changeAnalyticsRange('week')">هذا الأسبوع</button>
+                    <button class="btn btn-sm btn-secondary" onclick="changeAnalyticsRange('month')">هذا الشهر</button>
+                    <button class="btn btn-sm btn-secondary" onclick="changeAnalyticsRange('year')">هذه السنة</button>
+                    <button class="btn btn-sm btn-secondary" onclick="changeAnalyticsRange('custom')">مخصص</button>
+                </div>
+
+                <!-- Feature 18: Conversion Metrics -->
+                <div class="stats-grid">
+                    <div class="admin-stat">
+                        <div class="admin-stat-title">📥 معدل التحويل</div>
+                        <div class="admin-stat-value">14.5%</div>
+                        <div class="admin-stat-change">↑ 2.3% من الفترة السابقة</div>
+                    </div>
+                    <div class="admin-stat">
+                        <div class="admin-stat-title">🔄 معدل الاحتفاظ</div>
+                        <div class="admin-stat-value">87%</div>
+                        <div class="admin-stat-change">↑ مستقر</div>
+                    </div>
+                    <div class="admin-stat">
+                        <div class="admin-stat-title">⏱️ متوسط الجلسة</div>
+                        <div class="admin-stat-value">18m 45s</div>
+                        <div class="admin-stat-change">↓ أقل من الأسبوع الماضي</div>
+                    </div>
+                </div>
+
+                <!-- Feature 19: Top Pages -->
+                <div style="margin-top: 24px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">🏆 الصفحات الأكثر زيارة</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>الصفحة الرئيسية</span>
+                            <span style="color: var(--primary-light); font-weight: 600;">12,450 زيارة</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>صفحة الباقات</span>
+                            <span style="color: var(--primary-light); font-weight: 600;">8,230 زيارة</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>صفحة الطلب</span>
+                            <span style="color: var(--primary-light); font-weight: 600;">5,120 زيارة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 20: Export Analytics -->
+                <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-success" onclick="exportAnalytics('pdf')">📥 تصدير PDF</button>
+                    <button class="btn btn-sm btn-success" onclick="exportAnalytics('excel')">📊 تصدير Excel</button>
+                    <button class="btn btn-sm btn-secondary" onclick="exportAnalytics('json')">💾 تصدير JSON</button>
+                </div>
+            </div>
+
+            <!-- TAB 5: REVENUE (5 FEATURES) -->
+            <div id="revenue" class="admin-tab-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">💰 الإيرادات والمبيعات</h3>
+
+                <!-- Feature 21: Revenue Stats -->
+                <div class="stats-grid">
+                    <div class="admin-stat success">
+                        <div class="admin-stat-title">💵 إجمالي الإيرادات</div>
+                        <div class="admin-stat-value">$45,320</div>
+                        <div class="admin-stat-change">↑ 32% من الشهر الماضي</div>
+                    </div>
+                    <div class="admin-stat success">
+                        <div class="admin-stat-title">📈 إيرادات هذا الشهر</div>
+                        <div class="admin-stat-value">$12,450</div>
+                        <div class="admin-stat-change">↑ 18% من المتوقع</div>
+                    </div>
+                    <div class="admin-stat warning">
+                        <div class="admin-stat-title">💳 المعاملات المعلقة</div>
+                        <div class="admin-stat-value">$2,340</div>
+                        <div class="admin-stat-change">⏳ في الانتظار</div>
+                    </div>
+                </div>
+
+                <!-- Feature 22: Payment Methods -->
+                <div style="margin-top: 24px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">💳 طرق الدفع</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>🏦 التحويل البنكي</span>
+                            <span style="color: var(--primary-light); font-weight: 600;">$28,540 (63%)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>💳 بطاقة الائتمان</span>
+                            <span style="color: var(--primary-light); font-weight: 600;">$12,230 (27%)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>🌐 محافظ رقمية</span>
+                            <span style="color: var(--primary-light); font-weight: 600;">$4,550 (10%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 23: Invoices -->
+                <div style="margin-top: 24px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">📄 الفواتير</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn btn-sm btn-secondary" onclick="viewInvoices()">عرض الفواتير</button>
+                        <button class="btn btn-sm btn-success" onclick="createInvoice()">إنشاء فاتورة</button>
+                        <button class="btn btn-sm btn-secondary" onclick="sendInvoices()">إرسال الفواتير</button>
+                    </div>
+                </div>
+
+                <!-- Feature 24: Refunds -->
+                <div style="margin-top: 16px; background: rgba(239, 68, 68, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--danger);">
+                    <div style="color: var(--danger); margin-bottom: 12px; font-weight: 600;">💸 استرجاع الأموال</div>
+                    <div class="admin-stat danger" style="margin-bottom: 12px;">
+                        <div class="admin-stat-title">إجمالي الاسترجاعات</div>
+                        <div class="admin-stat-value">$1,240</div>
+                    </div>
+                    <button class="btn btn-sm btn-secondary" onclick="processRefund()">معالجة استرجاع</button>
+                </div>
+
+                <!-- Feature 25: Subscription Management -->
+                <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-secondary" onclick="manageSubscriptions()">إدارة الاشتراكات</button>
+                    <button class="btn btn-sm btn-success" onclick="sendReminders()">إرسال تذكيرات</button>
+                </div>
+            </div>
+
+            <!-- TAB 6: SUPPORT (5 FEATURES) -->
+            <div id="support" class="admin-tab-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">🎧 إدارة الدعم الفني</h3>
+
+                <!-- Feature 26: Support Tickets -->
+                <div class="admin-search">
+                    <input type="text" id="ticketSearch" placeholder="🔍 ابحث عن تذكرة...">
+                    <button class="btn btn-secondary btn-sm" onclick="searchTickets()">بحث</button>
+                </div>
+
+                <!-- Feature 27: Tickets Table -->
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>رقم التذكرة</th>
+                                <th>العميل</th>
+                                <th>الموضوع</th>
+                                <th>الأولوية</th>
+                                <th>الحالة</th>
+                                <th>الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#TKT-2548</td>
+                                <td>أحمد</td>
+                                <td>مشكلة في الكود</td>
+                                <td>⚠️ عالية</td>
+                                <td><span class="status-badge pending">⏳ قيد المعالجة</span></td>
+                                <td><button class="btn btn-sm btn-secondary" onclick="replyTicket('#TKT-2548')">رد</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Feature 28: Quick Response Templates -->
+                <div style="margin-top: 24px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">📝 قوالب الرد السريعة</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="btn btn-sm btn-secondary" onclick="useTemplate('solved')">✓ تم الحل</button>
+                        <button class="btn btn-sm btn-secondary" onclick="useTemplate('waiting')">⏳ قيد الانتظار</button>
+                        <button class="btn btn-sm btn-secondary" onclick="useTemplate('rejected')">❌ مرفوض</button>
+                    </div>
+                </div>
+
+                <!-- Feature 29: Support Statistics -->
+                <div class="stats-grid" style="margin-top: 16px;">
+                    <div class="admin-stat">
+                        <div class="admin-stat-title">📊 المتوسط وقت الرد</div>
+                        <div class="admin-stat-value">45 دقيقة</div>
+                    </div>
+                    <div class="admin-stat success">
+                        <div class="admin-stat-title">✓ معدل الرضا</div>
+                        <div class="admin-stat-value">96.5%</div>
+                    </div>
+                    <div class="admin-stat">
+                        <div class="admin-stat-title">📞 التذاكر المفتوحة</div>
+                        <div class="admin-stat-value">8</div>
+                    </div>
+                </div>
+
+                <!-- Feature 30: Contact Management -->
+                <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-secondary" onclick="manageContacts()">إدارة جهات الاتصال</button>
+                    <button class="btn btn-sm btn-secondary" onclick="blockContact()">حظر جهة اتصال</button>
+                    <button class="btn btn-sm btn-success" onclick="sendBulkMessage()">إرسال رسالة جماعية</button>
+                </div>
+            </div>
+
+            <!-- TAB 7: SECURITY (5 FEATURES) -->
+            <div id="security" class="admin-tab-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">🔐 إدارة الأمان</h3>
+
+                <!-- Feature 31: Security Alerts -->
+                <div class="admin-stat danger" style="margin-bottom: 16px;">
+                    <div class="admin-stat-title">🚨 التنبيهات الأمنية</div>
+                    <div style="margin-top: 12px; color: var(--text-muted); font-size: 0.85rem;">
+                        <p>❌ محاولات دخول فاشلة (5): آخرها قبل 2 ساعة</p>
+                        <p>⚠️ عناوين IP غريبة: 3 من دول مختلفة</p>
+                        <p>✓ آخر نسخة احتياطية: اليوم الساعة 02:00</p>
+                    </div>
+                </div>
+
+                <!-- Feature 32: Login Activity -->
+                <div style="background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">👤 سجل تسجيلات الدخول</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+                        <div>✓ 2026-01-15 14:30 - من السعودية (192.168.1.1)</div>
+                        <div>✓ 2026-01-15 09:15 - من مصر (10.0.0.1)</div>
+                        <div>❌ 2026-01-14 22:45 - محاولة فاشلة من روسيا</div>
+                    </div>
+                </div>
+
+                <!-- Feature 33: API Keys Management -->
+                <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-secondary" onclick="manageAPIKeys()">إدارة مفاتيح API</button>
+                    <button class="btn btn-sm btn-danger" onclick="revokeAPIKey()">إلغاء مفتاح</button>
+                    <button class="btn btn-sm btn-success" onclick="generateNewAPIKey()">إنشاء مفتاح جديد</button>
+                </div>
+
+                <!-- Feature 34: Two-Factor Authentication -->
+                <div style="margin-top: 24px; background: rgba(16, 185, 129, 0.05); padding: 16px; border-radius: 8px; border-left: 4px solid var(--success);">
+                    <div style="color: var(--success); margin-bottom: 12px; font-weight: 600;">🔐 المصادقة الثنائية</div>
+                    <div class="setting-item" style="background: none; padding: 0;">
+                        <div class="setting-label">
+                            <div class="setting-title">تفعيل 2FA</div>
+                            <div class="setting-description">حماية إضافية لحسابك</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="twoFA" onchange="toggle2FA()" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Feature 35: Data Encryption -->
+                <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-success" onclick="enableSSL()">🔒 تفعيل SSL</button>
+                    <button class="btn btn-sm btn-secondary" onclick="encryptDatabase()">🗄️ تشفير البيانات</button>
+                    <button class="btn btn-sm btn-secondary" onclick="rotateKeys()">🔄 تدوير المفاتيح</button>
+                </div>
+            </div>
+
+            <!-- TAB 8: SETTINGS (5 FEATURES) -->
+            <div id="settings" class="admin-tab-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-light);">⚙️ إعدادات النظام</h3>
+
+                <!-- Feature 36: System Settings -->
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <div class="setting-title">وضع الصيانة</div>
+                        <div class="setting-description">إغلاق الموقع للزوار أثناء الصيانة</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="maintenanceMode" onchange="toggleMaintenance()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Feature 37: Email Notifications -->
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <div class="setting-title">إخطارات البريد الإلكتروني</div>
+                        <div class="setting-description">استقبال تنبيهات عن الطلبات والمشاكل</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="emailNotifications" onchange="toggleEmailNotifications()" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Feature 38: System Health Check -->
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <div class="setting-title">فحص صحة النظام التلقائي</div>
+                        <div class="setting-description">فحص دوري لضمان أداء النظام</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="healthCheck" onchange="toggleHealthCheck()" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- Feature 39: Backup Settings -->
+                <div style="margin-top: 24px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">💾 إعدادات النسخ الاحتياطية</div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div>
+                            <label style="color: var(--text-muted); font-size: 0.85rem;">تكرار النسخ الاحتياطية</label>
+                            <select class="form-select" style="margin-top: 4px;">
+                                <option>يومياً</option>
+                                <option selected>كل 6 ساعات</option>
+                                <option>كل ساعة</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-sm btn-success" onclick="createBackup()">💾 نسخة احتياطية الآن</button>
+                            <button class="btn btn-sm btn-secondary" onclick="restoreBackup()">♻️ استعادة</button>
+                            <button class="btn btn-sm btn-secondary" onclick="viewBackups()">📋 عرض النسخ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 40: Admin Profile -->
+                <div style="margin-top: 24px; background: rgba(37, 99, 235, 0.05); padding: 16px; border-radius: 8px;">
+                    <div style="color: var(--text-muted); margin-bottom: 12px; font-weight: 600;">👤 ملف المسؤول</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
+                        <div><strong>الاسم:</strong> مسؤول النظام</div>
+                        <div><strong>البريد:</strong> admin@drivevip.com</div>
+                        <div><strong>آخر تسجيل دخول:</strong> 2026-01-15 14:30</div>
+                        <div><strong>مستوى الصلاحيات:</strong> كامل الصلاحيات</div>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 12px;">
+                        <button class="btn btn-sm btn-secondary" onclick="editProfile()">تعديل الملف</button>
+                        <button class="btn btn-sm btn-secondary" onclick="changePassword()">تغيير كلمة السر</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="admin-actions">
+                <button class="btn btn-success" onclick="saveSettings()">💾 حفظ التغييرات</button>
+                <button class="btn btn-secondary" onclick="printReport()">🖨️ طباعة التقرير</button>
+                <button class="btn btn-danger" onclick="logoutAdmin()">🚪 تسجيل الخروج</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== SECURITY & ADMIN PANEL ==========
+        let adminAuthenticated = false;
+        const ADMIN_PASSWORD = 'admin@123!'; // غيّر لكلمة قوية جداً!
+        
+        function openAdminPanel() {
+            const password = prompt('🔐 أدخل كلمة السر لدخول لوحة الإدارة:\n\n⚠️ لا تشارك كلمة السرك مع أحد!');
+            
+            if (password === null) return;
+            
+            if (password === ADMIN_PASSWORD) {
+                adminAuthenticated = true;
+                document.getElementById('adminModal').classList.add('active');
+                updateAdminTime();
+                setInterval(updateAdminTime, 1000);
+                logSecurityEvent('Admin panel opened');
+            } else {
+                showMessage('adminMessage', '❌ كلمة السر خاطئة!', 'error');
+                logSecurityEvent('Failed login attempt');
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+            adminAuthenticated = false;
+        }
+
+        function updateAdminTime() {
+            const time = new Date().toLocaleTimeString('ar-SA');
+            const elem = document.getElementById('adminTime');
+            if (elem) elem.textContent = time;
+        }
+
+        function logSecurityEvent(message) {
+            console.warn(`[SECURITY LOG] ${message} at ${new Date().toISOString()}`);
+        }
+
+        function switchTab(tabName) {
+            if (!adminAuthenticated) {
+                alert('❌ غير مصرح!');
+                return;
+            }
+            
+            document.querySelectorAll('.admin-tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.admin-tab').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ========== FEATURE FUNCTIONS (40 FEATURES) ==========
+
+        // Feature 1-5: Dashboard
+        function quickAction(action) {
+            if (!adminAuthenticated) return;
+            alert(`✓ تم تنفيذ: ${action}`);
+            logSecurityEvent(`Quick action: ${action}`);
+        }
+
+        // Feature 6-10: Orders Management
+        function searchOrders() {
+            if (!adminAuthenticated) return;
+            const query = document.getElementById('orderSearch').value;
+            alert(`🔍 البحث عن: ${query}`);
+        }
+
+        function viewOrder(orderId) {
+            if (!adminAuthenticated) return;
+            alert(`📋 عرض الطلب: ${orderId}`);
+        }
+
+        function approveOrder(orderId) {
+            if (!adminAuthenticated) return;
+            alert(`✅ تمت الموافقة على: ${orderId}`);
+        }
+
+        function filterOrders(status) {
+            if (!adminAuthenticated) return;
+            alert(`🔍 تصفية الطلبات: ${status}`);
+        }
+
+        function bulkAction(action) {
+            if (!adminAuthenticated) return;
+            alert(`📦 إجراء جماعي: ${action}`);
+        }
+
+        // Feature 11-15: Users Management
+        function searchUsers() {
+            if (!adminAuthenticated) return;
+            const query = document.getElementById('userSearch').value;
+            alert(`🔍 البحث عن: ${query}`);
+        }
+
+        function viewUser(username) {
+            if (!adminAuthenticated) return;
+            alert(`👤 عرض المستخدم: ${username}`);
+        }
+
+        function manageRoles() {
+            if (!adminAuthenticated) return;
+            alert('👔 إدارة الأدوار والصلاحيات');
+        }
+
+        function setPermissions() {
+            if (!adminAuthenticated) return;
+            alert('🔐 تعيين الصلاحيات');
+        }
+
+        function suspendUser() {
+            if (!adminAuthenticated) return;
+            alert('⏸️ تم تعليق المستخدم مؤقتاً');
+        }
+
+        function banUser() {
+            if (!adminAuthenticated) return;
+            alert('🚫 تم حظر المستخدم نهائياً');
+        }
+
+        // Feature 16-20: Analytics
+        function changeAnalyticsRange(range) {
+            if (!adminAuthenticated) return;
+            alert(`📈 تغيير الفترة إلى: ${range}`);
+        }
+
+        function exportAnalytics(format) {
+            if (!adminAuthenticated) return;
+            alert(`📥 تصدير التحليلات بصيغة: ${format}`);
+            logSecurityEvent(`Exported analytics as ${format}`);
+        }
+
+        // Feature 21-25: Revenue Management
+        function viewInvoices() {
+            if (!adminAuthenticated) return;
+            alert('📄 عرض الفواتير');
+        }
+
+        function createInvoice() {
+            if (!adminAuthenticated) return;
+            alert('🆕 إنشاء فاتورة جديدة');
+        }
+
+        function sendInvoices() {
+            if (!adminAuthenticated) return;
+            alert('📧 إرسال الفواتير');
+        }
+
+        function processRefund() {
+            if (!adminAuthenticated) return;
+            alert('💸 معالجة استرجاع الأموال');
+        }
+
+        function manageSubscriptions() {
+            if (!adminAuthenticated) return;
+            alert('📊 إدارة الاشتراكات');
+        }
+
+        // Feature 26-30: Support Management
+        function searchTickets() {
+            if (!adminAuthenticated) return;
+            const query = document.getElementById('ticketSearch').value;
+            alert(`🔍 البحث عن: ${query}`);
+        }
+
+        function replyTicket(ticketId) {
+            if (!adminAuthenticated) return;
+            alert(`💬 رد على: ${ticketId}`);
+        }
+
+        function useTemplate(template) {
+            if (!adminAuthenticated) return;
+            alert(`📝 استخدام قالب: ${template}`);
+        }
+
+        function manageContacts() {
+            if (!adminAuthenticated) return;
+            alert('📇 إدارة جهات الاتصال');
+        }
+
+        function blockContact() {
+            if (!adminAuthenticated) return;
+            alert('🚫 تم حظر جهة الاتصال');
+        }
+
+        // Feature 31-35: Security Management
+        function toggle2FA() {
+            if (!adminAuthenticated) return;
+            const enabled = document.getElementById('twoFA').checked;
+            alert(`🔐 المصادقة الثنائية: ${enabled ? 'مفعلة' : 'معطلة'}`);
+            logSecurityEvent(`2FA toggled: ${enabled}`);
+        }
+
+        function enableSSL() {
+            if (!adminAuthenticated) return;
+            alert('✅ تم تفعيل SSL');
+            logSecurityEvent('SSL enabled');
+        }
+
+        function encryptDatabase() {
+            if (!adminAuthenticated) return;
+            alert('🗄️ تشفير البيانات جاري...');
+            logSecurityEvent('Database encryption started');
+        }
+
+        function rotateKeys() {
+            if (!adminAuthenticated) return;
+            alert('🔄 تم تدوير المفاتيح الأمنية');
+            logSecurityEvent('Security keys rotated');
+        }
+
+        // Feature 36-40: System Settings
+        function toggleMaintenance() {
+            if (!adminAuthenticated) return;
+            const enabled = document.getElementById('maintenanceMode').checked;
+            alert(`🔧 وضع الصيانة: ${enabled ? 'مفعل' : 'معطل'}`);
+            logSecurityEvent(`Maintenance mode: ${enabled}`);
+        }
+
+        function toggleEmailNotifications() {
+            if (!adminAuthenticated) return;
+            const enabled = document.getElementById('emailNotifications').checked;
+            alert(`📧 إخطارات البريد: ${enabled ? 'مفعلة' : 'معطلة'}`);
+        }
+
+        function toggleHealthCheck() {
+            if (!adminAuthenticated) return;
+            const enabled = document.getElementById('healthCheck').checked;
+            alert(`💚 فحص الصحة: ${enabled ? 'مفعل' : 'معطل'}`);
+        }
+
+        function createBackup() {
+            if (!adminAuthenticated) return;
+            alert('💾 جاري إنشاء نسخة احتياطية...');
+            logSecurityEvent('Backup created');
+        }
+
+        function restoreBackup() {
+            if (!adminAuthenticated) return;
+            alert('♻️ استعادة النسخة الاحتياطية');
+            logSecurityEvent('Backup restored');
+        }
+
+        function editProfile() {
+            if (!adminAuthenticated) return;
+            alert('✏️ تعديل الملف الشخصي');
+        }
+
+        function changePassword() {
+            if (!adminAuthenticated) return;
+            const newPassword = prompt('أدخل كلمة السر الجديدة:');
+            if (newPassword) {
+                alert('✅ تم تغيير كلمة السر');
+                logSecurityEvent('Admin password changed');
+            }
+        }
+
+        function saveSettings() {
+            if (!adminAuthenticated) return;
+            alert('💾 تم حفظ جميع الإعدادات');
+            logSecurityEvent('Settings saved');
+        }
+
+        function printReport() {
+            if (!adminAuthenticated) return;
+            window.print();
+        }
+
+        function logoutAdmin() {
+            adminAuthenticated = false;
+            closeAdminModal();
+            showMessage('adminMessage', '✅ تم تسجيل الخروج بنجاح', 'success');
+            logSecurityEvent('Admin logged out');
+        }
+
+        function sendReminders() {
+            if (!adminAuthenticated) return;
+            alert('📢 إرسال التذكيرات');
+        }
+
+        function sendBulkMessage() {
+            if (!adminAuthenticated) return;
+            alert('📧 إرسال رسالة جماعية');
+        }
+
+        function viewBackups() {
+            if (!adminAuthenticated) return;
+            alert('📋 عرض النسخ الاحتياطية');
+        }
+
+        // ========== MAIN FUNCTIONS ==========
+
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function drawBackground() {
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.02)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = 'rgba(37, 99, 235, 0.03)';
+            ctx.lineWidth = 1;
+            
+            for (let i = 0; i < canvas.width; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, canvas.height);
+                ctx.stroke();
+            }
+            
+            for (let i = 0; i < canvas.height; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(canvas.width, i);
+                ctx.stroke();
+            }
+        }
+
+        setInterval(drawBackground, 100);
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                item.classList.toggle('active');
+            });
+        });
+
+        // Captcha
+        let cap1, cap2, capAns;
+        
+        function generateCaptcha() {
+            cap1 = Math.floor(Math.random() * 10) + 1;
+            cap2 = Math.floor(Math.random() * 10) + 1;
+            capAns = cap1 + cap2;
+            document.getElementById('captchaQ').textContent = `${cap1} + ${cap2} = ?`;
+            document.getElementById('captchaA').value = '';
+        }
+
+        generateCaptcha();
+
+        document.getElementById('orderForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const captcha = parseInt(document.getElementById('captchaA').value);
+            if (captcha !== capAns) {
+                showMessage('orderMessage', '❌ خطأ في الناتج الرياضي!', 'error');
+                generateCaptcha();
+                return;
+            }
+
+            const name = document.getElementById('userName').value.trim();
+            const tg = document.getElementById('tgUsername').value.trim();
+            const pkg = document.getElementById('packageType').value;
+
+            if (name.length < 3) {
+                showMessage('orderMessage', '❌ الاسم قصير جداً', 'error');
+                return;
+            }
+
+            if (!tg.match(/^@[a-zA-Z0-9_]{5,}$/)) {
+                showMessage('orderMessage', '❌ معرّف التيليجرام غير صحيح', 'error');
+                return;
+            }
+
+            if (!pkg) {
+                showMessage('orderMessage', '❌ اختر باقة', 'error');
+                return;
+            }
+
+            showMessage('orderMessage', '✅ تم استقبال طلبك بنجاح! سيتم التواصل معك قريباً', 'success');
+            e.target.reset();
+            generateCaptcha();
+        });
+
+        document.getElementById('supportForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const user = document.getElementById('supportUser').value.trim();
+            const msg = document.getElementById('supportMsg').value.trim();
+
+            if (user.length < 3) {
+                showMessage('supportMessage', '❌ المعرّف قصير جداً', 'error');
+                return;
+            }
+
+            if (msg.length < 10) {
+                showMessage('supportMessage', '❌ الرسالة قصيرة جداً', 'error');
+                return;
+            }
+
+            showMessage('supportMessage', '✅ شكراً لرسالتك! سيتم الرد عليك قريباً', 'success');
+            e.target.reset();
+        });
+
+        function showMessage(elementId, text, type) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            el.textContent = text;
+            el.classList.remove('hidden', 'message-success', 'message-error', 'message-warning');
+            el.classList.add(`message-${type}`);
+            
+            setTimeout(() => {
+                el.classList.add('hidden');
+            }, 5000);
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('adminModal').classList.contains('active')) {
+                closeAdminModal();
+            }
+        });
+
+        document.getElementById('adminModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('adminModal')) {
+                closeAdminModal();
+            }
+        });
+    </script>
+</body>
+</html>
