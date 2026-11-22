@@ -233,10 +233,33 @@ const firebaseConfig = {
   messagingSenderId: "737002492478",
   appId: "1:737002492478:web:0273e9d2cd483ae5a8376f"
 };
-const ADMIN_EMAIL = "your-email@gmail.com"; // نفس الإيميل بحروف صغيرة (واجهة فقط، الحماية الحقيقية بالسيرفر)
+const ADMIN_EMAIL = "ahmedhlla698@gmail.com"; // نفس الإيميل بحروف صغيرة (واجهة فقط، الحماية الحقيقية بالسيرفر)
 const REGION = "us-central1";
 const SPIN_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const fns = firebase.app().functions(REGION);
+
+let user = null, profile = {};
+let wheelItems = [], storeItems = [], rooms = [], allUsers = [], allBookings = [], myBookings = [];
+let angle = 0, spinning = false, unsubs = [];
+let wEditId = null, sEditId = null, rEditId = null, currentUid = null;
+
+const $ = id => document.getElementById* 60 * 1000;
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const fns = firebase.app().functions(REGION);
+
+let user = null, profile = {};
+let wheelItems = [], storeItems = [], rooms = [], allUsers = [], allBookings = [], myBookings = [];
+let angle = 0, spinning = false, unsubs = [];
+let wEditId = null, sEditId = null, rEditId = null, currentUid = null;
+
+const $ = id => document.getElementById
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
