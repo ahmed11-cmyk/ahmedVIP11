@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0e1f">
+<title>Ahmed Arena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e1f;--glass:rgba(255,255,255,.06);--glass2:rgba(255,255,255,.1);--line:rgba(255,255,255,.12);
+  --text:#eef1ff;--muted:#9aa5c8;--a:#8b5cf6;--b:#22d3ee;--gold:#fbbf24;--ok:#34d399;--bad:#fb7185;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{
+  font-family:Cairo,system-ui,sans-serif;color:var(--text);min-height:100vh;padding-bottom:96px;
+  background:radial-gradient(700px 420px at 90% -5%,rgba(139,92,246,.35),transparent 60%),
+             radial-gradient(700px 420px at -10% 40%,rgba(34,211,238,.18),transparent 60%),var(--bg);
+}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{
+  cursor:pointer;border:0;border-radius:14px;padding:11px 18px;font-weight:800;font-size:14px;color:#fff;
+  background:linear-gradient(135deg,var(--a),#6366f1);transition:transform .12s,opacity .2s;
+}
+button:active{transform:scale(.96)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.ghost{background:var(--glass);border:1px solid var(--line)}
+button.cyan{background:linear-gradient(135deg,var(--b),#0ea5e9);color:#04202b}
+button.gold{background:linear-gradient(135deg,#fde68a,var(--gold));color:#3a2600}
+button.danger{background:linear-gradient(135deg,#fb7185,#e11d48)}
+button.sm{padding:7px 12px;font-size:12px;border-radius:10px}
+button.big{padding:16px 40px;font-size:18px;border-radius:18px}
+input,select,textarea{
+  width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);
+  background:rgba(0,0,0,.28);font-size:14px;outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--b)}
+select option{background:#141a33}
+input[type=color]{padding:3px;height:46px}
+label{display:block;font-size:12px;color:var(--muted);margin:12px 0 5px}
+.hidden{display:none!important}
+.muted{color:var(--muted);font-size:13px}.small{font-size:12px}.center{text-align:center}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.end{justify-content:flex-end}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px;backdrop-filter:blur(14px)}
+.wrap{max-width:980px;margin:0 auto;padding:14px}
+.narrow{max-width:420px;margin:50px auto}
+h2,h3,h4{margin:4px 0 10px}
+
+/* الهيدر */
+.top{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;
+  background:rgba(10,14,31,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.who{display:flex;align-items:center;gap:10px}
+.avatar{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:18px;
+  background:linear-gradient(135deg,var(--a),var(--b))}
+.who b{display:block;font-size:15px}.who small{color:var(--muted);font-size:11px}
+.pill{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;font-weight:900;
+  background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.4);color:var(--gold)}
+.cn{width:18px;height:18px;border-radius:50%;display:inline-block;background:radial-gradient(circle at 30% 30%,#fff3b0,var(--gold) 55%,#b45309)}
+
+/* التنقل السفلي */
+.nav{position:fixed;bottom:10px;left:10px;right:10px;z-index:30;display:flex;justify-content:space-around;
+  padding:8px;border-radius:24px;background:rgba(18,24,48,.92);border:1px solid var(--line);backdrop-filter:blur(16px);
+  max-width:620px;margin:0 auto}
+.nav button{flex:1;background:transparent;color:var(--muted);padding:8px 2px;border-radius:16px;font-size:11px;display:flex;flex-direction:column;gap:2px;align-items:center}
+.nav button span{font-size:20px;line-height:1}
+.nav button.on{background:linear-gradient(135deg,rgba(139,92,246,.35),rgba(34,211,238,.2));color:#fff}
+
+.seg{display:flex;gap:6px;background:var(--glass);padding:5px;border-radius:16px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{background:transparent;color:var(--muted);white-space:nowrap;padding:8px 14px}
+.seg button.on{background:linear-gradient(135deg,var(--a),#6366f1);color:#fff}
+
+/* الرئيسية */
+.banner{background:linear-gradient(135deg,rgba(139,92,246,.35),rgba(34,211,238,.25));border:1px solid var(--line);
+  border-radius:18px;padding:14px;margin-bottom:14px;font-weight:600}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border-radius:20px;padding:16px;border:1px solid var(--line);background:var(--glass)}
+.tile h4{margin:0 0 4px;font-size:14px;color:var(--muted)}
+.tile .v{font-size:26px;font-weight:900}
+.streak{display:flex;gap:6px;margin:10px 0}
+.streak i{flex:1;height:8px;border-radius:6px;background:var(--glass2)}
+.streak i.on{background:linear-gradient(90deg,var(--gold),#f97316)}
+
+/* العجلة */
+.wheel-card{text-align:center;padding:24px 14px}
+.wheel-box{position:relative;width:340px;max-width:100%;margin:6px auto 18px}
+#wheel{width:100%;height:auto;display:block;border-radius:50%;box-shadow:0 0 0 7px rgba(255,255,255,.08),0 0 50px rgba(139,92,246,.45)}
+.pointer{position:absolute;top:-8px;left:50%;transform:translateX(-50%);z-index:2;border-left:15px solid transparent;
+  border-right:15px solid transparent;border-top:30px solid var(--gold);filter:drop-shadow(0 4px 6px rgba(0,0,0,.5))}
+
+/* كروت اللاعبين */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.fcard{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:3/4.3;border:2px solid var(--c1);
+  background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:0 10px 26px rgba(0,0,0,.35);display:flex;flex-direction:column;justify-content:flex-end}
+.fcard.legend{--c1:#f59e0b;--c2:#7c2d12}.fcard.epic{--c1:#8b5cf6;--c2:#312e81}.fcard.rare{--c1:#38bdf8;--c2:#1e3a8a}
+.fcard img,.fcard .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fcard .ph{display:grid;place-items:center;font-size:54px;opacity:.5}
+.fcard .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 35%,rgba(0,0,0,.85))}
+.fcard .rt{position:absolute;top:8px;right:10px;text-align:center;line-height:1}
+.fcard .rt b{font-size:28px;font-weight:900;display:block;text-shadow:0 2px 8px #000}
+.fcard .rt span{font-size:12px;font-weight:800;opacity:.9}
+.fcard .nm{position:relative;padding:0 10px 8px;font-weight:900;font-size:14px;text-align:center;text-shadow:0 2px 6px #000}
+.fcard .ft{position:relative;padding:0 10px 10px;text-align:center}
+.fcard.own{filter:saturate(.7)}
+.tag{display:inline-block;padding:5px 12px;border-radius:999px;background:rgba(52,211,153,.2);color:var(--ok);font-size:12px;font-weight:800}
+
+/* الغرف */
+.room{border-radius:20px;overflow:hidden;background:var(--glass);border:1px solid var(--line)}
+.room img,.room .ph{width:100%;height:140px;object-fit:cover;display:block}
+.room .ph{display:grid;place-items:center;font-size:48px;background:rgba(0,0,0,.25)}
+.room .bd{padding:12px}
+.price{font-size:22px;font-weight:900;color:var(--gold)}.price small{font-size:12px;color:var(--muted)}
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* قوائم */
+.line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.line:last-child{border-bottom:0}.grow{flex:1;min-width:130px}
+.line input[type=number]{width:100px}
+.st{padding:4px 11px;border-radius:999px;font-size:12px;font-weight:800}
+.st.ok{background:rgba(52,211,153,.18);color:var(--ok)}.st.no{background:rgba(251,113,133,.18);color:var(--bad)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right}th{color:var(--muted);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}
+.stat{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:16px;padding:12px;font-size:12px;color:var(--muted)}
+.stat b{display:block;font-size:22px;color:var(--text);margin-top:2px}
+.prev{width:90px;height:120px;object-fit:cover;border-radius:12px;margin-top:8px;border:1px solid var(--line)}
+
+/* مودال وتوست */
+.modal{position:fixed;inset:0;background:rgba(3,5,14,.72);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
+.modal.open{display:flex}
+.sheet{width:100%;max-width:440px;max-height:88vh;overflow:auto;background:#141a35;border:1px solid var(--line);border-radius:26px;padding:22px;animation:pop .22s ease}
+@keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.toast{position:fixed;top:78px;left:50%;transform:translate(-50%,-14px);opacity:0;z-index:99;max-width:92%;text-align:center;
+  background:#1b2247;border:1px solid var(--line);padding:12px 20px;border-radius:16px;font-weight:700;transition:.25s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}.toast.ok{border-color:var(--ok)}.toast.err{border-color:var(--bad)}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:70}
+.auth-ico{font-size:46px;text-align:center}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+
+<!-- دخول -->
+<div id="scr-auth" class="hidden"><div class="narrow card">
+  <div class="auth-ico">⚽🏨</div><h2 class="center">Ahmed Arena</h2>
+  <p class="muted center">eFootball و Hotel في مكان واحد</p>
+  <label>الإيميل</label><input id="email" type="email" autocomplete="email">
+  <label>الرمز (6 أحرف على الأقل)</label><input id="pass" type="password" autocomplete="current-password">
+  <div class="row" style="margin-top:16px">
+    <button style="flex:1" data-act="login">دخول</button>
+    <button class="ghost" style="flex:1" data-act="register">حساب جديد</button>
+  </div>
+  <button class="ghost" style="width:100%;margin-top:10px" data-act="google">الدخول بحساب Google</button>
+</div></div>
+
+<!-- تفعيل -->
+<div id="scr-verify" class="hidden"><div class="narrow card center">
+  <div class="auth-ico">📧</div><h3>فعّل إيميلك</h3>
+  <p class="muted">أرسلنا رابط التفعيل لإيميلك (شيّك Spam). بعدها اضغط تحديث.</p>
+  <div class="row" style="justify-content:center;margin-top:12px">
+    <button data-act="resend">أعد الإرسال</button>
+    <button class="ghost" data-act="reload">تحديث</button>
+    <button class="ghost" data-act="logout">خروج</button>
+  </div>
+</div></div>
+
+<!-- التطبيق -->
+<div id="scr-app" class="hidden">
+  <header class="top">
+    <div class="who"><div class="avatar" id="avatar">A</div>
+      <div><b id="uname">...</b><small id="uemail"></small></div></div>
+    <div class="row"><div class="pill"><i class="cn"></i><span id="coins">0</span></div>
+      <button class="ghost sm" data-act="logout">خروج</button></div>
+  </header>
+
+  <div class="wrap">
+    <!-- الرئيسية -->
+    <section class="view" id="v-home">
+      <div class="banner hidden" id="banner"></div>
+      <div class="card">
+        <h3>🎁 المكافأة اليومية</h3>
+        <div class="streak" id="streakBar"></div>
+        <p class="muted" id="dailyMsg"></p>
+        <button class="gold" id="dailyBtn" data-act="daily">استلم المكافأة</button>
+      </div>
+      <div class="hero">
+        <div class="tile"><h4>لاعبينك</h4><div class="v" id="hPlayers">0</div></div>
+        <div class="tile"><h4>الـ Streak</h4><div class="v" id="hStreak">0 🔥</div></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h4>اسم العرض</h4>
+        <div class="row"><input id="nameIn" maxlength="24" style="flex:1" placeholder="اسمك"><button class="cyan" data-act="saveName">حفظ</button></div>
+      </div>
+    </section>
+
+    <!-- العجلة -->
+    <section class="view hidden" id="v-wheel">
+      <div class="card wheel-card">
+        <div class="wheel-box"><div class="pointer"></div><canvas id="wheel"></canvas></div>
+        <p id="spinMsg" class="muted"></p>
+        <button id="spinBtn" class="big gold" data-act="spin">🎯 لف العجلة</button>
+        <p class="muted small" style="margin-top:12px">لفة وحدة كل 24 ساعة</p>
+      </div>
+    </section>
+
+    <!-- المتجر -->
+    <section class="view hidden" id="v-store">
+      <div class="card">
+        <input id="fq" placeholder="🔍 ابحث عن لاعب">
+        <div class="row" style="margin-top:8px">
+          <select id="fsort" style="flex:1">
+            <option value="rating">الأعلى تقييم</option><option value="priceAsc">الأرخص</option>
+            <option value="priceDesc">الأغلى</option><option value="name">الاسم</option></select>
+          <select id="fown" style="flex:1">
+            <option value="all">الكل</option><option value="free">اللي ما أملكهم</option></select>
+        </div>
+      </div>
+      <div class="grid" id="storeGrid"></div>
+    </section>
+
+    <!-- لاعبيني -->
+    <section class="view hidden" id="v-mine">
+      <div class="grid" id="invGrid"></div><p id="invEmpty" class="muted center"></p>
+    </section>
+
+    <!-- الفندق -->
+    <section class="view hidden" id="v-hotel">
+      <div class="seg">
+        <button class="on" data-act="hotelTab" data-id="rooms">الغرف</button>
+        <button data-act="hotelTab" data-id="mybk">حجوزاتي</button>
+      </div>
+      <div id="h-rooms">
+        <div class="card"><div class="dates">
+          <div><label>الوصول</label><input id="ciIn" type="date"></div>
+          <div><label>المغادرة</label><input id="ciOut" type="date"></div></div>
+          <p id="hint" class="muted" style="margin:10px 0 0"></p></div>
+        <div class="grid" id="roomsGrid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))"></div>
+      </div>
+      <div id="h-mybk" class="hidden"><div class="card" id="myBookings"></div></div>
+    </section>
+
+    <!-- الإدارة -->
+    <section class="view hidden" id="v-admin">
+      <div class="seg" id="admSeg">
+        <button class="on" data-act="admTab" data-id="a-over">نظرة</button>
+        <button data-act="admTab" data-id="a-wheel">العجلة</button>
+        <button data-act="admTab" data-id="a-store">المتجر</button>
+        <button data-act="admTab" data-id="a-users">المستخدمين</button>
+        <button data-act="admTab" data-id="a-rooms">الغرف</button>
+        <button data-act="admTab" data-id="a-bk">الحجوزات</button>
+      </div>
+
+      <div class="asub" id="a-over">
+        <div class="stats">
+          <div class="stat">المستخدمين<b id="sUsers">0</b></div>
+          <div class="stat">مجموع الكوينز<b id="sCoins">0</b></div>
+          <div class="stat">اللاعبين بالمتجر<b id="sPlayers">0</b></div>
+          <div class="stat">حجوزات مؤكدة<b id="sBk">0</b></div>
+          <div class="stat">الإيرادات<b id="sRev">0</b></div>
+        </div>
+        <div class="card"><h4>📢 إعلان للجميع</h4>
+          <textarea id="annIn" rows="2" placeholder="اتركه فاضي لحذف الإعلان"></textarea>
+          <button style="margin-top:10px" data-act="saveAnn">نشر الإعلان</button></div>
+        <div class="card"><h4>🎁 هدية كوينز للجميع</h4>
+          <input id="giftIn" type="number" placeholder="عدد الكوينز">
+          <button class="gold" style="margin-top:10px" data-act="giftAll">إرسال للجميع</button></div>
+        <button class="ghost" data-act="seed">تهيئة البيانات الأولية</button>
+      </div>
+
+      <div class="card asub hidden" id="a-wheel">
+        <h3>عناصر العجلة</h3><p class="muted small" id="wheelTotal"></p><div id="wheelAdmin"></div>
+        <h4 id="wTitle" style="margin-top:18px">إضافة عنصر</h4>
+        <label>الاسم</label><input id="wLabel" placeholder="مثال: 50 كوينز">
+        <label>النوع</label>
+        <select id="wType"><option value="coins">كوينز</option><option value="player">لاعب</option></select>
+        <div id="wAmountBox"><label>عدد الكوينز (حد أقصى 5000)</label><input id="wAmount" type="number" value="50"></div>
+        <div id="wPlayerBox" class="hidden"><label>اللاعب</label><select id="wPlayer"></select></div>
+        <div class="row"><div style="flex:1"><label>الوزن / النسبة</label><input id="wWeight" type="number" min="0" step="any" placeholder="10"></div>
+          <div><label>اللون</label><input id="wColor" type="color" value="#6d4aff"></div></div>
+        <div class="row" style="margin-top:14px"><button id="wSave" style="flex:1" data-act="saveWheel">إضافة للعجلة</button>
+          <button class="ghost" data-act="resetWheel">إلغاء</button></div>
+      </div>
+
+      <div class="card asub hidden" id="a-store">
+        <h3>لاعبين المتجر</h3><div id="storeAdmin"></div>
+        <h4 id="sTitle" style="margin-top:18px">إضافة لاعب</h4>
+        <label>الاسم</label><input id="sName">
+        <div class="row"><div style="flex:1"><label>التقييم</label><input id="sRating" type="number"></div>
+          <div style="flex:1"><label>المركز</label><input id="sPos" placeholder="RWF"></div>
+          <div style="flex:1"><label>السعر</label><input id="sPrice" type="number" value="500"></div></div>
+        <label>صورة اللاعب (من جوالك)</label>
+        <input type="file" accept="image/*" onchange="pickImg(this,'store')">
+        <img id="storePrev" class="prev hidden">
+        <div class="row" style="margin-top:14px"><button id="sSave" style="flex:1" data-act="saveStore">إضافة للمتجر</button>
+          <button class="ghost" data-act="resetStore">إلغاء</button></div>
+      </div>
+
+      <div class="card asub hidden" id="a-users">
+        <h3>المستخدمين</h3><input id="uq" placeholder="🔍 بحث بالإيميل أو الاسم"><div id="usersAdmin" style="margin-top:10px;overflow-x:auto"></div>
+      </div>
+
+      <div class="card asub hidden" id="a-rooms">
+        <h3>الغرف</h3><div id="roomAdmin"></div>
+        <h4 id="rTitle" style="margin-top:18px">إضافة غرفة</h4>
+        <label>الاسم</label><input id="rName">
+        <div class="row"><div style="flex:1"><label>السعر لليلة</label><input id="rPrice" type="number" value="300"></div>
+          <div style="flex:1"><label>السعة</label><input id="rCap" type="number" value="2"></div></div>
+        <label>الوصف</label><textarea id="rDesc" rows="2"></textarea>
+        <label>صورة الغرفة (من جوالك)</label>
+        <input type="file" accept="image/*" onchange="pickImg(this,'room')">
+        <img id="roomPrev" class="prev hidden">
+        <div class="row" style="margin-top:14px"><button id="rSave" style="flex:1" data-act="saveRoom">إضافة الغرفة</button>
+          <button class="ghost" data-act="resetRoom">إلغاء</button></div>
+      </div>
+
+      <div class="card asub hidden" id="a-bk"><h3>كل الحجوزات</h3><div id="bookingsAdmin" style="overflow-x:auto"></div></div>
+    </section>
+  </div>
+
+  <nav class="nav">
+    <button data-act="go" data-id="home"><span>🏠</span>الرئيسية</button>
+    <button data-act="go" data-id="wheel"><span>🎯</span>العجلة</button>
+    <button data-act="go" data-id="store"><span>🛒</span>المتجر</button>
+    <button data-act="go" data-id="mine"><span>👕</span>لاعبيني</button>
+    <button data-act="go" data-id="hotel"><span>🏨</span>الفندق</button>
+    <button data-act="go" data-id="admin" id="adminNav" class="hidden"><span>⚙️</span>الإدارة</button>
+  </nav>
+</div>
+
+<div class="modal" id="modal"><div class="sheet" id="modalBody"></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+// ================== الإعدادات ==================
+const firebaseConfig = {
+  apiKey: "AIzaSyDhp-hVKq-Sb6i4dLtthcvDg8Fsvya9Vv8",
+  authDomain: "ahmed-vip-portal.firebaseapp.com",
+  databaseURL: "https://ahmed-vip-portal-default-rtdb.firebaseio.com",
+  projectId: "ahmed-vip-portal",
+  storageBucket: "ahmed-vip-portal.firebasestorage.app",
+  messagingSenderId: "737002492478",
+  appId: "1:737002492478:web:0273e9d2cd483ae5a8376f"
+};
+const ADMIN_EMAIL = "ahmedhlla698@gmail.com";
+const DAY = 24 * 3600 * 1000, MAX_NIGHTS = 30, MAX_PRIZE = 5000, DUP_COINS = 50;
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth(), db = firebase.firestore();
+const FV = firebase.firestore.FieldValue;
+
+const S = { user: null, p: {}, cfg: {}, wheel: [], store: [], rooms: [], my: [], users: [], bookings: [],
+  view: "home", angle: 0, spinning: false, segs: [], dirty: false, unsubs: [],
+  edit: { wheel: null, store: null, room: null }, img: { store: "", room: "" }, um: null, askRes: null };
+
+// ================== أدوات ==================
+const $ = id => document.getElementById(id);
+const val = id => $(id).value.trim();
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const isAdmin = () => (S.user?.email || "").toLowerCase() === ADMIN_EMAIL;
+const ms = t => (t && t.toDate ? t.toDate().getTime() : 0);
+const todayUTC = () => new Date().toISOString().slice(0, 10);
+const fmt = m => `${Math.floor(m / 3600000)} ساعة و ${Math.floor((m % 3600000) / 60000)} دقيقة`;
+const empty = t => `<p class="muted center" style="grid-column:1/-1">${t}</p>`;
+const wUnits = w => Math.max(1, Math.round(Number(w) * 1000));
+const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n; };
+
+function toast(m, t = "") {
+  const el = $("toast"); el.textContent = m; el.className = "toast show " + t;
+  clearTimeout(el._h); el._h = setTimeout(() => el.classList.remove("show"), 3200);
+}
+const errText = e => e.code === "permission-denied"
+  ? "العملية مرفوضة (تحقق من الشروط أو القواعد)" : (e.message || "صار خطأ");
+async function guard(fn, okMsg) {
+  try { const r = await fn(); if (okMsg) toast(okMsg, "ok"); return r === undefined ? true : r; }
+  catch (e) { console.error(e); toast(errText(e), "err"); return null; }
+}
+async function run(el, fn) { if (el) el.disabled = true; try { await fn(); } finally { if (el) el.disabled = false; } }
+
+function openModal(h) { $("modalBody").innerHTML = h; $("modal").classList.add("open"); }
+function closeModal() {
+  $("modal").classList.remove("open"); S.um = null;
+  const f = S.askRes; S.askRes = null; if (f) f(false);
+}
+function ask(t) {
+  return new Promise(r => {
+    S.askRes = r;
+    openModal(`<h3 class="center">${esc(t)}</h3><div class="row end" style="margin-top:18px">
+      <button class="ghost" data-act="closeModal">إلغاء</button><button class="danger" data-act="askYes">تأكيد</button></div>`);
+  });
+}
+function screen(n) { ["auth", "verify", "app"].forEach(x => $("scr-" + x).classList.toggle("hidden", x !== n)); }
+
+function go(v) {
+  S.view = v;
+  document.querySelectorAll(".view").forEach(s => s.classList.toggle("hidden", s.id !== "v-" + v));
+  document.querySelectorAll(".nav button").forEach(b => b.classList.toggle("on", b.dataset.id === v));
+  if (v === "wheel") drawWheel();
+  window.scrollTo(0, 0);
+}
+
+// ================== Confetti ==================
+function confetti() {
+  const c = $("fx"), x = c.getContext("2d"); c.width = innerWidth; c.height = innerHeight;
+  const cols = ["#fbbf24", "#8b5cf6", "#22d3ee", "#34d399", "#fb7185"];
+  const ps = Array.from({ length: 140 }, () => ({ x: innerWidth / 2, y: innerHeight / 2.4, vx: (Math.random() - .5) * 16,
+    vy: Math.random() * -14 - 3, s: 4 + Math.random() * 6, c: cols[rnd(5)], r: Math.random() * 6 }));
+  let f = 0;
+  (function t() {
+    x.clearRect(0, 0, c.width, c.height);
+    ps.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .35; p.r += .2;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * .6); x.restore(); });
+    if (++f < 130) requestAnimationFrame(t); else x.clearRect(0, 0, c.width, c.height);
+  })();
+}
+
+// ================== تسجيل الدخول ==================
+const AUTH_ERR = { "auth/email-already-in-use": "الإيميل مسجل مسبقاً", "auth/invalid-email": "الإيميل غير صحيح",
+  "auth/weak-password": "الرمز ضعيف (6 أحرف على الأقل)", "auth/wrong-password": "الرمز غلط",
+  "auth/invalid-credential": "الإيميل أو الرمز غلط", "auth/too-many-requests": "محاولات كثيرة، انتظر شوي",
+  "auth/unauthorized-domain": "الدومين غير مضاف في Authorized domains" };
+const authErr = e => AUTH_ERR[e.code] || e.message;
+
+auth.onAuthStateChanged(async u => {
+  S.unsubs.forEach(f => f()); S.unsubs = [];
+  if (u) { try { await u.reload(); } catch (e) {} }
+  S.user = auth.currentUser;
+  if (!S.user) return screen("auth");
+  if (!S.user.emailVerified) return screen("verify");
+
+  try { await S.user.getIdToken(true); } catch (e) {}
+  const ref = db.collection("users").doc(S.user.uid);
+  try {
+    const snap = await ref.get();
+    if (!snap.exists) await ref.set({ email: S.user.email, name: (S.user.displayName || S.user.email.split("@")[0]).slice(0, 24),
+      coins: 0, inventory: [], lastSpinAt: null, dailyAt: null, streak: 0 });
+  } catch (e) { toast(errText(e), "err"); }
+
+  screen("app"); listen(); go(S.view);
+});
+
+function listen() {
+  const uid = S.user.uid, L = (q, f) => S.unsubs.push(q.onSnapshot(f, e => console.error(e)));
+  const list = s => s.docs.map(d => ({ id: d.id, ...d.data() }));
+  L(db.collection("users").doc(uid), d => { S.p = d.data() || {}; render(); });
+  L(db.collection("config").doc("main"), d => { S.cfg = d.data() || {}; render(); });
+  L(db.collection("wheel"), s => { S.wheel = list(s); render(); });
+  L(db.collection("store"), s => { S.store = list(s); render(); });
+  L(db.collection("rooms"), s => { S.rooms = list(s); render(); });
+  L(db.collection("bookings").where("uid", "==", uid), s => { S.my = list(s); render(); });
+  $("adminNav").classList.toggle("hidden", !isAdmin());
+  if (isAdmin()) {
+    L(db.collection("users"), s => { S.users = list(s); render(); });
+    L(db.collection("bookings"), s => { S.bookings = list(s); render(); });
+  }
+}
+
+// ================== الأفعال ==================
+const ACT = {
+  login: () => auth.signInWithEmailAndPassword(val("email"), $("pass").value).catch(e => toast(authErr(e), "err")),
+  register: (_, el) => run(el, async () => {
+    try { const c = await auth.createUserWithEmailAndPassword(val("email"), $("pass").value);
+      await c.user.sendEmailVerification(); toast("أرسلنا رابط التفعيل لإيميلك", "ok"); }
+    catch (e) { toast(authErr(e), "err"); }
+  }),
+  google: () => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e => toast(authErr(e), "err")),
+  resend: () => auth.currentUser?.sendEmailVerification().then(() => toast("تم الإرسال", "ok")).catch(e => toast(authErr(e), "err")),
+  reload: () => location.reload(),
+  logout: () => auth.signOut(),
+  go, closeModal,
+  askYes: () => { const f = S.askRes; S.askRes = null; closeModal(); f && f(true); },
+
+  hotelTab: id => {
+    document.querySelectorAll("#v-hotel .seg button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+    $("h-rooms").classList.toggle("hidden", id !== "rooms"); $("h-mybk").classList.toggle("hidden", id !== "mybk");
+  },
+  admTab: id => {
+    document.querySelectorAll("#admSeg button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+    document.querySelectorAll(".asub").forEach(s => s.classList.toggle("hidden", s.id !== id));
+  },
+
+  saveName: (_, el) => run(el, () => guard(() =>
+    db.collection("users").doc(S.user.uid).update({ name: val("nameIn").slice(0, 24) || "لاعب" }), "تم حفظ الاسم")),
+  daily: (_, el) => run(el, daily),
+  spin: (_, el) => run(el, spin),
+  buy: (id, el) => run(el, () => buy(id)),
+
+  // العجلة (أدمن)
+  resetWheel: () => resetWheel(),
+  saveWheel: (_, el) => run(el, saveWheel),
+  editWheel: id => {
+    const i = S.wheel.find(x => x.id === id); if (!i) return;
+    S.edit.wheel = id; $("wTitle").textContent = "تعديل عنصر"; $("wSave").textContent = "حفظ التعديل";
+    $("wType").value = i.type || "coins"; toggleW();
+    $("wLabel").value = i.label || ""; $("wAmount").value = i.amount ?? 0; $("wWeight").value = i.weight ?? "";
+    $("wColor").value = i.color || "#6d4aff"; if (i.playerId) $("wPlayer").value = i.playerId;
+    $("wLabel").scrollIntoView({ behavior: "smooth", block: "center" });
+  },
+  delWheel: async id => { if (await ask("تحذف هذا العنصر من العجلة؟")) guard(() => db.collection("wheel").doc(id).delete(), "تم الحذف"); },
+
+  // المتجر (أدمن)
+  resetStore: () => resetStore(),
+  saveStore: (_, el) => run(el, saveStore),
+  editStore: id => {
+    const p = S.store.find(x => x.id === id); if (!p) return;
+    S.edit.store = id; S.img.store = p.image || "";
+    $("sTitle").textContent = "تعديل لاعب"; $("sSave").textContent = "حفظ التعديل";
+    $("sName").value = p.name || ""; $("sRating").value = p.rating ?? ""; $("sPos").value = p.pos || ""; $("sPrice").value = p.price ?? 500;
+    setPrev("store"); $("sName").scrollIntoView({ behavior: "smooth", block: "center" });
+  },
+  delStore: async id => {
+    if (!await ask("يحذف اللاعب وعناصره من العجلة. متأكد؟")) return;
+    guard(async () => {
+      const linked = await db.collection("wheel").where("playerId", "==", id).get();
+      const b = db.batch(); b.delete(db.collection("store").doc(id)); linked.docs.forEach(d => b.delete(d.ref)); await b.commit();
+    }, "تم الحذف");
+  },
+
+  // الغرف
+  resetRoom: () => resetRoom(),
+  saveRoom: (_, el) => run(el, saveRoom),
+  editRoom: id => {
+    const r = S.rooms.find(x => x.id === id); if (!r) return;
+    S.edit.room = id; S.img.room = r.image || "";
+    $("rTitle").textContent = "تعديل غرفة"; $("rSave").textContent = "حفظ التعديل";
+    $("rName").value = r.name || ""; $("rPrice").value = r.pricePerNight ?? 0; $("rCap").value = r.capacity ?? 2; $("rDesc").value = r.description || "";
+    setPrev("room");
+  },
+  delRoom: async id => { if (await ask("تحذف الغرفة؟")) guard(() => db.collection("rooms").doc(id).delete(), "تم الحذف"); },
+  book: (id, el) => run(el, () => book(id)),
+  cancelBk: async id => { if (await ask("متأكد تبي تلغي الحجز؟")) cancelBooking(id); },
+
+  // مستخدمين
+  openUser: id => { S.um = id; renderUserModal(true); },
+  saveCoins: (_, el) => run(el, () => guard(() => db.collection("users").doc(S.um).update({ coins: Math.max(0, Math.floor(Number(val("uCoins")) || 0)) }), "تم تحديث الكوينز")),
+  resetSpin: () => guard(() => db.collection("users").doc(S.um).update({ lastSpinAt: null }), "تمت إعادة اللفة"),
+  resetDaily: () => guard(() => db.collection("users").doc(S.um).update({ dailyAt: null }), "تمت إعادة المكافأة"),
+  grant: () => guard(() => db.collection("users").doc(S.um).update({ inventory: FV.arrayUnion(val("uGrant")) }), "تم منح اللاعب"),
+  revoke: id => guard(() => db.collection("users").doc(S.um).update({ inventory: FV.arrayRemove(id) }), "تم السحب"),
+
+  saveAnn: (_, el) => run(el, () => guard(() => db.collection("config").doc("main").set({ announcement: val("annIn") }, { merge: true }), "تم نشر الإعلان")),
+  giftAll: async (_, el) => {
+    const n = Math.floor(Number(val("giftIn")));
+    if (!(n > 0)) return toast("اكتب عدد صحيح", "err");
+    if (!await ask(`إضافة ${n} كوينز لكل المستخدمين؟`)) return;
+    run(el, () => guard(async () => {
+      for (let i = 0; i < S.users.length; i += 400) {
+        const b = db.batch();
+        S.users.slice(i, i + 400).forEach(u => b.update(db.collection("users").doc(u.id), { coins: FV.increment(n) }));
+        await b.commit();
+      }
+    }, "تم إرسال الهدية"));
+  },
+  seed: async () => { if (await ask("تهيئة البيانات الأولية؟ لا تحذف شي.")) guard(seed, "تمت التهيئة"); },
+};
+const CHG = {
+  wWeight: (id, v) => { const i = S.wheel.find(x => x.id === id); if (i && Number(v) > 0) guard(() => db.collection("wheel").doc(id).update({ weight: Number(v) }), "تم تحديث الوزن"); },
+  sPrice: (id, v) => { if (Number(v) >= 0) guard(() => db.collection("store").doc(id).update({ price: Math.floor(Number(v)) }), "تم تحديث السعر"); },
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]"); if (!el || el.disabled) return;
+  const f = ACT[el.dataset.act]; if (f) f(el.dataset.id, el);
+});
+document.addEventListener("change", e => { const d = e.target.dataset; if (d && d.chg && CHG[d.chg]) CHG[d.chg](d.id, e.target.value); });
+$("modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
+["fq", "fsort", "fown", "ciIn", "ciOut", "uq"].forEach(id => $(id).addEventListener("input", () => render()));
+$("wType").addEventListener("change", toggleW);
+
+// ================== الرندر ==================
+function render() {
+  if (!S.user) return;
+  if (S.spinning) { S.dirty = true; return; }
+  renderHead(); renderHome(); renderSpinInfo(); renderStore(); renderMine(); renderRooms(); renderMyBookings();
+  if (isAdmin()) { renderPlayerSelects(); renderAdmin(); renderUserModal(); }
+}
+
+function renderHead() {
+  const nm = S.p.name || (S.user.email || "").split("@")[0];
+  $("uname").textContent = nm; $("uemail").textContent = S.user.email;
+  $("avatar").textContent = (nm[0] || "A").toUpperCase();
+  $("coins").textContent = S.p.coins || 0;
+}
+
+function dailyLeft() { const l = ms(S.p.dailyAt); return l ? Math.max(0, DAY - (Date.now() - l)) : 0; }
+function renderHome() {
+  const b = $("banner"), a = (S.cfg.announcement || "").trim();
+  b.classList.toggle("hidden", !a); b.textContent = "📢 " + a;
+  const st = S.p.streak || 0, left = dailyLeft();
+  $("streakBar").innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < Math.min(st, 6) ? "on" : ""}"></i>`).join("");
+  $("hStreak").textContent = st + " 🔥"; $("hPlayers").textContent = (S.p.inventory || []).length;
+  $("dailyBtn").disabled = left > 0;
+  const next = Math.min(50 * ((left > 0 || (Date.now() - ms(S.p.dailyAt) < 2 * DAY && S.p.dailyAt) ? st + (left > 0 ? 0 : 1) : 1) || 1), 300);
+  $("dailyMsg").textContent = left > 0 ? `المكافأة الجاية بعد ${fmt(left)}` : `استلم الحين وخذ مكافأة اليوم (حتى 300 كوينز)`;
+  if (document.activeElement !== $("nameIn")) $("nameIn").value = S.p.name || "";
+}
+
+async function daily() {
+  const ref = db.collection("users").doc(S.user.uid);
+  const r = await guard(() => db.runTransaction(async tx => {
+    const u = (await tx.get(ref)).data();
+    const last = ms(u.dailyAt), now = Date.now();
+    if (last && now - last < DAY) throw new Error("لسا ما انتهى الوقت");
+    const streak = last && now - last < 2 * DAY ? (u.streak || 0) + 1 : 1;
+    const reward = Math.min(50 * streak, 300);
+    tx.update(ref, { coins: (u.coins || 0) + reward, dailyAt: FV.serverTimestamp(), streak });
+    return { reward, streak };
+  }));
+  if (r && r.reward) { confetti(); toast(`استلمت ${r.reward} كوينز 🔥 Streak ${r.streak}`, "ok"); }
+}
+
+// ---------- المتجر ----------
+function tier(r) { return r >= 100 ? "legend" : r >= 90 ? "epic" : "rare"; }
+function fcard(p, foot = "", own = false) {
+  const media = p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : `<div class="ph">⚽</div>`;
+  return `<div class="fcard ${tier(Number(p.rating) || 0)} ${own ? "own" : ""}">${media}<div class="shade"></div>
+    <div class="rt"><b>${esc(p.rating ?? "")}</b><span>${esc(p.pos || "")}</span></div>
+    <div class="nm">${esc(p.name)}</div><div class="ft">${foot}</div></div>`;
+}
+function renderStore() {
+  const have = new Set(S.p.inventory || []), q = $("fq").value.trim().toLowerCase(), sort = $("fsort").value, own = $("fown").value;
+  let items = S.store.filter(p => (!q || (p.name || "").toLowerCase().includes(q)) && (own === "all" || !have.has(p.id)));
+  const cmp = { rating: (a, b) => b.rating - a.rating, priceAsc: (a, b) => a.price - b.price,
+    priceDesc: (a, b) => b.price - a.price, name: (a, b) => (a.name || "").localeCompare(b.name || "") };
+  items.sort(cmp[sort]);
+  $("storeGrid").innerHTML = items.map(p => have.has(p.id)
+    ? fcard(p, `<span class="tag">✓ عندك</span>`, true)
+    : fcard(p, `<button class="sm gold" style="width:100%" data-act="buy" data-id="${esc(p.id)}">${esc(p.price)} <i class="cn" style="width:13px;height:13px;vertical-align:-2px"></i></button>`)
+  ).join("") || empty("ما فيه لاعبين");
+}
+function renderMine() {
+  const items = (S.p.inventory || []).map(id => S.store.find(p => p.id === id)).filter(Boolean);
+  $("invGrid").innerHTML = items.map(p => fcard(p)).join("");
+  $("invEmpty").textContent = items.length ? "" : "ما عندك لاعبين. العب العجلة أو اشتر من المتجر.";
+}
+async function buy(id) {
+  const p = S.store.find(x => x.id === id); if (!p) return;
+  const ref = db.collection("users").doc(S.user.uid);
+  const ok = await guard(() => db.runTransaction(async tx => {
+    const u = (await tx.get(ref)).data(), inv = u.inventory || [];
+    if (inv.includes(id)) throw new Error("عندك هذا اللاعب");
+    if ((u.coins || 0) < p.price) throw new Error("الكوينز ما تكفي");
+    tx.update(ref, { coins: u.coins - p.price, inventory: [...inv, id] });
+  }), "تم الشراء ✅");
+  if (ok) confetti();
+}
+
+// ---------- العجلة ----------
+const cv = $("wheel"), cx = cv.getContext("2d"), SIZE = 340;
+(function () { const d = devicePixelRatio || 1; cv.width = SIZE * d; cv.height = SIZE * d; cx.setTransform(d, 0, 0, d, 0, 0); })();
+const idle = () => S.wheel.filter(i => Number(i.weight) > 0).map(i => ({ id: i.id, label: i.label || "", color: i.color || "#334155", w: wUnits(i.weight) }));
+
+function drawWheel() {
+  const segs = S.spinning ? S.segs : idle(), R = SIZE / 2;
+  cx.clearRect(0, 0, SIZE, SIZE); cx.save(); cx.translate(R, R);
+  if (!segs.length) {
+    cx.beginPath(); cx.arc(0, 0, R - 4, 0, 7); cx.fillStyle = "#141a35"; cx.fill();
+    cx.fillStyle = "#9aa5c8"; cx.font = "700 15px Cairo"; cx.textAlign = "center"; cx.fillText("العجلة فاضية", 0, 5);
+    cx.restore(); return;
+  }
+  cx.rotate(S.angle);
+  const tot = segs.reduce((s, x) => s + x.w, 0); let st = 0;
+  segs.forEach(g => {
+    const a = g.w / tot * Math.PI * 2;
+    cx.beginPath(); cx.moveTo(0, 0); cx.arc(0, 0, R - 8, st, st + a); cx.closePath();
+    cx.fillStyle = g.color; cx.fill(); cx.strokeStyle = "rgba(255,255,255,.25)"; cx.lineWidth = 2; cx.stroke();
+    cx.save(); cx.rotate(st + a / 2); cx.fillStyle = "#fff"; cx.font = "800 14px Cairo";
+    cx.textAlign = "right"; cx.textBaseline = "middle";
+    cx.fillText(g.label.length > 15 ? g.label.slice(0, 14) + "…" : g.label, R - 26, 0); cx.restore();
+    st += a;
+  });
+  cx.restore(); cx.save(); cx.translate(R, R);
+  cx.beginPath(); cx.arc(0, 0, 22, 0, 7); cx.fillStyle = "#0a0e1f"; cx.fill();
+  cx.strokeStyle = "#fbbf24"; cx.lineWidth = 4; cx.stroke(); cx.restore();
+}
+function animateTo(idx, segs) {
+  return new Promise(res => {
+    const tot = segs.reduce((s, x) => s + x.w, 0); let before = 0;
+    for (let i = 0; i < idx; i++) before += segs[i].w;
+    const center = (before + segs[idx].w / 2) / tot * Math.PI * 2;
+    const from = S.angle, target = -Math.PI / 2 - center;
+    const delta = ((target - from) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+    const to = from + 6 * 2 * Math.PI + delta, t0 = performance.now(), D = 4800;
+    (function step(now) {
+      const t = Math.min(1, (now - t0) / D);
+      S.angle = from + (to - from) * (1 - Math.pow(1 - t, 4)); drawWheel();
+      t < 1 ? requestAnimationFrame(step) : res();
+    })(t0);
+  });
+}
+function spinLeft() { const l = ms(S.p.lastSpinAt); return l ? Math.max(0, DAY - (Date.now() - l)) : 0; }
+function renderSpinInfo() {
+  const l = spinLeft(); $("spinBtn").disabled = S.spinning || l > 0;
+  $("spinMsg").textContent = l > 0 ? `اللفة الجاية بعد ${fmt(l)}` : "عندك لفة متاحة الحين 🎉";
+  drawWheel();
+}
+setInterval(() => { if (S.user && !S.spinning) { renderSpinInfo(); renderHome(); } }, 30000);
+
+async function spin() {
+  if (S.spinning) return;
+  const segs = idle(); if (!segs.length) return toast("العجلة فاضية", "err");
+  if (spinLeft() > 0) return toast("اللفة مرة كل 24 ساعة", "err");
+  const tot = segs.reduce((s, x) => s + x.w, 0); let r = rnd(tot), idx = 0;
+  while (r >= segs[idx].w) { r -= segs[idx].w; idx++; }
+  const item = S.wheel.find(i => i.id === segs[idx].id), ref = db.collection("users").doc(S.user.uid);
+
+  S.spinning = true; S.segs = segs; $("spinBtn").disabled = true;
+  let msg = null;
+  try {
+    await db.runTransaction(async tx => {
+      const u = (await tx.get(ref)).data(), last = ms(u.lastSpinAt);
+      if (last && Date.now() - last < DAY) throw new Error("اللفة مرة كل 24 ساعة");
+      let coins = u.coins || 0, inv = u.inventory || [];
+      if (item.type === "coins") { coins += Math.min(Number(item.amount) || 0, MAX_PRIZE); msg = `ربحت ${Math.min(Number(item.amount) || 0, MAX_PRIZE)} كوينز 🪙`; }
+      else if (inv.includes(item.playerId)) { coins += DUP_COINS; msg = `اللاعب موجود عندك، أخذت ${DUP_COINS} كوينز`; }
+      else { inv = [...inv, item.playerId]; msg = `مبروك! ربحت ${item.label} ⚽`; }
+      tx.update(ref, { coins, inventory: inv, lastSpinAt: FV.serverTimestamp() });
+    });
+  } catch (e) {
+    S.spinning = false; toast(errText(e), "err"); render(); return;
+  }
+  await animateTo(idx, segs);
+  S.spinning = false; render(); confetti();
+  openModal(`<div class="center"><div style="font-size:58px">🎉</div><h3>${esc(msg)}</h3>
+    <button class="gold sm" style="margin-top:12px" data-act="closeModal">تمام</button></div>`);
+}
+
+// ---------- الفندق ----------
+const nightsList = (a, b) => {
+  const s = Date.parse(a + "T00:00:00Z"), n = Math.round((Date.parse(b + "T00:00:00Z") - s) / 86400000), o = [];
+  for (let i = 0; i < n; i++) o.push(new Date(s + i * 86400000).toISOString().slice(0, 10));
+  return o;
+};
+function nightsSel() { const a = $("ciIn").value, b = $("ciOut").value; return a && b ? nightsList(a, b).length : 0; }
+function renderRooms() {
+  $("ciIn").min = todayUTC();
+  const a = $("ciIn").value, n = nightsSel(), ok = n >= 1 && n <= MAX_NIGHTS && a >= todayUTC();
+  $("hint").textContent = !a || !$("ciOut").value ? "اختار تاريخ الوصول والمغادرة" : ok ? `${n} ليلة`
+    : n > MAX_NIGHTS ? `أقصى مدة ${MAX_NIGHTS} ليلة` : "التواريخ غير صحيحة";
+  $("roomsGrid").innerHTML = S.rooms.map(r => `<div class="room">
+    ${r.image ? `<img src="${esc(r.image)}" alt="" loading="lazy">` : `<div class="ph">🛏️</div>`}
+    <div class="bd"><b>${esc(r.name)}</b><div class="muted small">👥 ${esc(r.capacity)} · ${esc(r.description || "")}</div>
+    <div class="price">${esc(r.pricePerNight)} <small>/ ليلة</small></div>
+    ${ok ? `<div class="muted small" style="margin:4px 0 8px">المجموع: ${n * r.pricePerNight}</div>
+      <button class="cyan sm" style="width:100%" data-act="book" data-id="${esc(r.id)}">احجز الآن</button>` : ""}</div></div>`
+  ).join("") || empty("ما فيه غرف");
+}
+async function book(roomId) {
+  const room = S.rooms.find(r => r.id === roomId), a = $("ciIn").value, b = $("ciOut").value;
+  const ns = nightsList(a, b);
+  if (!room || ns.length < 1 || ns.length > MAX_NIGHTS || a < todayUTC()) return toast("التواريخ غير صحيحة", "err");
+  const bRef = db.collection("bookings").doc(), lockIds = ns.map(n => `${roomId}_${n}`), batch = db.batch();
+  batch.set(bRef, { uid: S.user.uid, email: S.user.email, roomId, roomName: room.name || "", checkIn: a, checkOut: b,
+    nights: ns.length, total: ns.length * room.pricePerNight, status: "confirmed", createdAt: FV.serverTimestamp(), lockIds });
+  lockIds.forEach(id => batch.set(db.collection("nightLocks").doc(id), { bookingId: bRef.id, roomId }));
+  try { await batch.commit(); toast("تم الحجز ✅", "ok"); confetti(); ACT.hotelTab("mybk"); }
+  catch (e) { toast(e.code === "permission-denied" ? "الغرفة محجوزة في هذي التواريخ" : errText(e), "err"); }
+}
+function renderMyBookings() {
+  const l = S.my.slice().sort((a, b) => a.checkIn < b.checkIn ? 1 : -1);
+  $("myBookings").innerHTML = l.map(b => `<div class="line"><div class="grow"><b>${esc(b.roomName)}</b>
+    <div class="muted small">${esc(b.checkIn)} ← ${esc(b.checkOut)} · ${esc(b.nights)} ليلة · ${esc(b.total)}</div></div>
+    <span class="st ${b.status === "confirmed" ? "ok" : "no"}">${b.status === "confirmed" ? "مؤكد" : "ملغي"}</span>
+    ${b.status === "confirmed" && b.checkIn > todayUTC() ? `<button class="danger sm" data-act="cancelBk" data-id="${esc(b.id)}">إلغاء</button>` : ""}</div>`
+  ).join("") || `<p class="muted center">ما عندك حجوزات</p>`;
+}
+async function cancelBooking(id) {
+  const b = [...S.my, ...S.bookings].find(x => x.id === id); if (!b) return;
+  guard(async () => {
+    const batch = db.batch();
+    batch.update(db.collection("bookings").doc(id), { status: "cancelled", cancelledAt: FV.serverTimestamp() });
+    (b.lockIds || []).forEach(l => batch.delete(db.collection("nightLocks").doc(l)));
+    await batch.commit();
+  }, "تم الإلغاء ✅");
+}
+
+// ================== الإدارة ==================
+function toggleW() { const p = $("wType").value === "player"; $("wPlayerBox").classList.toggle("hidden", !p); $("wAmountBox").classList.toggle("hidden", p); }
+function setPrev(k) { const el = $(k + "Prev"); el.src = S.img[k] || ""; el.classList.toggle("hidden", !S.img[k]); }
+function pickImg(input, key) {
+  const f = input.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { const im = new Image(); im.onload = () => {
+    const W = 360, H = 480, c = document.createElement("canvas"); c.width = W; c.height = H;
+    const x = c.getContext("2d"), s = Math.max(W / im.width, H / im.height), w = im.width * s, h = im.height * s;
+    x.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
+    S.img[key] = c.toDataURL("image/jpeg", .78); setPrev(key);
+  }; im.src = r.result; };
+  r.readAsDataURL(f);
+}
+
+function resetWheel() {
+  S.edit.wheel = null; $("wTitle").textContent = "إضافة عنصر"; $("wSave").textContent = "إضافة للعجلة";
+  $("wLabel").value = ""; $("wWeight").value = ""; $("wAmount").value = "50"; $("wType").value = "coins"; toggleW();
+}
+async function saveWheel() {
+  const type = val("wType"), label = val("wLabel").slice(0, 40), weight = Number(val("wWeight"));
+  if (!label) return toast("اكتب الاسم", "err");
+  if (!(weight > 0)) return toast("الوزن لازم أكبر من صفر", "err");
+  const data = { label, type, weight, color: $("wColor").value };
+  if (type === "coins") {
+    const a = Math.floor(Number(val("wAmount")) || 0);
+    if (a < 0 || a > MAX_PRIZE) return toast(`الكوينز بين 0 و ${MAX_PRIZE}`, "err");
+    data.amount = a;
+  } else {
+    if (!val("wPlayer")) return toast("اختر لاعب (أضف لاعبين للمتجر أولاً)", "err");
+    data.playerId = val("wPlayer");
+  }
+  const ref = S.edit.wheel ? db.collection("wheel").doc(S.edit.wheel) : db.collection("wheel").doc();
+  if (await guard(() => ref.set(data), "تم الحفظ ✅")) resetWheel();
+}
+
+function resetStore() {
+  S.edit.store = null; S.img.store = ""; setPrev("store");
+  $("sTitle").textContent = "إضافة لاعب"; $("sSave").textContent = "إضافة للمتجر";
+  ["sName", "sRating", "sPos"].forEach(i => $(i).value = ""); $("sPrice").value = "500";
+}
+async function saveStore() {
+  const name = val("sName").slice(0, 60), rating = Math.floor(Number(val("sRating")) || 0), price = Math.floor(Number(val("sPrice")));
+  if (!name) return toast("اكتب اسم اللاعب", "err");
+  if (rating < 0 || rating > 200 || !(price >= 0)) return toast("التقييم أو السعر غير صحيح", "err");
+  const ref = S.edit.store ? db.collection("store").doc(S.edit.store) : db.collection("store").doc();
+  if (await guard(() => ref.set({ name, rating, pos: val("sPos").slice(0, 10), price, image: S.img.store || "" }), "تم الحفظ ✅")) resetStore();
+}
+
+function resetRoom() {
+  S.edit.room = null; S.img.room = ""; setPrev("room");
+  $("rTitle").textContent = "إضافة غرفة"; $("rSave").textContent = "إضافة الغرفة";
+  $("rName").value = ""; $("rPrice").value = "300"; $("rCap").value = "2"; $("rDesc").value = "";
+}
+async function saveRoom() {
+  const name = val("rName").slice(0, 60), price = Math.floor(Number(val("rPrice"))), cap = Math.floor(Number(val("rCap")));
+  if (!name) return toast("اكتب اسم الغرفة", "err");
+  if (!(price >= 0) || !(cap >= 1)) return toast("السعر أو السعة غير صحيح", "err");
+  const ref = S.edit.room ? db.collection("rooms").doc(S.edit.room) : db.collection("rooms").doc();
+  if (await guard(() => ref.set({ name, pricePerNight: price, capacity: cap, description: val("rDesc").slice(0, 300), image: S.img.room || "" }), "تم الحفظ ✅")) resetRoom();
+}
+
+function renderPlayerSelects() {
+  const sel = $("wPlayer"), cur = sel.value;
+  sel.innerHTML = S.store.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("");
+  if (cur) sel.value = cur;
+}
+function renderAdmin() {
+  const bk = S.bookings, conf = bk.filter(b => b.status === "confirmed");
+  $("sUsers").textContent = S.users.length; $("sCoins").textContent = S.users.reduce((s, u) => s + (u.coins || 0), 0);
+  $("sPlayers").textContent = S.store.length; $("sBk").textContent = conf.length;
+  $("sRev").textContent = conf.reduce((s, b) => s + (b.total || 0), 0);
+  if (document.activeElement !== $("annIn") && !$("annIn").dataset.t) { $("annIn").value = S.cfg.announcement || ""; $("annIn").dataset.t = "1"; }
+
+  const tot = S.wheel.reduce((s, i) => s + (Number(i.weight) || 0), 0);
+  $("wheelTotal").textContent = `مجموع الأوزان: ${tot}`;
+  $("wheelAdmin").innerHTML = S.wheel.map(i => `<div class="line">
+    <span class="grow">${esc(i.label)} <span class="muted small">(${tot ? (i.weight / tot * 100).toFixed(1) : 0}%)</span></span>
+    <input type="number" min="0" step="any" value="${esc(i.weight)}" data-chg="wWeight" data-id="${esc(i.id)}">
+    <button class="ghost sm" data-act="editWheel" data-id="${esc(i.id)}">تعديل</button>
+    <button class="danger sm" data-act="delWheel" data-id="${esc(i.id)}">حذف</button></div>`).join("") || `<p class="muted">ما فيه عناصر</p>`;
+
+  $("storeAdmin").innerHTML = S.store.map(p => `<div class="line">
+    <span class="grow">${esc(p.name)} <span class="muted small">(${esc(p.rating)} ${esc(p.pos || "")})</span></span>
+    <input type="number" value="${esc(p.price)}" data-chg="sPrice" data-id="${esc(p.id)}">
+    <button class="ghost sm" data-act="editStore" data-id="${esc(p.id)}">تعديل</button>
+    <button class="danger sm" data-act="delStore" data-id="${esc(p.id)}">حذف</button></div>`).join("") || `<p class="muted">ما فيه لاعبين</p>`;
+
+  const q = $("uq").value.trim().toLowerCase();
+  $("usersAdmin").innerHTML = `<table><tr><th>المستخدم</th><th>كوينز</th><th>لاعبين</th><th></th></tr>` +
+    S.users.filter(u => !q || (u.email || "").toLowerCase().includes(q) || (u.name || "").toLowerCase().includes(q)).map(u => `<tr>
+      <td>${esc(u.name || "")}<div class="muted small">${esc(u.email || u.id)}</div></td><td>${esc(u.coins || 0)}</td><td>${(u.inventory || []).length}</td>
+      <td><button class="ghost sm" data-act="openUser" data-id="${esc(u.id)}">إدارة</button></td></tr>`).join("") + `</table>`;
+
+  $("roomAdmin").innerHTML = S.rooms.map(r => `<div class="line">
+    <span class="grow">${esc(r.name)} <span class="muted small">(${esc(r.pricePerNight)} / ليلة · سعة ${esc(r.capacity)})</span></span>
+    <button class="ghost sm" data-act="editRoom" data-id="${esc(r.id)}">تعديل</button>
+    <button class="danger sm" data-act="delRoom" data-id="${esc(r.id)}">حذف</button></div>`).join("") || `<p class="muted">ما فيه غرف</p>`;
+
+  $("bookingsAdmin").innerHTML = `<table><tr><th>الغرفة</th><th>الإيميل</th><th>من</th><th>إلى</th><th>المجموع</th><th></th></tr>` +
+    (bk.slice().sort((a, b) => a.checkIn < b.checkIn ? 1 : -1).map(b => `<tr><td>${esc(b.roomName)}</td><td>${esc(b.email)}</td>
+      <td>${esc(b.checkIn)}</td><td>${esc(b.checkOut)}</td><td>${esc(b.total)}</td>
+      <td>${b.status === "confirmed" ? `<button class="danger sm" data-act="cancelBk" data-id="${esc(b.id)}">إلغاء</button>` : `<span class="st no">ملغي</span>`}</td></tr>`).join("")
+      || `<tr><td colspan="6" class="muted center">ما فيه حجوزات</td></tr>`) + `</table>`;
+}
+
+function renderUserModal(force = false) {
+  if (!S.um) return;
+  if (!force && (!$("modal").classList.contains("open") || document.activeElement?.id === "uCoins")) return;
+  const u = S.users.find(x => x.id === S.um); if (!u) return;
+  const inv = (u.inventory || []).map(id => { const p = S.store.find(x => x.id === id);
+    return `<div class="line"><span class="grow">${esc(p ? p.name : id)}</span><button class="danger sm" data-act="revoke" data-id="${esc(id)}">سحب</button></div>`; }).join("") || `<p class="muted">ما عنده لاعبين</p>`;
+  openModal(`<h3>${esc(u.name || u.email)}</h3><p class="muted small">${esc(u.email)}</p>
+    <label>الكوينز</label><div class="row"><input id="uCoins" type="number" value="${esc(u.coins || 0)}" style="flex:1"><button class="sm" data-act="saveCoins">حفظ</button></div>
+    <div class="row" style="margin-top:12px"><button class="ghost sm" data-act="resetSpin">إعادة اللفة</button><button class="ghost sm" data-act="resetDaily">إعادة المكافأة اليومية</button></div>
+    <h4 style="margin-top:16px">منح لاعب</h4>
+    <div class="row"><select id="uGrant" style="flex:1">${S.store.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("")}</select><button class="sm" data-act="grant">منح</button></div>
+    <h4 style="margin-top:16px">لاعبينه</h4>${inv}
+    <div class="row end" style="margin-top:16px"><button class="ghost sm" data-act="closeModal">إغلاق</button></div>`);
+}
+
+async function seed() {
+  const b = db.batch();
+  [["nashat-akram", "Nashat Akram", 88, "AMF", "#7c3aed"], ["lamine-yamal", "Lamine Yamal", 105, "RWF", "#ec4899"],
+   ["lionel-messi", "Lionel Messi", 105, "SS", "#0ea5e9"], ["bukayo-saka", "Bukayo Saka", 104, "RWF", "#f59e0b"]].forEach(([id, name, rating, pos, color]) => {
+    b.set(db.collection("store").doc(id), { name, rating, pos, price: 500, image: "" }, { merge: true });
+    b.set(db.collection("wheel").doc("p-" + id), { label: name, type: "player", playerId: id, weight: 10, color }, { merge: true });
+  });
+  b.set(db.collection("wheel").doc("coins50"), { label: "50 كوينز", type: "coins", amount: 50, weight: 60, color: "#16a34a" }, { merge: true });
+  [["standard", "Standard Room", 300, 2, "غرفة مريحة بإطلالة هادئة"], ["deluxe", "Deluxe Room", 500, 2, "غرفة واسعة مع سرير كينج"],
+   ["family", "Family Suite", 900, 4, "جناح عائلي بغرفتين"]].forEach(([id, name, pricePerNight, capacity, description]) =>
+    b.set(db.collection("rooms").doc(id), { name, pricePerNight, capacity, description, image: "" }, { merge: true }));
+  b.set(db.collection("config").doc("main"), { announcement: "" }, { merge: true });
+  await b.commit();
+}
+</script>
+</body>
+</html>
